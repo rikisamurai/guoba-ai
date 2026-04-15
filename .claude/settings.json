@@ -1,0 +1,24 @@
+{
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "permissions": {
+    "allow": [
+      "Bash",
+      "WebFetch"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(sudo *)"
+    ],
+    "additionalDirectories": [
+      "/Users/shanyulong/redbook"
+    ]
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true,
+    "claude-hud@claude-hud": true,
+    "codex@openai-codex": true
+  }
+}
