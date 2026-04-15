@@ -1,13 +1,8 @@
 {
-  "title": "API Reference",
+  "title": "Guoba Utils",
   "pages": [
-    "---Getting Started---",
     "index",
     "---API Reference---",
-    "guard",
-    "array",
-    "string",
-    "object",
-    "types"
+    "api"
   ]
 }

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["../../packages/core/src/index.ts"],
+  "tsconfig": "../../packages/core/tsconfig.json",
+  "plugin": [
+    "typedoc-plugin-markdown",
+    "typedoc-plugin-frontmatter",
+    "./typedoc-frontmatter.mjs"
+  ],
+  "out": "content/docs/api",
+  "cleanOutputDir": true,
+  "fileExtension": ".mdx",
+  "entryFileName": "index",
+  "flattenOutputFiles": true,
+  "hidePageHeader": true,
+  "hideBreadcrumbs": true,
+  "hidePageTitle": false,
+  "useCodeBlocks": true,
+  "sanitizeComments": true,
+  "excludeScopesInPaths": true,
+  "frontmatterGlobals": {
+    "layout": "docs"
+  }
+}

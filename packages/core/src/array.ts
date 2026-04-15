@@ -40,7 +40,14 @@ export function uniq<T>(array: T[]): T[] {
  * ```
  */
 export function flattenDeep<T>(array: NestedArray<T>): T[] {
-  return array.flat(Number.POSITIVE_INFINITY) as T[]
+  const result: T[] = []
+  for (const item of array) {
+    if (Array.isArray(item))
+      result.push(...flattenDeep(item as NestedArray<T>))
+    else
+      result.push(item)
+  }
+  return result
 }
 
 /**
