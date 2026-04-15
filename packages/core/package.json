@@ -1,11 +1,11 @@
 {
   "name": "@guoba/core",
-  "version": "0.0.1",
   "type": "module",
+  "version": "0.0.1",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.mts"
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
     }
   },
   "files": [
