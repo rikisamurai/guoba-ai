@@ -1,2 +1,5 @@
+export { chunk, flattenDeep, last, remove, shuffle, toArray, uniq } from './array'
 export { isBoolean, isDef, isEmpty, isFunction, isNull, isNullOrUndef, isNumber, isObject, isString, isUndef, notNullish } from './guard'
+export { deepClone, deepMerge, objectEntries, objectKeys, omit, pick } from './object'
+export { capitalize, ensurePrefix, ensureSuffix, slash, template } from './string'
 export type { Arrayable, DeepPartial, NestedArray, Nullable, Nullish } from './types'
