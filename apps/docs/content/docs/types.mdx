@@ -5,4 +5,56 @@ description: Shared type utilities.
 
 ## Type Utilities
 
-<auto-type-table path="../../../../packages/core/src/types.ts" />
+### Arrayable
+
+A value that can be either a single item or an array of items.
+
+```ts
+type Arrayable<T> = T | T[]
+```
+
+```ts
+type Input = Arrayable<string> // string | string[]
+```
+
+### Nullable
+
+A value that can be null.
+
+```ts
+type Nullable<T> = T | null
+```
+
+### Nullish
+
+A value that can be null or undefined.
+
+```ts
+type Nullish<T> = T | null | undefined
+```
+
+### DeepPartial
+
+Recursively makes all properties optional.
+
+```ts
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]
+}
+```
+
+```ts
+type Partial = DeepPartial<{ a: { b: number } }> // { a?: { b?: number } }
+```
+
+### NestedArray
+
+A nested array type that can contain values or other nested arrays.
+
+```ts
+type NestedArray<T> = (T | NestedArray<T>)[]
+```
+
+```ts
+const nested: NestedArray<number> = [1, [2, [3, 4]], 5]
+```
