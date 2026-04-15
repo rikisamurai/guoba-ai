@@ -7,13 +7,6 @@
     "allow": [
       "Bash",
       "WebFetch"
-    ],
-    "deny": [
-      "Bash(rm -rf *)",
-      "Bash(sudo *)"
-    ],
-    "additionalDirectories": [
-      "/Users/shanyulong/redbook"
     ]
   },
   "enabledPlugins": {

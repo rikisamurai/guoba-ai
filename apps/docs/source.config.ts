@@ -1,4 +1,4 @@
-import { defineConfig } from 'fumadocs-mdx/config'
+import { defineConfig, defineDocs } from 'fumadocs-mdx/config'
 import {
   createFileSystemGeneratorCache,
   createGenerator,
@@ -7,6 +7,10 @@ import {
 
 const generator = createGenerator({
   cache: createFileSystemGeneratorCache('.next/fumadocs-typescript'),
+})
+
+export const docs = defineDocs({
+  dir: 'content/docs',
 })
 
 export default defineConfig({
