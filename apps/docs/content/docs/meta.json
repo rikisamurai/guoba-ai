@@ -1,0 +1,13 @@
+{
+  "title": "API Reference",
+  "pages": [
+    "---Getting Started---",
+    "index",
+    "---API Reference---",
+    "guard",
+    "array",
+    "string",
+    "object",
+    "types"
+  ]
+}
