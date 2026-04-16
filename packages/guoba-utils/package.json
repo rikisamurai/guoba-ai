@@ -15,6 +15,12 @@
     "build": "tsdown",
     "dev": "tsdown --watch"
   },
+  "homepage": "https://guoba-ai.vercel.app/docs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rikisamurai/guoba-ai",
+    "directory": "packages/guoba-utils"
+  },
   "publishConfig": {
     "access": "public"
   },

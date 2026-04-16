@@ -1,6 +1,11 @@
+import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import { RootProvider } from 'fumadocs-ui/provider/next'
 import './globals.css'
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://guoba-ai.vercel.app'),
+}
 
 export default function RootLayout({ children }: { children: ReactNode }): React.ReactElement {
   return (
