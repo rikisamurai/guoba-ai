@@ -1,7 +1,7 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": ["../../packages/core/src/index.ts"],
-  "tsconfig": "../../packages/core/tsconfig.json",
+  "entryPoints": ["../../packages/guoba-utils/src/index.ts"],
+  "tsconfig": "../../packages/guoba-utils/tsconfig.json",
   "plugin": [
     "typedoc-plugin-markdown",
     "typedoc-plugin-frontmatter",

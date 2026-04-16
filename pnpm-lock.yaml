@@ -76,7 +76,7 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2
 
-  packages/core:
+  packages/guoba-utils:
     devDependencies:
       tsdown:
         specifier: ^0.21.8

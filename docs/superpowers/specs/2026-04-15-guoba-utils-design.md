@@ -1,4 +1,4 @@
-# guoba-utils Design Spec
+# guoba-ai Design Spec
 
 ## Overview
 
@@ -7,7 +7,7 @@ A personal TypeScript utility library, inspired by [@antfu/utils](https://github
 ## Monorepo Structure
 
 ```
-guoba-utils/
+guoba-ai/
 ├── packages/
 │   └── core/                  # @guoba/core
 │       ├── src/

@@ -1,4 +1,4 @@
-# guoba-utils Implementation Plan
+# guoba-ai Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -23,7 +23,7 @@
 
 ```json
 {
-  "name": "guoba-utils",
+  "name": "guoba-ai",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@10.8.1",

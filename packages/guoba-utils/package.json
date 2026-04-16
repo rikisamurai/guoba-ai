@@ -1,5 +1,5 @@
 {
-  "name": "@guoba/core",
+  "name": "@guoba-ai/utils",
   "type": "module",
   "version": "0.0.1",
   "exports": {
