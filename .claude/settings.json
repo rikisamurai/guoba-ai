@@ -6,7 +6,8 @@
   "permissions": {
     "allow": [
       "Bash",
-      "WebFetch"
+      "WebFetch",
+      "Skill(agent-browser)"
     ]
   },
   "enabledPlugins": {

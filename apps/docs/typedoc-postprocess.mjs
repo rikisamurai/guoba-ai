@@ -54,6 +54,7 @@ for (const file of allFiles) {
     .replace(/\/functions\//g, '/')
     .replace(/\/type-aliases\//g, '/')
     .replace(/\.mdx\)/g, ')')
+    .replace(/\/index\)/g, ')')
   if (updated !== content) {
     writeFileSync(file, updated)
   }
