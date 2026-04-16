@@ -1,6 +1,12 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": ["../../packages/guoba-utils/src/index.ts"],
+  "entryPoints": [
+    "../../packages/guoba-utils/src/array.ts",
+    "../../packages/guoba-utils/src/guard.ts",
+    "../../packages/guoba-utils/src/object.ts",
+    "../../packages/guoba-utils/src/string.ts",
+    "../../packages/guoba-utils/src/types.ts"
+  ],
   "tsconfig": "../../packages/guoba-utils/tsconfig.json",
   "plugin": [
     "typedoc-plugin-markdown",
@@ -8,10 +14,11 @@
     "./typedoc-frontmatter.mjs"
   ],
   "out": "content/docs/api",
+  "publicPath": "/docs/api/",
   "cleanOutputDir": true,
   "fileExtension": ".mdx",
   "entryFileName": "index",
-  "flattenOutputFiles": true,
+  "flattenOutputFiles": false,
   "hidePageHeader": true,
   "hideBreadcrumbs": true,
   "hidePageTitle": false,
