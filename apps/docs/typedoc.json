@@ -20,10 +20,11 @@
   "entryFileName": "index",
   "flattenOutputFiles": false,
   "hidePageHeader": true,
-  "hideBreadcrumbs": true,
   "hidePageTitle": false,
   "useCodeBlocks": true,
   "sanitizeComments": true,
+  "gitRevision": "main",
+  "sourceLinkTemplate": "https://github.com/rikisamurai/guoba-ai/blob/{gitRevision}/{path}#L{line}",
   "excludeScopesInPaths": true,
   "frontmatterGlobals": {
     "layout": "docs"
