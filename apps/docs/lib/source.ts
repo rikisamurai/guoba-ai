@@ -7,7 +7,7 @@ export const source = loader({
   source: docs.toFumadocsSource(),
 })
 
-export async function getLLMText(page: InferPageType<typeof source>) {
+export async function getLLMText(page: InferPageType<typeof source>): Promise<string> {
   const processed = await page.data.getText('processed')
   return `# ${page.data.title} (${page.url})\n\n${processed}`
 }

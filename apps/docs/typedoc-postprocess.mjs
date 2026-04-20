@@ -63,4 +63,4 @@ for (const file of allFiles) {
   }
 }
 
-console.log('✅TypeDoc post-processing complete.')
+console.warn('✅TypeDoc post-processing complete.')

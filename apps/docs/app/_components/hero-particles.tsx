@@ -29,7 +29,7 @@ export function HeroParticles(): React.ReactElement {
     const isMobile = window.innerWidth < 768
     const count = isMobile ? 30 : 60
 
-    function resize() {
+    function resize(): void {
       if (!canvas)
         return
       canvas.width = canvas.offsetWidth * devicePixelRatio
@@ -49,7 +49,7 @@ export function HeroParticles(): React.ReactElement {
       alpha: Math.random() * 0.5 + 0.2,
     }))
 
-    function draw() {
+    function draw(): void {
       if (!canvas || !ctx)
         return
       const w = canvas.offsetWidth

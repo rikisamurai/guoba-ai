@@ -6,7 +6,7 @@ export const revalidate = false
 export async function GET(
   _req: Request,
   { params }: { params: Promise<{ slug?: string[] }> },
-) {
+): Promise<Response> {
   const { slug } = await params
   const page = source.getPage(slug)
   if (!page)
@@ -16,6 +16,6 @@ export async function GET(
   })
 }
 
-export function generateStaticParams() {
+export function generateStaticParams(): { slug: string[] }[] {
   return source.generateParams()
 }
