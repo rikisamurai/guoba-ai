@@ -161,3 +161,211 @@ export function deepMerge<T extends object>(target: T, ...sources: DeepPartial<T
 
   return result
 }
+
+/**
+ * Swap the keys and values of an object.
+ *
+ * @param obj - The object to invert
+ * @returns A new object with keys and values swapped
+ * @example
+ * ```ts
+ * invert({ a: '1', b: '2' }) // { '1': 'a', '2': 'b' }
+ * ```
+ */
+export function invert<T extends Record<string, string | number | symbol>>(
+  obj: T,
+): Record<string, string> {
+  const result: Record<string, string> = {}
+  for (const key of Object.keys(obj))
+    result[String(obj[key])] = key
+  return result
+}
+
+/**
+ * Transform the keys of an object using a mapping function.
+ *
+ * @param obj - The source object
+ * @param fn - Function that receives each key and value, returns the new key
+ * @returns A new object with transformed keys
+ * @example
+ * ```ts
+ * mapKeys({ a: 1, b: 2 }, key => key.toUpperCase()) // { A: 1, B: 2 }
+ * ```
+ */
+export function mapKeys<T extends object, K extends string>(
+  obj: T,
+  fn: (key: keyof T, value: T[keyof T]) => K,
+): Record<K, T[keyof T]> {
+  const result = {} as Record<K, T[keyof T]>
+  for (const key of objectKeys(obj))
+    result[fn(key, obj[key])] = obj[key]
+  return result
+}
+
+/**
+ * Transform the values of an object using a mapping function.
+ *
+ * @param obj - The source object
+ * @param fn - Function that receives each value and key, returns the new value
+ * @returns A new object with transformed values
+ * @example
+ * ```ts
+ * mapValues({ a: 1, b: 2 }, value => value * 10) // { a: 10, b: 20 }
+ * ```
+ */
+export function mapValues<T extends object, U>(
+  obj: T,
+  fn: (value: T[keyof T], key: keyof T) => U,
+): Record<keyof T extends string ? keyof T : string, U> {
+  const result = {} as Record<keyof T extends string ? keyof T : string, U>
+  for (const key of objectKeys(obj))
+    (result as any)[key] = fn(obj[key], key)
+  return result
+}
+
+/**
+ * Transform both keys and values of an object using a mapping function.
+ *
+ * @param obj - The source object
+ * @param fn - Function that receives each key and value, returns a [newKey, newValue] tuple
+ * @returns A new object with transformed keys and values
+ * @example
+ * ```ts
+ * mapEntries({ a: 1, b: 2 }, (key, value) => [key.toUpperCase(), value * 10])
+ * // { A: 10, B: 20 }
+ * ```
+ */
+export function mapEntries<T extends object, K extends string, V>(
+  obj: T,
+  fn: (key: keyof T, value: T[keyof T]) => [K, V],
+): Record<K, V> {
+  const result = {} as Record<K, V>
+  for (const key of objectKeys(obj)) {
+    const [newKey, newValue] = fn(key, obj[key])
+    result[newKey] = newValue
+  }
+  return result
+}
+
+/**
+ * Convert an object to an array by mapping each key-value pair.
+ *
+ * @param obj - The source object
+ * @param fn - Function that receives each key and value, returns the array element
+ * @returns An array of mapped values
+ * @example
+ * ```ts
+ * listify({ a: 1, b: 2 }, (key, value) => `${key}=${value}`)
+ * // ['a=1', 'b=2']
+ * ```
+ */
+export function listify<T extends object, U>(
+  obj: T,
+  fn: (key: keyof T, value: T[keyof T]) => U,
+): U[] {
+  const result: U[] = []
+  for (const key of objectKeys(obj))
+    result.push(fn(key, obj[key]))
+  return result
+}
+
+/**
+ * Access a nested property by dot path.
+ *
+ * @param obj - The object to access
+ * @param path - Dot-separated path string (e.g. `'a.b.c'`)
+ * @param defaultValue - Value to return if the path does not resolve
+ * @returns The value at the path, or `defaultValue` if not found
+ * @example
+ * ```ts
+ * get({ a: { b: { c: 42 } } }, 'a.b.c') // 42
+ * get({ a: 1 }, 'b.c', 'default') // 'default'
+ * ```
+ */
+export function get<T = unknown>(obj: unknown, path: string, defaultValue?: T): T {
+  const segments = path.split('.')
+  let current: any = obj
+  for (const segment of segments) {
+    if (current === null || current === undefined)
+      return defaultValue as T
+    current = current[segment]
+  }
+  return (current === undefined ? defaultValue : current) as T
+}
+
+/**
+ * Set a value at a deep path, creating intermediate objects or arrays as needed.
+ * Mutates and returns the original object. If a path segment is a numeric string,
+ * an array is created for that level.
+ *
+ * @param obj - The target object
+ * @param path - Dot-separated path string (e.g. `'a.b.c'`)
+ * @param value - The value to set
+ * @returns The original object (mutated)
+ * @example
+ * ```ts
+ * set({}, 'a.b.c', 42) // { a: { b: { c: 42 } } }
+ * set({}, 'a.0.b', 1) // { a: [{ b: 1 }] }
+ * ```
+ */
+export function set<T extends object>(obj: T, path: string, value: unknown): T {
+  const segments = path.split('.')
+  let current: any = obj
+  for (let i = 0; i < segments.length - 1; i++) {
+    const segment = segments[i]!
+    const nextSegment = segments[i + 1]!
+    current[segment] ??= /^\d+$/.test(nextSegment) ? [] : {}
+    current = current[segment]
+  }
+  current[segments[segments.length - 1]!] = value
+  return obj
+}
+
+/**
+ * Flatten a deeply nested object into a single-level object with dot-path keys.
+ * Arrays are treated as leaf values and are not flattened.
+ *
+ * @param obj - The object to flatten
+ * @returns A flat object with dot-path keys
+ * @example
+ * ```ts
+ * crush({ a: { b: 1, c: { d: 2 } } })
+ * // { 'a.b': 1, 'a.c.d': 2 }
+ * ```
+ */
+export function crush<T extends object>(obj: T): Record<string, unknown> {
+  const result: Record<string, unknown> = {}
+
+  function flatten(current: unknown, prefix: string): void {
+    if (isObject(current)) {
+      for (const key of Object.keys(current)) {
+        const newPrefix = prefix ? `${prefix}.${key}` : key
+        flatten(current[key], newPrefix)
+      }
+    }
+    else {
+      result[prefix] = current
+    }
+  }
+
+  flatten(obj, '')
+  return result
+}
+
+/**
+ * Build a nested object from a flat object with dot-path keys (reverse of {@link crush}).
+ *
+ * @param obj - A flat object with dot-path keys
+ * @returns A deeply nested object
+ * @example
+ * ```ts
+ * construct({ 'a.b': 1, 'a.c.d': 2 })
+ * // { a: { b: 1, c: { d: 2 } } }
+ * ```
+ */
+export function construct<T extends object>(obj: Record<string, unknown>): T {
+  const result = {} as Record<string, unknown>
+  for (const key of Object.keys(obj))
+    set(result, key, obj[key])
+  return result as T
+}

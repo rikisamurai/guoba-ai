@@ -74,3 +74,110 @@ export function template(str: string, data: Record<string, string>): string {
 export function slash(str: string): string {
   return str.replace(/\\/g, '/')
 }
+
+/**
+ * Split a string into word segments by detecting camelCase boundaries,
+ * consecutive uppercase sequences, and common separators (dash, underscore,
+ * dot, space).
+ */
+function _splitWords(str: string): string[] {
+  return str
+    .replace(/([a-z])([A-Z])/g, '$1\0$2')
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1\0$2')
+    .split(/[\0\-_.\s]+/)
+    .filter(Boolean)
+}
+
+function _joinLower(str: string, sep: string): string {
+  return _splitWords(str).map(w => w.toLowerCase()).join(sep)
+}
+
+function _joinCapitalized(str: string, sep: string): string {
+  return _splitWords(str).map(w => capitalize(w.toLowerCase())).join(sep)
+}
+
+/**
+ * Convert a string to camelCase.
+ *
+ * @param str - The string to convert
+ * @returns The camelCase version of the string
+ * @example
+ * ```ts
+ * camel('foo-bar') // 'fooBar'
+ * camel('FooBar') // 'fooBar'
+ * camel('foo_bar') // 'fooBar'
+ * ```
+ */
+export function camel(str: string): string {
+  const words = _splitWords(str)
+  return words
+    .map((w, i) => i === 0
+      ? w.toLowerCase()
+      : capitalize(w.toLowerCase()))
+    .join('')
+}
+
+/**
+ * Convert a string to snake_case.
+ *
+ * @param str - The string to convert
+ * @returns The snake_case version of the string
+ * @example
+ * ```ts
+ * snake('fooBar') // 'foo_bar'
+ * snake('FooBar') // 'foo_bar'
+ * snake('foo-bar') // 'foo_bar'
+ * ```
+ */
+export function snake(str: string): string {
+  return _joinLower(str, '_')
+}
+
+/**
+ * Convert a string to PascalCase.
+ *
+ * @param str - The string to convert
+ * @returns The PascalCase version of the string
+ * @example
+ * ```ts
+ * pascal('foo-bar') // 'FooBar'
+ * pascal('fooBar') // 'FooBar'
+ * pascal('foo_bar') // 'FooBar'
+ * ```
+ */
+export function pascal(str: string): string {
+  return _joinCapitalized(str, '')
+}
+
+/**
+ * Convert a string to kebab-case (dash-case).
+ *
+ * @param str - The string to convert
+ * @returns The kebab-case version of the string
+ * @example
+ * ```ts
+ * dash('fooBar') // 'foo-bar'
+ * dash('FooBar') // 'foo-bar'
+ * dash('foo_bar') // 'foo-bar'
+ * ```
+ */
+export function dash(str: string): string {
+  return _joinLower(str, '-')
+}
+
+/**
+ * Convert a string to Title Case. Each word is capitalized
+ * and joined with a space.
+ *
+ * @param str - The string to convert
+ * @returns The Title Case version of the string
+ * @example
+ * ```ts
+ * title('foo bar') // 'Foo Bar'
+ * title('foo-bar') // 'Foo Bar'
+ * title('fooBar') // 'Foo Bar'
+ * ```
+ */
+export function title(str: string): string {
+  return _joinCapitalized(str, ' ')
+}

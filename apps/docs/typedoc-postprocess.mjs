@@ -1,6 +1,6 @@
 // @ts-check
-import { readdirSync, renameSync, rmSync, readFileSync, writeFileSync, existsSync } from 'fs'
-import { join, basename } from 'path'
+import { existsSync, readdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
 
 const API_DIR = 'content/docs/api'
 
@@ -12,7 +12,7 @@ const API_DIR = 'content/docs/api'
  */
 
 const modules = readdirSync(API_DIR, { withFileTypes: true })
-  .filter((d) => d.isDirectory())
+  .filter(d => d.isDirectory())
 
 for (const mod of modules) {
   const modDir = join(API_DIR, mod.name)
@@ -20,7 +20,8 @@ for (const mod of modules) {
 
   for (const sub of subdirs) {
     const subDir = join(modDir, sub)
-    if (!existsSync(subDir)) continue
+    if (!existsSync(subDir))
+      continue
 
     const files = readdirSync(subDir)
     for (const file of files) {
@@ -33,7 +34,7 @@ for (const mod of modules) {
   const title = mod.name.charAt(0).toUpperCase() + mod.name.slice(1)
   writeFileSync(
     join(modDir, 'meta.json'),
-    JSON.stringify({ title }, null, 2) + '\n',
+    `${JSON.stringify({ title }, null, 2)}\n`,
   )
 }
 
@@ -42,14 +43,16 @@ const allFiles = []
 function collectMdx(dir) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     const full = join(dir, entry.name)
-    if (entry.isDirectory()) collectMdx(full)
-    else if (entry.name.endsWith('.mdx')) allFiles.push(full)
+    if (entry.isDirectory())
+      collectMdx(full)
+    else if (entry.name.endsWith('.mdx'))
+      allFiles.push(full)
   }
 }
 collectMdx(API_DIR)
 
 for (const file of allFiles) {
-  let content = readFileSync(file, 'utf-8')
+  const content = readFileSync(file, 'utf-8')
   const updated = content
     .replace(/\/functions\//g, '/')
     .replace(/\/type-aliases\//g, '/')

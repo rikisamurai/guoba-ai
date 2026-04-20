@@ -30,7 +30,8 @@ export function HeroParticles(): React.ReactElement {
     const count = isMobile ? 30 : 60
 
     function resize() {
-      if (!canvas) return
+      if (!canvas)
+        return
       canvas.width = canvas.offsetWidth * devicePixelRatio
       canvas.height = canvas.offsetHeight * devicePixelRatio
       ctx!.scale(devicePixelRatio, devicePixelRatio)
@@ -49,7 +50,8 @@ export function HeroParticles(): React.ReactElement {
     }))
 
     function draw() {
-      if (!canvas || !ctx) return
+      if (!canvas || !ctx)
+        return
       const w = canvas.offsetWidth
       const h = canvas.offsetHeight
 
@@ -81,8 +83,10 @@ export function HeroParticles(): React.ReactElement {
         p.x += p.vx
         p.y += p.vy
 
-        if (p.x < 0 || p.x > w) p.vx *= -1
-        if (p.y < 0 || p.y > h) p.vy *= -1
+        if (p.x < 0 || p.x > w)
+          p.vx *= -1
+        if (p.y < 0 || p.y > h)
+          p.vy *= -1
       }
 
       animationId = requestAnimationFrame(draw)
