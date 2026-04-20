@@ -2,6 +2,12 @@
   "name": "@guoba-ai/utils",
   "type": "module",
   "version": "0.0.1",
+  "homepage": "https://guoba-ai.vercel.app/docs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rikisamurai/guoba-ai",
+    "directory": "packages/guoba-utils"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
@@ -13,13 +19,10 @@
   ],
   "scripts": {
     "build": "tsdown",
-    "dev": "tsdown --watch"
-  },
-  "homepage": "https://guoba-ai.vercel.app/docs",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rikisamurai/guoba-ai",
-    "directory": "packages/guoba-utils"
+    "dev": "tsdown --watch",
+    "test": "vitest run",
+    "test:type": "tsc --ignoreConfig --noEmit --target ESNext --module ESNext --moduleResolution bundler --strict --noUncheckedIndexedAccess --verbatimModuleSyntax --types vitest src/index.ts test/*.test.ts",
+    "test:watch": "vitest"
   },
   "publishConfig": {
     "access": "public"

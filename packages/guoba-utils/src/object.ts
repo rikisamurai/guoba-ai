@@ -83,6 +83,53 @@ export function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pi
 }
 
 /**
+ * Create a new object with matching values removed.
+ * Removes `undefined` values by default. An optional filter can remove values
+ * by custom evaluation. Non-enumerable keys are never removed or copied.
+ *
+ * @param obj - The source object
+ * @returns A new object without `undefined` values
+ * @example
+ * ```ts
+ * shake({ a: 1, b: undefined, c: null }) // { a: 1, c: null }
+ * ```
+ */
+export function shake<T extends object>(obj: T): {
+  [K in keyof T]: Exclude<T[K], undefined>
+}
+
+/**
+ * Create a new object with values removed by a custom filter.
+ *
+ * @param obj - The source object
+ * @param filter - Function returning `true` for values to remove
+ * @returns A new object without values matched by the filter
+ * @example
+ * ```ts
+ * shake({ a: 1, b: 2 }, value => value === 2) // { a: 1 }
+ * ```
+ */
+export function shake<T extends object>(
+  obj: T,
+  filter: ((value: unknown) => boolean) | undefined,
+): T
+
+export function shake<T extends object>(
+  obj: T,
+  filter: (value: unknown) => boolean = value => value === undefined,
+): T {
+  if (!obj)
+    return {} as T
+
+  return (Object.keys(obj) as (keyof T)[]).reduce((result, key) => {
+    if (!filter(obj[key]))
+      result[key] = obj[key]
+
+    return result
+  }, {} as T)
+}
+
+/**
  * Deep merge objects. Arrays are replaced, not merged.
  * Does not mutate the target — returns a new object.
  *
