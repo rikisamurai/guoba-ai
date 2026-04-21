@@ -16,6 +16,5 @@ export function useUnmount(fn: () => void): void {
   const fnRef = useRef(fn)
   fnRef.current = fn
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => () => fnRef.current(), [])
 }
