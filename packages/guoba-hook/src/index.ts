@@ -1,6 +1,7 @@
 export { useDebounce } from './useDebounce'
 export { useMount } from './useMount'
 export { usePrevious } from './usePrevious'
+export { useSyncState } from './useSyncState'
 export { useThrottle } from './useThrottle'
 export { useToggle } from './useToggle'
 export { useUnmount } from './useUnmount'
