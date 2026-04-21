@@ -13,8 +13,8 @@
     "typedoc-plugin-frontmatter",
     "./typedoc-frontmatter.mjs"
   ],
-  "out": "content/docs/api",
-  "publicPath": "/docs/api/",
+  "out": "content/docs/utils",
+  "publicPath": "/docs/utils/",
   "cleanOutputDir": true,
   "fileExtension": ".mdx",
   "entryFileName": "index",
