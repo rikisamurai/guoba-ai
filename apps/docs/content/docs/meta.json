@@ -2,9 +2,8 @@
   "title": "Guoba AI",
   "pages": [
     "index",
-    "---@guoba-ai/utils---",
+    "---Packages---",
     "utils",
-    "---@guoba-ai/hook---",
     "hooks"
   ]
 }

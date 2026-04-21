@@ -1,12 +1,7 @@
 {
   "$schema": "https://typedoc.org/schema.json",
   "entryPoints": [
-    "../../packages/guoba-hook/src/useToggle.ts",
-    "../../packages/guoba-hook/src/useDebounce.ts",
-    "../../packages/guoba-hook/src/useThrottle.ts",
-    "../../packages/guoba-hook/src/usePrevious.ts",
-    "../../packages/guoba-hook/src/useMount.ts",
-    "../../packages/guoba-hook/src/useUnmount.ts"
+    "../../packages/guoba-hook/src/index.ts"
   ],
   "tsconfig": "../../packages/guoba-hook/tsconfig.json",
   "plugin": [

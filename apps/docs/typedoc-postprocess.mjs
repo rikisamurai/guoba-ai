@@ -15,6 +15,20 @@ for (const API_DIR of API_DIRS) {
   if (!existsSync(API_DIR))
     continue
 
+  // Flatten top-level functions/ and type-aliases/ (single-entry-point packages like hooks)
+  for (const sub of ['functions', 'type-aliases']) {
+    const subDir = join(API_DIR, sub)
+    if (!existsSync(subDir))
+      continue
+
+    const files = readdirSync(subDir)
+    for (const file of files) {
+      renameSync(join(subDir, file), join(API_DIR, file))
+    }
+    rmSync(subDir, { recursive: true })
+  }
+
+  // Flatten nested functions/ and type-aliases/ inside module directories (multi-entry-point packages like utils)
   const modules = readdirSync(API_DIR, { withFileTypes: true })
     .filter(d => d.isDirectory())
 
