@@ -1,8 +1,10 @@
 {
-  "title": "Guoba Utils",
+  "title": "Guoba AI",
   "pages": [
     "index",
-    "---API Reference---",
-    "api"
+    "---@guoba-ai/utils---",
+    "utils",
+    "---@guoba-ai/hook---",
+    "hooks"
   ]
 }
