@@ -1,0 +1,33 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "../../packages/guoba-hook/src/useToggle.ts",
+    "../../packages/guoba-hook/src/useDebounce.ts",
+    "../../packages/guoba-hook/src/useThrottle.ts",
+    "../../packages/guoba-hook/src/usePrevious.ts",
+    "../../packages/guoba-hook/src/useMount.ts",
+    "../../packages/guoba-hook/src/useUnmount.ts"
+  ],
+  "tsconfig": "../../packages/guoba-hook/tsconfig.json",
+  "plugin": [
+    "typedoc-plugin-markdown",
+    "typedoc-plugin-frontmatter",
+    "./typedoc-frontmatter.mjs"
+  ],
+  "out": "content/docs/hooks",
+  "publicPath": "/docs/hooks/",
+  "cleanOutputDir": true,
+  "fileExtension": ".mdx",
+  "entryFileName": "index",
+  "flattenOutputFiles": false,
+  "hidePageHeader": true,
+  "hidePageTitle": false,
+  "useCodeBlocks": true,
+  "sanitizeComments": true,
+  "gitRevision": "main",
+  "sourceLinkTemplate": "https://github.com/rikisamurai/guoba-ai/blob/{gitRevision}/{path}#L{line}",
+  "excludeScopesInPaths": true,
+  "frontmatterGlobals": {
+    "layout": "docs"
+  }
+}
