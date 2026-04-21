@@ -34,9 +34,16 @@ pnpm docs:build   # runs typedoc + postprocess, then next build
   - Source modules: `src/{array,guard,object,string,types}.ts`, re-exported via `src/index.ts`
   - Built with **tsdown** (ESM-only, with .d.mts declarations)
   - Tests live in `test/` (vitest, config in `vitest.config.ts`)
+- `packages/guoba-hook/` — React hook library (`@guoba-ai/hook`)
+  - Source modules: `src/{useToggle,useDebounce,useThrottle,usePrevious,useMount,useUnmount}.ts`, re-exported via `src/index.ts`
+  - Built with **tsdown** (ESM-only, with .d.mts declarations)
+  - Tests live in `test/` (vitest, config in `vitest.config.ts`)
 - `apps/docs/` — documentation site
   - **Next.js** + **fumadocs-ui/fumadocs-mdx** for rendering
-  - API docs auto-generated: **TypeDoc** (with markdown + frontmatter plugins) → `content/docs/api/` → post-processed by `typedoc-postprocess.mjs` (flattens subdirectories, fixes links, adds `meta.json`)
+  - API docs auto-generated via two TypeDoc configs:
+    - `typedoc-utils.json` → `content/docs/utils/` (for `@guoba-ai/utils`)
+    - `typedoc-hooks.json` → `content/docs/hooks/` (for `@guoba-ai/hook`)
+  - Post-processed by `typedoc-postprocess.mjs` (flattens subdirectories, fixes links, adds `meta.json`)
   - The typedoc step runs automatically before `dev` and `build`
 
 ## Key Conventions
