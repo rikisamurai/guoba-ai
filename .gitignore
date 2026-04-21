@@ -7,5 +7,6 @@ dist
 coverage
 .DS_Store
 .idea
-apps/docs/content/docs/api/
+apps/docs/content/docs/utils/
+apps/docs/content/docs/hooks/
 .superpowers/
