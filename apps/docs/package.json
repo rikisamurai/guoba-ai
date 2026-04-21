@@ -3,9 +3,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "typedoc": "typedoc && node typedoc-postprocess.mjs",
-    "dev": "typedoc && node typedoc-postprocess.mjs && next dev",
-    "build": "typedoc && node typedoc-postprocess.mjs && next build",
+    "typedoc": "typedoc --options typedoc-utils.json && typedoc --options typedoc-hooks.json && node typedoc-postprocess.mjs",
+    "dev": "typedoc --options typedoc-utils.json && typedoc --options typedoc-hooks.json && node typedoc-postprocess.mjs && next dev",
+    "build": "typedoc --options typedoc-utils.json && typedoc --options typedoc-hooks.json && node typedoc-postprocess.mjs && next build",
     "start": "next start"
   },
   "dependencies": {
