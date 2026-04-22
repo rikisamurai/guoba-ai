@@ -2,6 +2,7 @@
   "name": "@guoba-ai/utils",
   "type": "module",
   "version": "0.0.2",
+  "license": "MIT",
   "homepage": "https://guoba-ai.vercel.app/docs",
   "repository": {
     "type": "git",
