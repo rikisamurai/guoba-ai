@@ -293,6 +293,16 @@ export function get<T = unknown>(obj: unknown, path: string, defaultValue?: T): 
   return (current === undefined ? defaultValue : current) as T
 }
 
+const unsafeObjectPathSegments = new Set(['__proto__', 'constructor', 'prototype'])
+
+function assertSafeObjectPath(segments: string[]): void {
+  for (const segment of segments) {
+    // These segment names can traverse the prototype chain and mutate shared prototypes.
+    if (unsafeObjectPathSegments.has(segment))
+      throw new TypeError(`Unsafe object path segment: ${segment}`)
+  }
+}
+
 /**
  * Set a value at a deep path, creating intermediate objects or arrays as needed.
  * Mutates and returns the original object. If a path segment is a numeric string,
@@ -310,6 +320,9 @@ export function get<T = unknown>(obj: unknown, path: string, defaultValue?: T): 
  */
 export function set<T extends object>(obj: T, path: string, value: unknown): T {
   const segments = path.split('.')
+  // Validate before mutating so unsafe paths cannot partially modify the target.
+  assertSafeObjectPath(segments)
+
   let current: any = obj
   for (let i = 0; i < segments.length - 1; i++) {
     const segment = segments[i]!

@@ -22,7 +22,7 @@
     "dev": "tsdown --watch",
     "release": "pnpm build && pnpm publish",
     "test": "vitest run",
-    "test:type": "tsc --ignoreConfig --noEmit --target ESNext --module ESNext --moduleResolution bundler --strict --noUncheckedIndexedAccess --verbatimModuleSyntax --types vitest src/index.ts test/*.test.ts",
+    "test:type": "tsc --noEmit",
     "test:watch": "vitest"
   },
   "publishConfig": {

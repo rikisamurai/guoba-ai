@@ -16,22 +16,42 @@ import { useEffect, useRef, useState } from 'react'
 export function useThrottle<T>(value: T, interval = 500): T {
   const [throttledValue, setThrottledValue] = useState(value)
   const lastUpdated = useRef(Date.now())
+  const isFirstEffect = useRef(true)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
+    const clearTimer = (): void => {
+      if (timerRef.current !== null) {
+        clearTimeout(timerRef.current)
+        timerRef.current = null
+      }
+    }
+
+    // Initial value is already published by useState; scheduling a trailing update here would only refresh lastUpdated.
+    if (isFirstEffect.current) {
+      isFirstEffect.current = false
+      return clearTimer
+    }
+
+    const updateValue = (): void => {
+      lastUpdated.current = Date.now()
+      setThrottledValue(value)
+    }
+
     const now = Date.now()
     const elapsed = now - lastUpdated.current
 
     if (elapsed >= interval) {
-      lastUpdated.current = now
-      setThrottledValue(value)
+      updateValue()
     }
     else {
-      const timer = setTimeout(() => {
-        lastUpdated.current = Date.now()
-        setThrottledValue(value)
+      timerRef.current = setTimeout(() => {
+        updateValue()
+        timerRef.current = null
       }, interval - elapsed)
-      return () => clearTimeout(timer)
     }
+
+    return clearTimer
   }, [value, interval])
 
   return throttledValue
