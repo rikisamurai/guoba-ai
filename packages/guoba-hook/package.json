@@ -3,13 +3,6 @@
   "type": "module",
   "version": "0.0.1",
   "description": "A collection of React hooks — zero dependencies, ESM-only, TypeScript-first.",
-  "keywords": [
-    "react",
-    "react-hooks",
-    "hooks",
-    "typescript",
-    "esm"
-  ],
   "author": "riki",
   "license": "MIT",
   "homepage": "https://guoba-ai.vercel.app/docs",
@@ -21,6 +14,13 @@
   "bugs": {
     "url": "https://github.com/rikisamurai/guoba-ai/issues"
   },
+  "keywords": [
+    "react",
+    "react-hooks",
+    "hooks",
+    "typescript",
+    "esm"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {
@@ -37,7 +37,6 @@
     "dev": "tsdown --watch",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix --max-warnings 0",
-    "release": "pnpm build && pnpm publish",
     "test": "vitest run",
     "test:type": "tsc --noEmit",
     "test:watch": "vitest"

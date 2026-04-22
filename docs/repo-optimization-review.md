@@ -42,9 +42,11 @@
 - 改：新建 `.github/workflows/ci.yml`，跑 `pnpm install --frozen-lockfile` + `pnpm lint` + `pnpm test --run` + 各包 `tsc --noEmit` + `pnpm build`；matrix Node 24
 - 同时新增 `.github/dependabot.yml`（Next 16/React 19/TS 6/ESLint 10 都很新，需要持续盯版本）
 
-### P1-2. 引入 Changesets 自动化发版
-- 现状：每个包的 `release` 脚本是 `pnpm build && pnpm publish`，无版本管理、无 CHANGELOG
-- 改：`pnpm add -Dw @changesets/cli` → `pnpm changeset init`；新增 `.github/workflows/release.yml`（changesets/action），开启 `--provenance` 提升 npm 信任；删除手写 release 脚本
+### P1-2. 引入 Changesets（本地发版）✅
+- 已接入 `@changesets/cli`，`.changeset/config.json` 配置 `access: public` / `baseBranch: main` / `ignore: ["docs"]`
+- root `package.json` 提供 `changeset` / `version` / `release` 三个脚本
+- **当前选择本地手动发版**（`pnpm version` → commit → `pnpm release` → `git push --follow-tags`），未启用 GitHub Action
+- 后续若想切回自动发布：恢复两包 `publishConfig.provenance: true` + 新增 `.github/workflows/release.yml`（用 `changesets/action@v1`）+ 加 `NPM_TOKEN` secret
 
 ### P1-3. 包元信息缺失 ✅
 - 文件：`packages/guoba-utils/package.json`、`packages/guoba-hook/package.json`
