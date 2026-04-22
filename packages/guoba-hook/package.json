@@ -2,6 +2,15 @@
   "name": "@guoba-ai/hook",
   "type": "module",
   "version": "0.0.1",
+  "description": "A collection of React hooks — zero dependencies, ESM-only, TypeScript-first.",
+  "keywords": [
+    "react",
+    "react-hooks",
+    "hooks",
+    "typescript",
+    "esm"
+  ],
+  "author": "riki",
   "license": "MIT",
   "homepage": "https://guoba-ai.vercel.app/docs",
   "repository": {
@@ -9,11 +18,16 @@
     "url": "https://github.com/rikisamurai/guoba-ai",
     "directory": "packages/guoba-hook"
   },
+  "bugs": {
+    "url": "https://github.com/rikisamurai/guoba-ai/issues"
+  },
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
       "import": "./dist/index.mjs"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist"

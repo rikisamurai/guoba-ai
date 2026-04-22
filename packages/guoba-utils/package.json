@@ -2,6 +2,8 @@
   "name": "@guoba-ai/utils",
   "type": "module",
   "version": "0.0.2",
+  "description": "A collection of TypeScript utility functions — zero dependencies, ESM-only.",
+  "author": "riki",
   "license": "MIT",
   "homepage": "https://guoba-ai.vercel.app/docs",
   "repository": {
@@ -9,11 +11,27 @@
     "url": "https://github.com/rikisamurai/guoba-ai",
     "directory": "packages/guoba-utils"
   },
+  "bugs": {
+    "url": "https://github.com/rikisamurai/guoba-ai/issues"
+  },
+  "keywords": [
+    "typescript",
+    "utils",
+    "utilities",
+    "esm",
+    "tree-shakable",
+    "array",
+    "object",
+    "string",
+    "guard"
+  ],
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
       "import": "./dist/index.mjs"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist"
