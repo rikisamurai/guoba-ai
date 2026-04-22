@@ -55,7 +55,7 @@ jobs:
       # cache: pnpm 会把 pnpm store 缓存到 GitHub，下次命中缓存时 install 能从 ~20s 降到 ~3s
       # 注意顺序：cache: pnpm 需要 pnpm 已经在 PATH 里，所以这一步必须在 setup pnpm 之后
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
           cache: pnpm
