@@ -29,7 +29,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "tsdown": "^0.21.8",
+    "tsdown": "^0.21.9",
     "typescript": "^6.0.2"
   }
 }
