@@ -1,0 +1,74 @@
+# Dependabot 是 GitHub 内置的依赖升级机器人：按计划扫依赖，发现新版本就自动开 PR
+# 文件必须叫 .github/dependabot.yml，GitHub 会自动识别并启用
+# 语法参考：https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+# Dependabot 配置的 schema 版本；v1 已废弃，现在统一用 v2
+version: 2
+
+# updates 是一个数组：每条记录对应"一个 ecosystem + 一个目录"的一条扫描规则
+# 这里写了两条：npm（包依赖）+ github-actions（workflow 里的 action 版本）
+updates:
+  # ===== 第一条：扫描 npm 依赖 =====
+  - package-ecosystem: npm
+    # pnpm/yarn/npm 统一用 npm 这个值。对 pnpm 的 workspace 支持见下面 directory 注释
+    directory: /
+    # directory 指定从哪个路径开始扫 manifest。
+    # "/" = 仓库根；因为是 pnpm monorepo，Dependabot 会顺着 pnpm-workspace.yaml
+    # 自动找到根 package.json + packages/*/package.json + apps/docs/package.json
+    # 所以不用为每个子包各写一条规则
+
+    # 扫描频率
+    schedule:
+      interval: weekly # 可选 daily / weekly / monthly
+      day: monday # 只在 weekly/monthly 下生效
+      time: '09:00' # 本地时间
+      timezone: Asia/Shanghai # 配合 time 使用，默认是 UTC
+
+    # 同时最多开 5 个 npm PR；超过就排队等你合掉几个再放新的
+    # 一个兜底，防止一次升很多依赖时 PR 列表被淹没
+    open-pull-requests-limit: 5
+
+    # Dependabot 开 PR 时自动打的 label（仓库里没有会自动帮你建）
+    # 方便之后在 Issues/PR 页面一键过滤依赖类 PR
+    labels:
+      - dependencies
+
+    # groups：把多个依赖的升级合到一个 PR 里
+    # 好处：1) 减少 PR 数量  2) 强相关依赖同步升级，避免版本撕裂
+    groups:
+      # react 生态必须整体升级：react / react-dom / @types/react / @types/react-dom
+      # 这几个版本必须对齐，否则会有运行时或类型冲突
+      react:
+        patterns:
+          - react
+          - react-dom
+          - '@types/react'
+          - '@types/react-dom'
+      # 其他 @types/* 合一组（例如 @types/node、@types/mdx）；
+      # 这类是纯类型依赖，一起升基本不会互相影响
+      # exclude-patterns：明确把 @types/react 系列排除，让它们只走上面的 react 组
+      # （Dependabot 的组匹配遵循"先匹配到的组优先"，显式 exclude 更稳）
+      types:
+        patterns:
+          - '@types/*'
+        exclude-patterns:
+          - '@types/react'
+          - '@types/react-dom'
+
+    # 未被 groups 命中的依赖（next / fumadocs-* / eslint / typescript / tsdown / vitest / tailwindcss 等）
+    # 会走默认行为：每个依赖一个独立 PR，方便单独评审 breaking change
+
+  # ===== 第二条：扫描 workflow 里用到的 Action =====
+  # 监控的是 .github/workflows/*.yml 里 `uses: actions/checkout@v4` 这类版本
+  # 有新版本时开 PR，比如把 actions/checkout@v4 升到 v5
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '09:00'
+      timezone: Asia/Shanghai
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - github-actions
