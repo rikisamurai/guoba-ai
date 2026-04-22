@@ -12,5 +12,7 @@ import { useEffect } from 'react'
  * ```
  */
 export function useMount(fn: () => void): void {
+  // TODO: refactor — pass an inline function instead of opaque dependency
+  // eslint-disable-next-line react/exhaustive-deps
   useEffect(fn, [])
 }

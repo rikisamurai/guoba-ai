@@ -16,5 +16,5 @@
     ".source/**/*.ts",
     "mdx-components.tsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "eslint.config.ts"]
 }
