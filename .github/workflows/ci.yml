@@ -43,7 +43,7 @@ jobs:
     steps:
       # uses 表示引用一个别人写好的 Action；@v4 锁主版本（会自动拿 4.x 的最新 patch）
       # actions/checkout 负责把仓库代码 clone 到 runner 上
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       # pnpm/action-setup 安装 pnpm CLI
       # 故意不传 version：它会自动读 root package.json 里 "packageManager" 字段
