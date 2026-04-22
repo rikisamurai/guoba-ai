@@ -13,6 +13,7 @@
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true,
     "claude-hud@claude-hud": true,
-    "codex@openai-codex": true
+    "codex@openai-codex": true,
+    "commit-commands@claude-plugins-official": true
   }
 }
