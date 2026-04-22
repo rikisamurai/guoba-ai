@@ -1,5 +1,8 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared'
 
+// This is a layout-config module, not a route file — Fast Refresh does not apply,
+// and the local GitHubIcon helper is only consumed by `baseOptions` below.
+// eslint-disable-next-line react-refresh/only-export-components
 function GitHubIcon(): React.ReactElement {
   return (
     <svg role="img" viewBox="0 0 24 24" fill="currentColor">

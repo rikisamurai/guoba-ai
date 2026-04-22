@@ -15,7 +15,11 @@ import { useEffect, useRef, useState } from 'react'
  */
 export function useThrottle<T>(value: T, interval = 500): T {
   const [throttledValue, setThrottledValue] = useState(value)
+  // TODO: rename to lastUpdatedRef and move Date.now() into a useState initializer
+  // eslint-disable-next-line react-naming-convention/ref-name, react/purity
   const lastUpdated = useRef(Date.now())
+  // TODO: rename to isFirstEffectRef
+  // eslint-disable-next-line react-naming-convention/ref-name
   const isFirstEffect = useRef(true)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -35,6 +39,8 @@ export function useThrottle<T>(value: T, interval = 500): T {
 
     const updateValue = (): void => {
       lastUpdated.current = Date.now()
+      // TODO: refactor throttle to avoid synchronous setState in effect
+      // eslint-disable-next-line react/set-state-in-effect
       setThrottledValue(value)
     }
 
