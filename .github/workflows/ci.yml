@@ -49,7 +49,7 @@ jobs:
       # 故意不传 version：它会自动读 root package.json 里 "packageManager" 字段
       # (pnpm@10.8.1)，升级 pnpm 只改 package.json 一处即可
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
 
       # setup-node 装指定版本的 Node
       # cache: pnpm 会把 pnpm store 缓存到 GitHub，下次命中缓存时 install 能从 ~20s 降到 ~3s
