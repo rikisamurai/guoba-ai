@@ -1,0 +1,83 @@
+# workflow 文件放在 .github/workflows/ 下会被 GitHub 自动识别
+# 语法参考：https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions
+name: CI
+
+# 触发条件：什么事件下跑这个 workflow
+on:
+  push:
+    branches: [main] # 仅 main 的直接 push 触发
+  pull_request:
+    branches: [main] # 目标分支是 main 的 PR 触发（PR 来源分支任意）
+
+# 同一分支连着推几次时，取消上一次还没跑完的任务，省 CI 额度
+# - group：相同 group 字符串的任务互相取消；用 github.ref 区分不同分支
+# - cancel-in-progress：仅在 PR 事件下取消，main 的历史记录完整保留
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+# GITHUB_TOKEN 的默认权限较宽（可写）；这个 workflow 只读代码，显式降级更安全
+# 参考：https://docs.github.com/actions/using-jobs/assigning-permissions-to-jobs
+permissions:
+  contents: read
+
+# jobs 下每个条目是一个并行执行单元。这里只有一个叫 verify 的 job
+jobs:
+  verify:
+    # name 是 PR check 列表里显示的名字（可带 matrix 变量）
+    name: Verify (Node ${{ matrix.node }})
+    # GitHub 提供的免费 runner 类型，Linux 最便宜也最快
+    runs-on: ubuntu-latest
+    # 超时保护，防止死循环/卡死白烧额度
+    timeout-minutes: 15
+
+    # matrix 会为每个组合起一个并行 job；目前只有一行 Node 24
+    # 以后加 Node 26 时，在数组里多塞一项就会自动起两条并行
+    strategy:
+      # 一条失败时不把其他 matrix 组合一起取消，方便看谁坏了
+      fail-fast: false
+      matrix:
+        node: [24]
+
+    # steps 顺序执行，任一步非零退出码则整个 job 失败
+    steps:
+      # uses 表示引用一个别人写好的 Action；@v4 锁主版本（会自动拿 4.x 的最新 patch）
+      # actions/checkout 负责把仓库代码 clone 到 runner 上
+      - uses: actions/checkout@v4
+
+      # pnpm/action-setup 安装 pnpm CLI
+      # 故意不传 version：它会自动读 root package.json 里 "packageManager" 字段
+      # (pnpm@10.8.1)，升级 pnpm 只改 package.json 一处即可
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      # setup-node 装指定版本的 Node
+      # cache: pnpm 会把 pnpm store 缓存到 GitHub，下次命中缓存时 install 能从 ~20s 降到 ~3s
+      # 注意顺序：cache: pnpm 需要 pnpm 已经在 PATH 里，所以这一步必须在 setup pnpm 之后
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+
+      # --frozen-lockfile：如果 pnpm-lock.yaml 和 package.json 对不上就直接报错
+      # 保证 CI 装的依赖和你提交的锁文件完全一致，避免"本地过、CI 挂"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # run 表示直接在 runner 里跑 shell 命令（默认 bash）
+      - name: Lint
+        run: pnpm lint
+
+      # -r = recursive，遍历所有 workspace 包；--filter 限定只跑 packages/* 下的包
+      # apps/docs 没有 test:type 脚本，过滤一下避免 pnpm 报找不到脚本
+      - name: Type check packages
+        run: pnpm -r --filter './packages/*' run test:type
+
+      - name: Test
+        run: pnpm test
+
+      # 根 build 脚本是 "pnpm -r run build"，会把 packages/* 和 apps/docs 一起构建
+      # 所以这一步同时验证了 utils、hook、docs 三个产物
+      - name: Build
+        run: pnpm build

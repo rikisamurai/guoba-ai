@@ -306,6 +306,17 @@ describe('object', () => {
       set(obj, 'a.b', 99)
       expect(obj.a.b).toBe(99)
     })
+    it('should reject unsafe path segments that can pollute object prototypes', () => {
+      try {
+        expect(() => set({}, '__proto__.polluted', 1)).toThrow(TypeError)
+        expect(() => set({}, 'constructor.prototype.polluted', 1)).toThrow(TypeError)
+        expect(() => set({}, 'a.__proto__', 1)).toThrow(TypeError)
+        expect(({} as Record<string, unknown>).polluted).toBeUndefined()
+      }
+      finally {
+        delete (Object.prototype as unknown as Record<string, unknown>).polluted
+      }
+    })
   })
 
   describe('crush', () => {
@@ -341,6 +352,16 @@ describe('object', () => {
     it('should be the inverse of crush', () => {
       const original = { a: { b: 1, c: { d: 2 } } }
       expect(construct(crush(original))).toEqual(original)
+    })
+    it('should reject unsafe keys when building from dot-path keys', () => {
+      try {
+        expect(() => construct({ '__proto__.polluted': 1 })).toThrow(TypeError)
+        expect(() => construct({ 'constructor.prototype.polluted': 1 })).toThrow(TypeError)
+        expect(({} as Record<string, unknown>).polluted).toBeUndefined()
+      }
+      finally {
+        delete (Object.prototype as unknown as Record<string, unknown>).polluted
+      }
     })
   })
 })

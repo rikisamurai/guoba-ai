@@ -36,6 +36,18 @@ describe('useThrottle', () => {
     expect(result.current).toBe('b')
   })
 
+  it('should update immediately when the first change happens after an idle interval', () => {
+    const { result, rerender } = renderHook(
+      ({ value }) => useThrottle(value, 500),
+      { initialProps: { value: 'a' } },
+    )
+
+    act(() => vi.advanceTimersByTime(600))
+    rerender({ value: 'b' })
+
+    expect(result.current).toBe('b')
+  })
+
   it('should use 500ms as the default interval', () => {
     const { result, rerender } = renderHook(
       ({ value }) => useThrottle(value),
@@ -58,5 +70,18 @@ describe('useThrottle', () => {
     rerender({ value: 'c' })
     act(() => vi.advanceTimersByTime(200))
     expect(result.current).toBe('c')
+  })
+
+  it('should cleanup timer on unmount', () => {
+    const { result, rerender, unmount } = renderHook(
+      ({ value }) => useThrottle(value, 500),
+      { initialProps: { value: 'a' } },
+    )
+
+    rerender({ value: 'b' })
+    unmount()
+    act(() => vi.advanceTimersByTime(500))
+
+    expect(result.current).toBe('a')
   })
 })
