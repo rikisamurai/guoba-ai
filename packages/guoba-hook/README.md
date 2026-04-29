@@ -1,7 +1,7 @@
 # @guoba-ai/hook
 
 [![npm](https://img.shields.io/npm/v/@guoba-ai/hook.svg)](https://www.npmjs.com/package/@guoba-ai/hook)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](../../LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rikisamurai/guoba-ai/blob/main/LICENSE)
 
 A small collection of React hooks — ESM-only, fully typed.
 
@@ -41,4 +41,4 @@ function Example() {
 
 ## License
 
-[MIT](../../LICENSE)
+[MIT](https://github.com/rikisamurai/guoba-ai/blob/main/LICENSE)

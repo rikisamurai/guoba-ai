@@ -1,7 +1,7 @@
 # @guoba-ai/utils
 
 [![npm](https://img.shields.io/npm/v/@guoba-ai/utils.svg)](https://www.npmjs.com/package/@guoba-ai/utils)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](../../LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rikisamurai/guoba-ai/blob/main/LICENSE)
 
 Pure TypeScript utility functions — ESM-only, zero dependencies, fully typed.
 
@@ -35,4 +35,4 @@ deepMerge({ a: { x: 1 } }, { a: { y: 2 } }) // { a: { x: 1, y: 2 } }
 
 ## License
 
-[MIT](../../LICENSE)
+[MIT](https://github.com/rikisamurai/guoba-ai/blob/main/LICENSE)
