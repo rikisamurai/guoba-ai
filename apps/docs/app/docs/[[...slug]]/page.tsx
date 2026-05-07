@@ -8,6 +8,7 @@ import {
 } from 'fumadocs-ui/layouts/docs/page'
 import defaultMdxComponents from 'fumadocs-ui/mdx'
 import { notFound } from 'next/navigation'
+import { SnackEmbed } from '@/app/_components/snack-embed'
 import { source } from '@/lib/source'
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }): Promise<React.ReactElement> {
@@ -31,7 +32,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
         />
       </div>
       <DocsBody>
-        <MDX components={{ ...defaultMdxComponents }} />
+        <MDX components={{ ...defaultMdxComponents, SnackEmbed }} />
       </DocsBody>
     </DocsPage>
   )

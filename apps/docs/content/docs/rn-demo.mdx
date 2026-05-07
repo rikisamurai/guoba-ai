@@ -1,0 +1,109 @@
+---
+title: React Native Demo
+description: Proof-of-concept page that mirrors the reactnative.dev/docs/flatlist embedding pattern using Expo Snack inside Fumadocs MDX.
+---
+
+This page is a spike to confirm that Fumadocs MDX can host the same Expo Snack
+embed used by the official React Native docs — including the **scan-to-device**
+QR flow that runs on iOS and Android via Expo Go.
+
+> 切换右上角的 platform tab：`Web` 立即在 iframe 内渲染；`My Device` 会出现二维码，
+> 用 Expo Go (Android) 或相机 (iOS) 扫码即可在真机上跑。
+
+## 1. Inline `FlatList` example
+
+Source code is passed inline via `data-snack-code`, so it does not depend on any
+saved Snack id existing on snack.expo.dev.
+
+<SnackEmbed
+  name="FlatList demo"
+  description="The minimal FlatList from reactnative.dev/docs/flatlist"
+  platform="web"
+  preview
+  theme="light"
+  height={520}
+  code={`import React from 'react';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
+
+const DATA = [
+  { id: '1', title: 'First Item' },
+  { id: '2', title: 'Second Item' },
+  { id: '3', title: 'Third Item' },
+  { id: '4', title: 'Fourth Item' },
+  { id: '5', title: 'Fifth Item' },
+];
+
+const Item = ({ title }) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{title}</Text>
+  </View>
+);
+
+export default function App() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={DATA}
+        renderItem={({ item }) => <Item title={item.title} />}
+        keyExtractor={(item) => item.id}
+      />
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, marginTop: StatusBar.currentHeight || 0 },
+  item: { backgroundColor: '#f9c2ff', padding: 20, marginVertical: 8, marginHorizontal: 16 },
+  title: { fontSize: 24 },
+});`}
+/>
+
+## 2. Pressable + counter example
+
+A second inline example to confirm multiple `<SnackEmbed>` instances coexist on
+the same page without colliding.
+
+<SnackEmbed
+  name="Counter demo"
+  description="Pressable that increments a counter"
+  platform="web"
+  preview
+  theme="light"
+  height={500}
+  code={`import React, { useState } from 'react';
+import { SafeAreaView, View, Text, Pressable, StyleSheet } from 'react-native';
+
+export default function App() {
+  const [count, setCount] = useState(0);
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.count}>{count}</Text>
+      <Pressable style={styles.btn} onPress={() => setCount(c => c + 1)}>
+        <Text style={styles.btnText}>Tap me</Text>
+      </Pressable>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' },
+  count: { fontSize: 56, fontWeight: '700', marginBottom: 24 },
+  btn: { paddingHorizontal: 28, paddingVertical: 14, backgroundColor: '#3b82f6', borderRadius: 8 },
+  btnText: { color: '#fff', fontSize: 18, fontWeight: '600' },
+});`}
+/>
+
+> For canonical examples you can also save a Snack at
+> [snack.expo.dev](https://snack.expo.dev/) and reference it by id with
+> `snackId="@you/your-snack"`. Just make sure the saved Snack pins a current
+> Expo SDK — outdated saved Snacks can fail to bundle.
+
+## What this proves
+
+- ✅ Fumadocs MDX can render arbitrary React components, including ones that
+  inject third-party `<script>` tags
+- ✅ Switching pages re-runs `embed.js` so iframes always mount
+- ✅ The `mydevice` platform tab renders a real QR code — no extra infra needed
+
+If we adopt this pattern for `@guoba-ai/rn` (or similar) component docs, every
+component page can ship a live, scannable example with a few lines of MDX.

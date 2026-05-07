@@ -4,6 +4,8 @@
     "index",
     "---Packages---",
     "utils",
-    "hooks"
+    "hooks",
+    "---Spikes---",
+    "rn-demo"
   ]
 }
