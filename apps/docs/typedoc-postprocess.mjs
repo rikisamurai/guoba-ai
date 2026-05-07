@@ -15,6 +15,13 @@ for (const API_DIR of API_DIRS) {
   if (!existsSync(API_DIR))
     continue
 
+  // Remove redundant module/function index pages — index.mdx (from README) already represents the package
+  for (const stale of ['modules.mdx', 'globals.mdx']) {
+    const stalePath = join(API_DIR, stale)
+    if (existsSync(stalePath))
+      rmSync(stalePath)
+  }
+
   // Flatten top-level functions/ and type-aliases/ (single-entry-point packages like hooks)
   for (const sub of ['functions', 'type-aliases']) {
     const subDir = join(API_DIR, sub)
