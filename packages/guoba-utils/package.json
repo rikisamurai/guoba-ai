@@ -2,7 +2,7 @@
   "name": "@guoba-ai/utils",
   "type": "module",
   "version": "0.0.2",
-  "description": "A collection of TypeScript utility functions — zero dependencies, ESM-only.",
+  "description": "A collection of TypeScript utility functions \u2014 zero dependencies, ESM-only.",
   "author": "riki",
   "license": "MIT",
   "homepage": "https://guoba-ai.vercel.app/docs",
@@ -39,8 +39,6 @@
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
-    "lint": "eslint . --max-warnings 0",
-    "lint:fix": "eslint . --fix --max-warnings 0",
     "test": "vitest run",
     "test:type": "tsc --noEmit",
     "test:watch": "vitest"

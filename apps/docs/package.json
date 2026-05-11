@@ -7,8 +7,6 @@
     "dev": "typedoc --options typedoc-utils.json && typedoc --options typedoc-hooks.json && node typedoc-postprocess.mjs && pnpm dev:fast",
     "dev:fast": "portless run next dev",
     "build": "typedoc --options typedoc-utils.json && typedoc --options typedoc-hooks.json && node typedoc-postprocess.mjs && next build",
-    "lint": "eslint . --max-warnings 0",
-    "lint:fix": "eslint . --fix --max-warnings 0",
     "start": "next start"
   },
   "dependencies": {

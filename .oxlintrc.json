@@ -1,0 +1,76 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "perf": "warn"
+  },
+  "plugins": ["react", "typescript", "unicorn", "import", "jsdoc", "oxc"],
+  "ignorePatterns": [
+    "**/dist/**",
+    "**/.next/**",
+    "**/.source/**",
+    "**/node_modules/**",
+    "**/next-env.d.ts",
+    "apps/docs/content/docs/utils/**",
+    "apps/docs/content/docs/hooks/**",
+    "**/*.mdx",
+    "**/*.md",
+    "**/*.snap"
+  ],
+  "rules": {
+    "no-console": "off",
+    "no-underscore-dangle": "off",
+    "no-shadow": "off",
+    "eslint/no-unused-vars": ["error", {
+      "argsIgnorePattern": "^_",
+      "varsIgnorePattern": "^_",
+      "caughtErrorsIgnorePattern": "^_"
+    }],
+    "import/no-named-as-default": "off",
+    "react/react-in-jsx-scope": "off",
+    "unicorn/consistent-function-scoping": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/test/**", "**/*.test.ts", "**/*.test.tsx"],
+      "plugins": ["vitest"],
+      "rules": {
+        "typescript/no-explicit-any": "off",
+        "typescript/no-unsafe-function-type": "off",
+        "unicorn/no-array-sort": "off",
+        "vitest/require-mock-type-parameters": "off"
+      }
+    },
+    {
+      "files": [
+        "*.config.js",
+        "*.config.mjs",
+        "*.config.cjs",
+        "*.config.ts",
+        "*.config.mts",
+        "*.config.cts",
+        "**/*.config.js",
+        "**/*.config.mjs",
+        "**/*.config.cjs",
+        "**/*.config.ts",
+        "**/*.config.mts",
+        "**/*.config.cts",
+        "apps/docs/typedoc-postprocess.mjs",
+        "scripts/**"
+      ],
+      "rules": {
+        "no-console": "off",
+        "typescript/no-explicit-any": "off"
+      }
+    },
+    {
+      "files": ["apps/docs/**"],
+      "plugins": ["nextjs"],
+      "rules": {
+        "import/no-unassigned-import": "off",
+        "nextjs/no-img-element": "off"
+      }
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "name": "@guoba-ai/hook",
   "type": "module",
   "version": "0.0.1",
-  "description": "A collection of React hooks — zero dependencies, ESM-only, TypeScript-first.",
+  "description": "A collection of React hooks \u2014 zero dependencies, ESM-only, TypeScript-first.",
   "author": "riki",
   "license": "MIT",
   "homepage": "https://guoba-ai.vercel.app/docs",
@@ -35,8 +35,6 @@
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
-    "lint": "eslint . --max-warnings 0",
-    "lint:fix": "eslint . --fix --max-warnings 0",
     "test": "vitest run",
     "test:type": "tsc --noEmit",
     "test:watch": "vitest"
