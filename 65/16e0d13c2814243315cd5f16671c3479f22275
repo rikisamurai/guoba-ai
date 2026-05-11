@@ -1,0 +1,21 @@
+apps/docs/README.md
+  s_7cb3727b1a5b43::t_539d04177e221f 1-43
+README.md
+  s_7cb3727b1a5b43::t_2904d20b69da62 63-64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "6516e0d13c2814243315cd5f16671c3479f22275",
+  "prompts": {},
+  "sessions": {
+    "s_7cb3727b1a5b43": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "43f4a8ea-2c3f-4af0-b6af-cbe6d26a5f11",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
