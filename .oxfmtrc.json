@@ -1,0 +1,24 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "semi": false,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 100,
+  "tabWidth": 2,
+  "useTabs": false,
+  "sortImports": {},
+  "sortTailwindcss": {},
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/.next/**",
+    "**/.source/**",
+    "**/next-env.d.ts",
+    "pnpm-lock.yaml",
+    "apps/docs/content/docs/utils/**",
+    "apps/docs/content/docs/hooks/**",
+    "CHANGELOG.md",
+    "**/CHANGELOG.md",
+    ".changeset/*.md"
+  ]
+}
