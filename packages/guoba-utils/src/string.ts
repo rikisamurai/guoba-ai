@@ -57,8 +57,7 @@ export function ensureSuffix(str: string, suffix: string): string {
  * ```
  */
 export function template(str: string, data: Record<string, string>): string {
-  return str.replace(/\{(\w+)\}/g, (match, key: string) =>
-    key in data ? data[key]! : match)
+  return str.replace(/\{(\w+)\}/g, (match, key: string) => (key in data ? data[key]! : match))
 }
 
 /**
@@ -81,20 +80,26 @@ export function slash(str: string): string {
  * dot, space).
  */
 function _splitWords(str: string): string[] {
-  return str
-    .replace(/([a-z])([A-Z])/g, '$1\0$2')
-    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1\0$2')
-    // oxlint-disable-next-line no-control-regex -- \0 is an intentional internal delimiter inserted above
-    .split(/[\0\-_.\s]+/)
-    .filter(Boolean)
+  return (
+    str
+      .replace(/([a-z])([A-Z])/g, '$1\0$2')
+      .replace(/([A-Z]+)([A-Z][a-z])/g, '$1\0$2')
+      // oxlint-disable-next-line no-control-regex -- \0 is an intentional internal delimiter inserted above
+      .split(/[\0\-_.\s]+/)
+      .filter(Boolean)
+  )
 }
 
 function _joinLower(str: string, sep: string): string {
-  return _splitWords(str).map(w => w.toLowerCase()).join(sep)
+  return _splitWords(str)
+    .map(w => w.toLowerCase())
+    .join(sep)
 }
 
 function _joinCapitalized(str: string, sep: string): string {
-  return _splitWords(str).map(w => capitalize(w.toLowerCase())).join(sep)
+  return _splitWords(str)
+    .map(w => capitalize(w.toLowerCase()))
+    .join(sep)
 }
 
 /**
@@ -111,11 +116,7 @@ function _joinCapitalized(str: string, sep: string): string {
  */
 export function camel(str: string): string {
   const words = _splitWords(str)
-  return words
-    .map((w, i) => i === 0
-      ? w.toLowerCase()
-      : capitalize(w.toLowerCase()))
-    .join('')
+  return words.map((w, i) => (i === 0 ? w.toLowerCase() : capitalize(w.toLowerCase()))).join('')
 }
 
 /**

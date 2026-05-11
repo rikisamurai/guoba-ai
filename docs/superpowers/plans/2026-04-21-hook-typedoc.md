@@ -13,6 +13,7 @@
 ### Task 1: Rename typedoc.json to typedoc-utils.json and update output paths
 
 **Files:**
+
 - Delete: `apps/docs/typedoc.json`
 - Create: `apps/docs/typedoc-utils.json`
 
@@ -31,11 +32,7 @@ Create `apps/docs/typedoc-utils.json` with the same content as `typedoc.json` bu
     "../../packages/guoba-utils/src/types.ts"
   ],
   "tsconfig": "../../packages/guoba-utils/tsconfig.json",
-  "plugin": [
-    "typedoc-plugin-markdown",
-    "typedoc-plugin-frontmatter",
-    "./typedoc-frontmatter.mjs"
-  ],
+  "plugin": ["typedoc-plugin-markdown", "typedoc-plugin-frontmatter", "./typedoc-frontmatter.mjs"],
   "out": "content/docs/utils",
   "publicPath": "/docs/utils/",
   "cleanOutputDir": true,
@@ -82,6 +79,7 @@ git commit -m "refactor(docs): rename typedoc.json to typedoc-utils.json, output
 ### Task 2: Create typedoc-hooks.json
 
 **Files:**
+
 - Create: `apps/docs/typedoc-hooks.json`
 
 - [ ] **Step 1: Create typedoc-hooks.json**
@@ -100,11 +98,7 @@ Create `apps/docs/typedoc-hooks.json`:
     "../../packages/guoba-hook/src/useUnmount.ts"
   ],
   "tsconfig": "../../packages/guoba-hook/tsconfig.json",
-  "plugin": [
-    "typedoc-plugin-markdown",
-    "typedoc-plugin-frontmatter",
-    "./typedoc-frontmatter.mjs"
-  ],
+  "plugin": ["typedoc-plugin-markdown", "typedoc-plugin-frontmatter", "./typedoc-frontmatter.mjs"],
   "out": "content/docs/hooks",
   "publicPath": "/docs/hooks/",
   "cleanOutputDir": true,
@@ -144,6 +138,7 @@ git commit -m "feat(docs): add typedoc-hooks.json for @guoba-ai/hook"
 ### Task 3: Update typedoc-postprocess.mjs to handle both directories
 
 **Files:**
+
 - Modify: `apps/docs/typedoc-postprocess.mjs`
 
 - [ ] **Step 1: Update the script to process both utils and hooks**
@@ -165,11 +160,9 @@ const API_DIRS = ['content/docs/utils', 'content/docs/hooks']
  */
 
 for (const API_DIR of API_DIRS) {
-  if (!existsSync(API_DIR))
-    continue
+  if (!existsSync(API_DIR)) continue
 
-  const modules = readdirSync(API_DIR, { withFileTypes: true })
-    .filter(d => d.isDirectory())
+  const modules = readdirSync(API_DIR, { withFileTypes: true }).filter(d => d.isDirectory())
 
   for (const mod of modules) {
     const modDir = join(API_DIR, mod.name)
@@ -177,8 +170,7 @@ for (const API_DIR of API_DIRS) {
 
     for (const sub of subdirs) {
       const subDir = join(modDir, sub)
-      if (!existsSync(subDir))
-        continue
+      if (!existsSync(subDir)) continue
 
       const files = readdirSync(subDir)
       for (const file of files) {
@@ -189,10 +181,7 @@ for (const API_DIR of API_DIRS) {
 
     // Add meta.json with capitalized title
     const title = mod.name.charAt(0).toUpperCase() + mod.name.slice(1)
-    writeFileSync(
-      join(modDir, 'meta.json'),
-      `${JSON.stringify({ title }, null, 2)}\n`,
-    )
+    writeFileSync(join(modDir, 'meta.json'), `${JSON.stringify({ title }, null, 2)}\n`)
   }
 
   // Fix links in all .mdx files
@@ -200,10 +189,8 @@ for (const API_DIR of API_DIRS) {
   function collectMdx(dir) {
     for (const entry of readdirSync(dir, { withFileTypes: true })) {
       const full = join(dir, entry.name)
-      if (entry.isDirectory())
-        collectMdx(full)
-      else if (entry.name.endsWith('.mdx'))
-        allFiles.push(full)
+      if (entry.isDirectory()) collectMdx(full)
+      else if (entry.name.endsWith('.mdx')) allFiles.push(full)
     }
   }
   collectMdx(API_DIR)
@@ -254,6 +241,7 @@ git commit -m "refactor(docs): update postprocess to handle utils and hooks dirs
 ### Task 4: Update build scripts in package.json
 
 **Files:**
+
 - Modify: `apps/docs/package.json`
 
 - [ ] **Step 1: Update the scripts**
@@ -289,6 +277,7 @@ git commit -m "feat(docs): update build scripts for dual TypeDoc configs"
 ### Task 5: Update content/docs/meta.json for top-level sidebar
 
 **Files:**
+
 - Modify: `apps/docs/content/docs/meta.json`
 
 - [ ] **Step 1: Update root meta.json**
@@ -298,13 +287,7 @@ Replace the content of `apps/docs/content/docs/meta.json` with:
 ```json
 {
   "title": "Guoba AI",
-  "pages": [
-    "index",
-    "---@guoba-ai/utils---",
-    "utils",
-    "---@guoba-ai/hook---",
-    "hooks"
-  ]
+  "pages": ["index", "---@guoba-ai/utils---", "utils", "---@guoba-ai/hook---", "hooks"]
 }
 ```
 
@@ -320,6 +303,7 @@ git commit -m "feat(docs): update sidebar to show utils and hooks as top-level s
 ### Task 6: Update .gitignore for new generated directories
 
 **Files:**
+
 - Modify: `.gitignore`
 
 - [ ] **Step 1: Replace the old api/ ignore with utils/ and hooks/**
@@ -350,6 +334,7 @@ git commit -m "chore: update .gitignore for new docs output dirs (utils/, hooks/
 ### Task 7: Update CLAUDE.md files
 
 **Files:**
+
 - Modify: `CLAUDE.md` (root)
 - Modify: `apps/docs/CLAUDE.md`
 
@@ -488,6 +473,7 @@ cd apps/docs && pnpm dev
 ```
 
 Use the `agent-browser` skill to open `http://localhost:3000/docs` and verify:
+
 - Sidebar shows "Getting Started", then `@guoba-ai/utils` section with utils modules, then `@guoba-ai/hook` section with hook pages
 - Click a utils page (e.g., Array) — renders correctly
 - Click a hooks page (e.g., useToggle) — renders correctly with TSDoc content

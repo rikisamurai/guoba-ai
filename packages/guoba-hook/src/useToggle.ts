@@ -16,7 +16,7 @@ import { useCallback, useState } from 'react'
 export function useToggle(initialValue = false): [boolean, (next?: boolean) => void] {
   const [value, setValue] = useState(initialValue)
   const toggle = useCallback((next?: boolean) => {
-    setValue(prev => next === undefined ? !prev : next)
+    setValue(prev => (next === undefined ? !prev : next))
   }, [])
   return [value, toggle]
 }

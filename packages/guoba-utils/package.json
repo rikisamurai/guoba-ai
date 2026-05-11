@@ -1,30 +1,33 @@
 {
   "name": "@guoba-ai/utils",
-  "type": "module",
   "version": "0.0.2",
-  "description": "A collection of TypeScript utility functions \u2014 zero dependencies, ESM-only.",
-  "author": "riki",
-  "license": "MIT",
+  "description": "A collection of TypeScript utility functions — zero dependencies, ESM-only.",
+  "keywords": [
+    "array",
+    "esm",
+    "guard",
+    "object",
+    "string",
+    "tree-shakable",
+    "typescript",
+    "utilities",
+    "utils"
+  ],
   "homepage": "https://guoba-ai.vercel.app/docs",
+  "bugs": {
+    "url": "https://github.com/rikisamurai/guoba-ai/issues"
+  },
+  "license": "MIT",
+  "author": "riki",
   "repository": {
     "type": "git",
     "url": "https://github.com/rikisamurai/guoba-ai",
     "directory": "packages/guoba-utils"
   },
-  "bugs": {
-    "url": "https://github.com/rikisamurai/guoba-ai/issues"
-  },
-  "keywords": [
-    "typescript",
-    "utils",
-    "utilities",
-    "esm",
-    "tree-shakable",
-    "array",
-    "object",
-    "string",
-    "guard"
+  "files": [
+    "dist"
   ],
+  "type": "module",
   "sideEffects": false,
   "exports": {
     ".": {
@@ -33,18 +36,15 @@
     },
     "./package.json": "./package.json"
   },
-  "files": [
-    "dist"
-  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
     "test": "vitest run",
     "test:type": "tsc --noEmit",
     "test:watch": "vitest"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "devDependencies": {
     "tsdown": "^0.21.9",

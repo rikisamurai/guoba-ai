@@ -12,32 +12,33 @@
 
 ## File Map
 
-| Action | Path | Responsibility |
-|--------|------|----------------|
-| Create | `packages/guoba-hook/package.json` | Package metadata, scripts, peer/dev deps |
-| Create | `packages/guoba-hook/tsconfig.json` | TS config extending root, adds `jsx: react-jsx` |
-| Create | `packages/guoba-hook/tsdown.config.ts` | Build config: ESM, dts, external react |
-| Create | `packages/guoba-hook/vitest.config.ts` | Test config: jsdom environment |
-| Create | `packages/guoba-hook/CLAUDE.md` | Package-level dev guidance |
-| Create | `packages/guoba-hook/src/index.ts` | Barrel re-export of all Hooks |
-| Create | `packages/guoba-hook/src/useToggle.ts` | useToggle Hook |
-| Create | `packages/guoba-hook/src/useDebounce.ts` | useDebounce Hook |
-| Create | `packages/guoba-hook/src/useThrottle.ts` | useThrottle Hook |
-| Create | `packages/guoba-hook/src/usePrevious.ts` | usePrevious Hook |
-| Create | `packages/guoba-hook/src/useMount.ts` | useMount Hook |
-| Create | `packages/guoba-hook/src/useUnmount.ts` | useUnmount Hook |
-| Create | `packages/guoba-hook/test/useToggle.test.ts` | useToggle tests |
-| Create | `packages/guoba-hook/test/useDebounce.test.ts` | useDebounce tests |
-| Create | `packages/guoba-hook/test/useThrottle.test.ts` | useThrottle tests |
-| Create | `packages/guoba-hook/test/usePrevious.test.ts` | usePrevious tests |
-| Create | `packages/guoba-hook/test/useMount.test.ts` | useMount tests |
-| Create | `packages/guoba-hook/test/useUnmount.test.ts` | useUnmount tests |
+| Action | Path                                           | Responsibility                                  |
+| ------ | ---------------------------------------------- | ----------------------------------------------- |
+| Create | `packages/guoba-hook/package.json`             | Package metadata, scripts, peer/dev deps        |
+| Create | `packages/guoba-hook/tsconfig.json`            | TS config extending root, adds `jsx: react-jsx` |
+| Create | `packages/guoba-hook/tsdown.config.ts`         | Build config: ESM, dts, external react          |
+| Create | `packages/guoba-hook/vitest.config.ts`         | Test config: jsdom environment                  |
+| Create | `packages/guoba-hook/CLAUDE.md`                | Package-level dev guidance                      |
+| Create | `packages/guoba-hook/src/index.ts`             | Barrel re-export of all Hooks                   |
+| Create | `packages/guoba-hook/src/useToggle.ts`         | useToggle Hook                                  |
+| Create | `packages/guoba-hook/src/useDebounce.ts`       | useDebounce Hook                                |
+| Create | `packages/guoba-hook/src/useThrottle.ts`       | useThrottle Hook                                |
+| Create | `packages/guoba-hook/src/usePrevious.ts`       | usePrevious Hook                                |
+| Create | `packages/guoba-hook/src/useMount.ts`          | useMount Hook                                   |
+| Create | `packages/guoba-hook/src/useUnmount.ts`        | useUnmount Hook                                 |
+| Create | `packages/guoba-hook/test/useToggle.test.ts`   | useToggle tests                                 |
+| Create | `packages/guoba-hook/test/useDebounce.test.ts` | useDebounce tests                               |
+| Create | `packages/guoba-hook/test/useThrottle.test.ts` | useThrottle tests                               |
+| Create | `packages/guoba-hook/test/usePrevious.test.ts` | usePrevious tests                               |
+| Create | `packages/guoba-hook/test/useMount.test.ts`    | useMount tests                                  |
+| Create | `packages/guoba-hook/test/useUnmount.test.ts`  | useUnmount tests                                |
 
 ---
 
 ### Task 1: Package Scaffold
 
 **Files:**
+
 - Create: `packages/guoba-hook/package.json`
 - Create: `packages/guoba-hook/tsconfig.json`
 - Create: `packages/guoba-hook/tsdown.config.ts`
@@ -64,9 +65,7 @@
       "import": "./dist/index.mjs"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
@@ -134,7 +133,7 @@ export default defineConfig({
 
 - [ ] **Step 5: Create `packages/guoba-hook/CLAUDE.md`**
 
-```markdown
+````markdown
 # CLAUDE.md
 
 This file provides guidance to Claude Code when working with code in this directory.
@@ -146,16 +145,21 @@ This file provides guidance to Claude Code when working with code in this direct
 ## Commands
 
 \```bash
+
 # 构建（输出到 dist/）
+
 pnpm build
 
 # 监听模式构建
+
 pnpm dev
 
 # 运行测试
+
 pnpm vitest run
 
 # 监听模式测试
+
 pnpm vitest
 \```
 
@@ -165,13 +169,13 @@ pnpm vitest
 
 \```
 src/
-├── index.ts          # barrel export（从这里统一导出）
-├── useToggle.ts      # 布尔值切换
-├── useDebounce.ts    # 值防抖
-├── useThrottle.ts    # 值节流
-├── usePrevious.ts    # 上一次渲染的值
-├── useMount.ts       # 挂载回调
-└── useUnmount.ts     # 卸载回调
+├── index.ts # barrel export（从这里统一导出）
+├── useToggle.ts # 布尔值切换
+├── useDebounce.ts # 值防抖
+├── useThrottle.ts # 值节流
+├── usePrevious.ts # 上一次渲染的值
+├── useMount.ts # 挂载回调
+└── useUnmount.ts # 卸载回调
 test/
 ├── useToggle.test.ts
 ├── useDebounce.test.ts
@@ -188,7 +192,7 @@ test/
 - 修改或新增 Hook 后，需在对应 test 文件中添加测试，遵循 TDD 流程
 - 新增 Hook 后记得在 `src/index.ts` 里 re-export
 - 测试使用 `@testing-library/react` 的 `renderHook` + `act`
-```
+````
 
 - [ ] **Step 6: Create empty barrel export `packages/guoba-hook/src/index.ts`**
 
@@ -218,6 +222,7 @@ git commit -m "feat(hook): scaffold @guoba-ai/hook package"
 ### Task 2: useToggle
 
 **Files:**
+
 - Create: `packages/guoba-hook/test/useToggle.test.ts`
 - Create: `packages/guoba-hook/src/useToggle.ts`
 - Modify: `packages/guoba-hook/src/index.ts`
@@ -271,7 +276,7 @@ Expected: FAIL — `useToggle` is not exported from `../src`
 
 Create `packages/guoba-hook/src/useToggle.ts`:
 
-```ts
+````ts
 import { useCallback, useState } from 'react'
 
 /**
@@ -290,11 +295,11 @@ import { useCallback, useState } from 'react'
 export function useToggle(initialValue = false): [boolean, (next?: boolean) => void] {
   const [value, setValue] = useState(initialValue)
   const toggle = useCallback((next?: boolean) => {
-    setValue(prev => next === undefined ? !prev : next)
+    setValue(prev => (next === undefined ? !prev : next))
   }, [])
   return [value, toggle]
 }
-```
+````
 
 - [ ] **Step 4: Add export to barrel**
 
@@ -321,6 +326,7 @@ git commit -m "feat(hook): add useToggle"
 ### Task 3: useDebounce
 
 **Files:**
+
 - Create: `packages/guoba-hook/test/useDebounce.test.ts`
 - Create: `packages/guoba-hook/src/useDebounce.ts`
 - Modify: `packages/guoba-hook/src/index.ts`
@@ -348,10 +354,9 @@ describe('useDebounce', () => {
   })
 
   it('should debounce value updates', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useDebounce(value, 500),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ value }) => useDebounce(value, 500), {
+      initialProps: { value: 'a' },
+    })
     rerender({ value: 'b' })
     expect(result.current).toBe('a')
     act(() => vi.advanceTimersByTime(500))
@@ -359,10 +364,9 @@ describe('useDebounce', () => {
   })
 
   it('should only keep the last value on rapid updates', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useDebounce(value, 300),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ value }) => useDebounce(value, 300), {
+      initialProps: { value: 'a' },
+    })
     rerender({ value: 'b' })
     act(() => vi.advanceTimersByTime(100))
     rerender({ value: 'c' })
@@ -373,10 +377,9 @@ describe('useDebounce', () => {
   })
 
   it('should use 500ms as the default delay', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useDebounce(value),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ value }) => useDebounce(value), {
+      initialProps: { value: 'a' },
+    })
     rerender({ value: 'b' })
     act(() => vi.advanceTimersByTime(499))
     expect(result.current).toBe('a')
@@ -385,10 +388,9 @@ describe('useDebounce', () => {
   })
 
   it('should cleanup timer on unmount', () => {
-    const { result, rerender, unmount } = renderHook(
-      ({ value }) => useDebounce(value, 500),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender, unmount } = renderHook(({ value }) => useDebounce(value, 500), {
+      initialProps: { value: 'a' },
+    })
     rerender({ value: 'b' })
     unmount()
     act(() => vi.advanceTimersByTime(500))
@@ -406,7 +408,7 @@ Expected: FAIL — `useDebounce` is not exported from `../src`
 
 Create `packages/guoba-hook/src/useDebounce.ts`:
 
-```ts
+````ts
 import { useEffect, useState } from 'react'
 
 /**
@@ -433,7 +435,7 @@ export function useDebounce<T>(value: T, delay = 500): T {
 
   return debouncedValue
 }
-```
+````
 
 - [ ] **Step 4: Add export to barrel**
 
@@ -461,6 +463,7 @@ git commit -m "feat(hook): add useDebounce"
 ### Task 4: useThrottle
 
 **Files:**
+
 - Create: `packages/guoba-hook/test/useThrottle.test.ts`
 - Create: `packages/guoba-hook/src/useThrottle.ts`
 - Modify: `packages/guoba-hook/src/index.ts`
@@ -488,10 +491,9 @@ describe('useThrottle', () => {
   })
 
   it('should not update within the throttle interval', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useThrottle(value, 500),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ value }) => useThrottle(value, 500), {
+      initialProps: { value: 'a' },
+    })
     rerender({ value: 'b' })
     expect(result.current).toBe('a')
     act(() => vi.advanceTimersByTime(200))
@@ -499,20 +501,18 @@ describe('useThrottle', () => {
   })
 
   it('should update after the throttle interval', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useThrottle(value, 500),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ value }) => useThrottle(value, 500), {
+      initialProps: { value: 'a' },
+    })
     rerender({ value: 'b' })
     act(() => vi.advanceTimersByTime(500))
     expect(result.current).toBe('b')
   })
 
   it('should use 500ms as the default interval', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useThrottle(value),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ value }) => useThrottle(value), {
+      initialProps: { value: 'a' },
+    })
     rerender({ value: 'b' })
     act(() => vi.advanceTimersByTime(499))
     expect(result.current).toBe('a')
@@ -521,10 +521,9 @@ describe('useThrottle', () => {
   })
 
   it('should take the latest value after interval', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useThrottle(value, 300),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ value }) => useThrottle(value, 300), {
+      initialProps: { value: 'a' },
+    })
     rerender({ value: 'b' })
     act(() => vi.advanceTimersByTime(100))
     rerender({ value: 'c' })
@@ -543,7 +542,7 @@ Expected: FAIL — `useThrottle` is not exported from `../src`
 
 Create `packages/guoba-hook/src/useThrottle.ts`:
 
-```ts
+````ts
 import { useEffect, useRef, useState } from 'react'
 
 /**
@@ -570,8 +569,7 @@ export function useThrottle<T>(value: T, interval = 500): T {
     if (elapsed >= interval) {
       lastUpdated.current = now
       setThrottledValue(value)
-    }
-    else {
+    } else {
       const timer = setTimeout(() => {
         lastUpdated.current = Date.now()
         setThrottledValue(value)
@@ -582,7 +580,7 @@ export function useThrottle<T>(value: T, interval = 500): T {
 
   return throttledValue
 }
-```
+````
 
 - [ ] **Step 4: Add export to barrel**
 
@@ -611,6 +609,7 @@ git commit -m "feat(hook): add useThrottle"
 ### Task 5: usePrevious
 
 **Files:**
+
 - Create: `packages/guoba-hook/test/usePrevious.test.ts`
 - Create: `packages/guoba-hook/src/usePrevious.ts`
 - Modify: `packages/guoba-hook/src/index.ts`
@@ -631,10 +630,9 @@ describe('usePrevious', () => {
   })
 
   it('should return the previous value after update', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => usePrevious(value),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ value }) => usePrevious(value), {
+      initialProps: { value: 'a' },
+    })
     expect(result.current).toBeUndefined()
     rerender({ value: 'b' })
     expect(result.current).toBe('a')
@@ -643,10 +641,9 @@ describe('usePrevious', () => {
   })
 
   it('should work with numbers', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => usePrevious(value),
-      { initialProps: { value: 1 } },
-    )
+    const { result, rerender } = renderHook(({ value }) => usePrevious(value), {
+      initialProps: { value: 1 },
+    })
     rerender({ value: 2 })
     expect(result.current).toBe(1)
     rerender({ value: 3 })
@@ -656,10 +653,9 @@ describe('usePrevious', () => {
   it('should work with objects', () => {
     const obj1 = { name: 'Alice' }
     const obj2 = { name: 'Bob' }
-    const { result, rerender } = renderHook(
-      ({ value }) => usePrevious(value),
-      { initialProps: { value: obj1 } },
-    )
+    const { result, rerender } = renderHook(({ value }) => usePrevious(value), {
+      initialProps: { value: obj1 },
+    })
     rerender({ value: obj2 })
     expect(result.current).toBe(obj1)
   })
@@ -675,7 +671,7 @@ Expected: FAIL — `usePrevious` is not exported from `../src`
 
 Create `packages/guoba-hook/src/usePrevious.ts`:
 
-```ts
+````ts
 import { useEffect, useRef } from 'react'
 
 /**
@@ -700,7 +696,7 @@ export function usePrevious<T>(value: T): T | undefined {
 
   return ref.current
 }
-```
+````
 
 - [ ] **Step 4: Add export to barrel**
 
@@ -730,6 +726,7 @@ git commit -m "feat(hook): add usePrevious"
 ### Task 6: useMount
 
 **Files:**
+
 - Create: `packages/guoba-hook/test/useMount.test.ts`
 - Create: `packages/guoba-hook/src/useMount.ts`
 - Modify: `packages/guoba-hook/src/index.ts`
@@ -776,7 +773,7 @@ Expected: FAIL — `useMount` is not exported from `../src`
 
 Create `packages/guoba-hook/src/useMount.ts`:
 
-```ts
+````ts
 import { useEffect } from 'react'
 
 /**
@@ -794,7 +791,7 @@ export function useMount(fn: () => void): void {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(fn, [])
 }
-```
+````
 
 - [ ] **Step 4: Add export to barrel**
 
@@ -825,6 +822,7 @@ git commit -m "feat(hook): add useMount"
 ### Task 7: useUnmount
 
 **Files:**
+
 - Create: `packages/guoba-hook/test/useUnmount.test.ts`
 - Create: `packages/guoba-hook/src/useUnmount.ts`
 - Modify: `packages/guoba-hook/src/index.ts`
@@ -863,10 +861,9 @@ describe('useUnmount', () => {
   it('should use the latest callback reference', () => {
     const fn1 = vi.fn()
     const fn2 = vi.fn()
-    const { rerender, unmount } = renderHook(
-      ({ fn }) => useUnmount(fn),
-      { initialProps: { fn: fn1 } },
-    )
+    const { rerender, unmount } = renderHook(({ fn }) => useUnmount(fn), {
+      initialProps: { fn: fn1 },
+    })
     rerender({ fn: fn2 })
     unmount()
     expect(fn1).not.toHaveBeenCalled()
@@ -884,7 +881,7 @@ Expected: FAIL — `useUnmount` is not exported from `../src`
 
 Create `packages/guoba-hook/src/useUnmount.ts`:
 
-```ts
+````ts
 import { useEffect, useRef } from 'react'
 
 /**
@@ -906,7 +903,7 @@ export function useUnmount(fn: () => void): void {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => () => fnRef.current(), [])
 }
-```
+````
 
 - [ ] **Step 4: Add export to barrel**
 
@@ -938,6 +935,7 @@ git commit -m "feat(hook): add useUnmount"
 ### Task 8: Final Build & Lint Verification
 
 **Files:**
+
 - No new files
 
 - [ ] **Step 1: Run full build**

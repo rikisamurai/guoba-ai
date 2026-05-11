@@ -46,8 +46,7 @@ export function useThrottle<T>(value: T, interval = 500): T {
 
     if (elapsed >= interval) {
       updateValue()
-    }
-    else {
+    } else {
       timerRef.current = setTimeout(() => {
         updateValue()
         timerRef.current = null

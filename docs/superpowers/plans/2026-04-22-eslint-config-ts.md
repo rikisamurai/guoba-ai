@@ -14,18 +14,18 @@
 
 ## File Map
 
-| Path | Action | Purpose |
-|------|--------|---------|
-| `eslint.base.ts` | create | `createConfig()` factory + shared ignores |
-| `eslint.config.ts` | create | Root config (ignores workspaces) |
-| `eslint.config.mjs` | delete | Old config, replaced |
-| `package.json` | modify | Add `jiti`, update `lint` / `lint:fix` scripts |
-| `packages/guoba-utils/eslint.config.ts` | create | Lib config |
-| `packages/guoba-utils/package.json` | modify | Add `lint` / `lint:fix` scripts |
-| `packages/guoba-hook/eslint.config.ts` | create | React hook lib config |
-| `packages/guoba-hook/package.json` | modify | Add `lint` / `lint:fix` scripts |
-| `apps/docs/eslint.config.ts` | create | Next.js app config |
-| `apps/docs/package.json` | modify | Add `lint` / `lint:fix` scripts |
+| Path                                    | Action | Purpose                                        |
+| --------------------------------------- | ------ | ---------------------------------------------- |
+| `eslint.base.ts`                        | create | `createConfig()` factory + shared ignores      |
+| `eslint.config.ts`                      | create | Root config (ignores workspaces)               |
+| `eslint.config.mjs`                     | delete | Old config, replaced                           |
+| `package.json`                          | modify | Add `jiti`, update `lint` / `lint:fix` scripts |
+| `packages/guoba-utils/eslint.config.ts` | create | Lib config                                     |
+| `packages/guoba-utils/package.json`     | modify | Add `lint` / `lint:fix` scripts                |
+| `packages/guoba-hook/eslint.config.ts`  | create | React hook lib config                          |
+| `packages/guoba-hook/package.json`      | modify | Add `lint` / `lint:fix` scripts                |
+| `apps/docs/eslint.config.ts`            | create | Next.js app config                             |
+| `apps/docs/package.json`                | modify | Add `lint` / `lint:fix` scripts                |
 
 ---
 
@@ -41,6 +41,7 @@
 ## Task 1: Install `jiti` so ESLint can load `eslint.config.ts`
 
 **Files:**
+
 - Modify: root `package.json`
 
 - [ ] **Step 1: Add `jiti` to root `devDependencies`**
@@ -84,6 +85,7 @@ git commit -m "chore: add jiti for eslint.config.ts loading"
 ## Task 2: Create root factory `eslint.base.ts`
 
 **Files:**
+
 - Create: `eslint.base.ts`
 
 - [ ] **Step 1: Create `eslint.base.ts`**
@@ -131,6 +133,7 @@ git commit -m "feat(eslint): add createConfig() factory in eslint.base.ts"
 ## Task 3: Add `eslint.config.ts` for `@guoba-ai/utils`
 
 **Files:**
+
 - Create: `packages/guoba-utils/eslint.config.ts`
 - Modify: `packages/guoba-utils/package.json`
 
@@ -206,6 +209,7 @@ git commit -m "feat(eslint): per-package config for @guoba-ai/utils"
 ## Task 4: Add `eslint.config.ts` for `@guoba-ai/hook`
 
 **Files:**
+
 - Create: `packages/guoba-hook/eslint.config.ts`
 - Modify: `packages/guoba-hook/package.json`
 
@@ -282,6 +286,7 @@ If a peer plugin had to be installed, also `git add package.json pnpm-lock.yaml`
 ## Task 5: Add `eslint.config.ts` for `apps/docs`
 
 **Files:**
+
 - Create: `apps/docs/eslint.config.ts`
 - Modify: `apps/docs/package.json`
 
@@ -340,6 +345,7 @@ Then re-run `pnpm --filter docs lint`. Expected after fix: zero or only a few re
 - [ ] **Step 5: Hand-fix remaining errors**
 
 For each remaining error:
+
 - If it's a real bug → fix it.
 - If it's in generated code we missed in `ignores` (e.g., another fumadocs/typedoc artifact) → add the path to the `ignores` array in `apps/docs/eslint.config.ts`.
 - If it's a stylistic rule that genuinely doesn't apply to Next.js app code → narrow with file-scoped `eslint-disable-next-line` comment, **not** a global rule disable.
@@ -386,6 +392,7 @@ If lint surfaced enough fixes to be worth a separate commit, split: first commit
 ## Task 6: Replace root `eslint.config.mjs` with `eslint.config.ts`; update root scripts
 
 **Files:**
+
 - Create: `eslint.config.ts`
 - Delete: `eslint.config.mjs`
 - Modify: root `package.json`

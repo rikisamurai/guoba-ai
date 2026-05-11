@@ -12,21 +12,18 @@ const API_DIRS = ['content/docs/utils', 'content/docs/hooks']
  */
 
 for (const API_DIR of API_DIRS) {
-  if (!existsSync(API_DIR))
-    continue
+  if (!existsSync(API_DIR)) continue
 
   // Remove redundant module/function index pages — index.mdx (from README) already represents the package
   for (const stale of ['modules.mdx', 'globals.mdx']) {
     const stalePath = join(API_DIR, stale)
-    if (existsSync(stalePath))
-      rmSync(stalePath)
+    if (existsSync(stalePath)) rmSync(stalePath)
   }
 
   // Flatten top-level functions/ and type-aliases/ (single-entry-point packages like hooks)
   for (const sub of ['functions', 'type-aliases']) {
     const subDir = join(API_DIR, sub)
-    if (!existsSync(subDir))
-      continue
+    if (!existsSync(subDir)) continue
 
     const files = readdirSync(subDir)
     for (const file of files) {
@@ -36,8 +33,7 @@ for (const API_DIR of API_DIRS) {
   }
 
   // Flatten nested functions/ and type-aliases/ inside module directories (multi-entry-point packages like utils)
-  const modules = readdirSync(API_DIR, { withFileTypes: true })
-    .filter(d => d.isDirectory())
+  const modules = readdirSync(API_DIR, { withFileTypes: true }).filter(d => d.isDirectory())
 
   for (const mod of modules) {
     const modDir = join(API_DIR, mod.name)
@@ -45,8 +41,7 @@ for (const API_DIR of API_DIRS) {
 
     for (const sub of subdirs) {
       const subDir = join(modDir, sub)
-      if (!existsSync(subDir))
-        continue
+      if (!existsSync(subDir)) continue
 
       const files = readdirSync(subDir)
       for (const file of files) {
@@ -57,10 +52,7 @@ for (const API_DIR of API_DIRS) {
 
     // Add meta.json with capitalized title
     const title = mod.name.charAt(0).toUpperCase() + mod.name.slice(1)
-    writeFileSync(
-      join(modDir, 'meta.json'),
-      `${JSON.stringify({ title }, null, 2)}\n`,
-    )
+    writeFileSync(join(modDir, 'meta.json'), `${JSON.stringify({ title }, null, 2)}\n`)
   }
 
   // Fix links in all .mdx files
@@ -68,10 +60,8 @@ for (const API_DIR of API_DIRS) {
   function collectMdx(dir) {
     for (const entry of readdirSync(dir, { withFileTypes: true })) {
       const full = join(dir, entry.name)
-      if (entry.isDirectory())
-        collectMdx(full)
-      else if (entry.name.endsWith('.mdx'))
-        allFiles.push(full)
+      if (entry.isDirectory()) collectMdx(full)
+      else if (entry.name.endsWith('.mdx')) allFiles.push(full)
     }
   }
   collectMdx(API_DIR)

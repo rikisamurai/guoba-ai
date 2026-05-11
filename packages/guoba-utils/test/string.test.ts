@@ -1,5 +1,17 @@
 import { describe, expect, it } from 'vitest'
-import { camel, capitalize, dash, ensurePrefix, ensureSuffix, pascal, slash, snake, template, title } from '../src'
+
+import {
+  camel,
+  capitalize,
+  dash,
+  ensurePrefix,
+  ensureSuffix,
+  pascal,
+  slash,
+  snake,
+  template,
+  title,
+} from '../src'
 
 describe('string', () => {
   describe('capitalize', () => {

@@ -73,13 +73,7 @@ Update `typedoc-postprocess.mjs`:
 ```json
 {
   "title": "Guoba AI",
-  "pages": [
-    "index",
-    "---@guoba-ai/utils---",
-    "utils",
-    "---@guoba-ai/hook---",
-    "hooks"
-  ]
+  "pages": ["index", "---@guoba-ai/utils---", "utils", "---@guoba-ai/hook---", "hooks"]
 }
 ```
 

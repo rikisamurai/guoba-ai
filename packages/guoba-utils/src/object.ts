@@ -1,5 +1,5 @@
-import type { DeepPartial } from './types'
 import { isObject } from './guard'
+import type { DeepPartial } from './types'
 
 /**
  * Type-safe `Object.keys`.
@@ -59,8 +59,7 @@ export function deepClone<T>(obj: T): T {
  */
 export function omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
   const result = { ...obj }
-  for (const key of keys)
-    delete result[key]
+  for (const key of keys) delete result[key]
   return result as Omit<T, K>
 }
 
@@ -77,8 +76,7 @@ export function omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Om
  */
 export function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
   const result = {} as Pick<T, K>
-  for (const key of keys)
-    result[key] = obj[key]
+  for (const key of keys) result[key] = obj[key]
   return result
 }
 
@@ -94,7 +92,9 @@ export function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pi
  * shake({ a: 1, b: undefined, c: null }) // { a: 1, c: null }
  * ```
  */
-export function shake<T extends object>(obj: T): {
+export function shake<T extends object>(
+  obj: T,
+): {
   [K in keyof T]: Exclude<T[K], undefined>
 }
 
@@ -118,12 +118,10 @@ export function shake<T extends object>(
   obj: T,
   filter: (value: unknown) => boolean = value => value === undefined,
 ): T {
-  if (!obj)
-    return {} as T
+  if (!obj) return {} as T
 
   return (Object.keys(obj) as (keyof T)[]).reduce((result, key) => {
-    if (!filter(obj[key]))
-      result[key] = obj[key]
+    if (!filter(obj[key])) result[key] = obj[key]
 
     return result
   }, {} as T)
@@ -152,8 +150,7 @@ export function deepMerge<T extends object>(target: T, ...sources: DeepPartial<T
 
       if (isObject(sourceVal) && isObject(targetVal)) {
         ;(result as any)[key] = deepMerge(targetVal, sourceVal as any)
-      }
-      else {
+      } else {
         ;(result as any)[key] = sourceVal
       }
     }
@@ -176,8 +173,7 @@ export function invert<T extends Record<string, string | number | symbol>>(
   obj: T,
 ): Record<string, string> {
   const result: Record<string, string> = {}
-  for (const key of Object.keys(obj))
-    result[String(obj[key])] = key
+  for (const key of Object.keys(obj)) result[String(obj[key])] = key
   return result
 }
 
@@ -197,8 +193,7 @@ export function mapKeys<T extends object, K extends string>(
   fn: (key: keyof T, value: T[keyof T]) => K,
 ): Record<K, T[keyof T]> {
   const result = {} as Record<K, T[keyof T]>
-  for (const key of objectKeys(obj))
-    result[fn(key, obj[key])] = obj[key]
+  for (const key of objectKeys(obj)) result[fn(key, obj[key])] = obj[key]
   return result
 }
 
@@ -218,8 +213,7 @@ export function mapValues<T extends object, U>(
   fn: (value: T[keyof T], key: keyof T) => U,
 ): Record<keyof T extends string ? keyof T : string, U> {
   const result = {} as Record<keyof T extends string ? keyof T : string, U>
-  for (const key of objectKeys(obj))
-    (result as any)[key] = fn(obj[key], key)
+  for (const key of objectKeys(obj)) (result as any)[key] = fn(obj[key], key)
   return result
 }
 
@@ -264,8 +258,7 @@ export function listify<T extends object, U>(
   fn: (key: keyof T, value: T[keyof T]) => U,
 ): U[] {
   const result: U[] = []
-  for (const key of objectKeys(obj))
-    result.push(fn(key, obj[key]))
+  for (const key of objectKeys(obj)) result.push(fn(key, obj[key]))
   return result
 }
 
@@ -286,8 +279,7 @@ export function get<T = unknown>(obj: unknown, path: string, defaultValue?: T): 
   const segments = path.split('.')
   let current: any = obj
   for (const segment of segments) {
-    if (current === null || current === undefined)
-      return defaultValue as T
+    if (current === null || current === undefined) return defaultValue as T
     current = current[segment]
   }
   return (current === undefined ? defaultValue : current) as T
@@ -355,8 +347,7 @@ export function crush<T extends object>(obj: T): Record<string, unknown> {
         const newPrefix = prefix ? `${prefix}.${key}` : key
         flatten(current[key], newPrefix)
       }
-    }
-    else {
+    } else {
       result[prefix] = current
     }
   }
@@ -378,7 +369,6 @@ export function crush<T extends object>(obj: T): Record<string, unknown> {
  */
 export function construct<T extends object>(obj: Record<string, unknown>): T {
   const result = {} as Record<string, unknown>
-  for (const key of Object.keys(obj))
-    set(result, key, obj[key])
+  for (const key of Object.keys(obj)) set(result, key, obj[key])
   return result as T
 }

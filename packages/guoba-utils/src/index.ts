@@ -1,5 +1,63 @@
-export { chunk, counting, diff, flattenDeep, fork, group, intersects, last, objectify, remove, select, shuffle, sift, sort, toArray, uniq, zip } from './array'
-export { isBoolean, isDef, isEmpty, isFunction, isNull, isNullOrUndef, isNumber, isObject, isString, isUndef, notNullish } from './guard'
-export { construct, crush, deepClone, deepMerge, get, invert, listify, mapEntries, mapKeys, mapValues, objectEntries, objectKeys, omit, pick, set, shake } from './object'
-export { camel, capitalize, dash, ensurePrefix, ensureSuffix, pascal, slash, snake, template, title } from './string'
+export {
+  chunk,
+  counting,
+  diff,
+  flattenDeep,
+  fork,
+  group,
+  intersects,
+  last,
+  objectify,
+  remove,
+  select,
+  shuffle,
+  sift,
+  sort,
+  toArray,
+  uniq,
+  zip,
+} from './array'
+export {
+  isBoolean,
+  isDef,
+  isEmpty,
+  isFunction,
+  isNull,
+  isNullOrUndef,
+  isNumber,
+  isObject,
+  isString,
+  isUndef,
+  notNullish,
+} from './guard'
+export {
+  construct,
+  crush,
+  deepClone,
+  deepMerge,
+  get,
+  invert,
+  listify,
+  mapEntries,
+  mapKeys,
+  mapValues,
+  objectEntries,
+  objectKeys,
+  omit,
+  pick,
+  set,
+  shake,
+} from './object'
+export {
+  camel,
+  capitalize,
+  dash,
+  ensurePrefix,
+  ensureSuffix,
+  pascal,
+  slash,
+  snake,
+  template,
+  title,
+} from './string'
 export type { Arrayable, DeepPartial, NestedArray, Nullable, Nullish } from './types'

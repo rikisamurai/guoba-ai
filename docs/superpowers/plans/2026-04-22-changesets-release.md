@@ -9,6 +9,7 @@
 **Tech Stack:** `@changesets/cli@^2`, `changesets/action@v1`, GitHub Actions (ubuntu-latest, Node 24, pnpm 10.33), npm (public registry).
 
 **Context:**
+
 - `docs/repo-optimization-review.md` P1-2 is the source requirement
 - Current state: both `packages/*/package.json` have `"release": "pnpm build && pnpm publish"`, no `.changeset/` dir, no `release.yml` workflow, `.npmrc` has no auth, CI workflow `permissions: contents: read`
 - Public repo `rikisamurai/guoba-ai` (provenance requires public repo ✓)
@@ -19,20 +20,21 @@
 
 ## File Structure
 
-| Operation | Path | Responsibility |
-|---|---|---|
-| Create | `.changeset/config.json` | Changesets behavior (access, baseBranch, ignore) |
-| Create | `.changeset/README.md` | Auto-generated explainer from `changeset init` |
-| Create | `.github/workflows/release.yml` | Release/publish automation |
-| Modify | `package.json` (root) | Add `@changesets/cli` devDep + `changeset` / `version` / `release` scripts |
-| Modify | `packages/guoba-utils/package.json` | Add `publishConfig.provenance: true`, remove `release` script |
-| Modify | `packages/guoba-hook/package.json` | Same as above |
+| Operation | Path                                | Responsibility                                                             |
+| --------- | ----------------------------------- | -------------------------------------------------------------------------- |
+| Create    | `.changeset/config.json`            | Changesets behavior (access, baseBranch, ignore)                           |
+| Create    | `.changeset/README.md`              | Auto-generated explainer from `changeset init`                             |
+| Create    | `.github/workflows/release.yml`     | Release/publish automation                                                 |
+| Modify    | `package.json` (root)               | Add `@changesets/cli` devDep + `changeset` / `version` / `release` scripts |
+| Modify    | `packages/guoba-utils/package.json` | Add `publishConfig.provenance: true`, remove `release` script              |
+| Modify    | `packages/guoba-hook/package.json`  | Same as above                                                              |
 
 ---
 
 ## Task 1: Install Changesets CLI
 
 **Files:**
+
 - Modify: `package.json` (root, devDependencies)
 - Modify: `pnpm-lock.yaml` (auto-updated)
 
@@ -59,6 +61,7 @@ git commit -m "chore: add @changesets/cli"
 ## Task 2: Initialize Changesets Config
 
 **Files:**
+
 - Create: `.changeset/config.json`
 - Create: `.changeset/README.md`
 
@@ -86,6 +89,7 @@ Write `.changeset/config.json`:
 ```
 
 Rationale for each changed field:
+
 - `access: "public"` — both packages are public npm packages (scoped `@guoba-ai/*`)
 - `baseBranch: "main"` — we don't use `master`
 - `ignore: ["docs"]` — the `docs` workspace is private but explicit belt-and-suspenders
@@ -108,6 +112,7 @@ git commit -m "chore: init changesets config"
 ## Task 3: Wire Root Scripts
 
 **Files:**
+
 - Modify: `package.json` (root, `scripts`)
 
 - [ ] **Step 1: Add three scripts**
@@ -132,6 +137,7 @@ In root `package.json`, extend `"scripts"` with (keep existing scripts untouched
 ```
 
 Rationale:
+
 - `changeset` — shortcut for interactive `pnpm changeset`
 - `version` — consumed by release workflow's `version:` input
 - `release` — consumed by workflow's `publish:` input; builds both packages before publishing (tsdown must produce `dist/` first)
@@ -153,16 +159,19 @@ git commit -m "chore: add changeset / version / release scripts"
 ## Task 4: Update Package Manifests
 
 **Files:**
+
 - Modify: `packages/guoba-utils/package.json`
 - Modify: `packages/guoba-hook/package.json`
 
 - [ ] **Step 1: `guoba-utils` — add provenance, drop release script**
 
 In `packages/guoba-utils/package.json`:
+
 - Under `"publishConfig"` change from `{"access": "public"}` to `{"access": "public", "provenance": true}`
 - Remove the `"release": "pnpm build && pnpm publish"` line from `"scripts"`
 
 Resulting `publishConfig`:
+
 ```json
 "publishConfig": {
   "access": "public",
@@ -196,6 +205,7 @@ git commit -m "chore(pkg): enable npm provenance, drop hand-rolled release scrip
 ## Task 5: Add Release Workflow
 
 **Files:**
+
 - Create: `.github/workflows/release.yml`
 
 - [ ] **Step 1: Write the workflow**
@@ -214,9 +224,9 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write       # create tags + commit the version PR
-  pull-requests: write  # open / update the "Version Packages" PR
-  id-token: write       # OIDC token required for npm provenance
+  contents: write # create tags + commit the version PR
+  pull-requests: write # open / update the "Version Packages" PR
+  id-token: write # OIDC token required for npm provenance
 
 jobs:
   release:
@@ -247,15 +257,16 @@ jobs:
         with:
           publish: pnpm release
           version: pnpm version
-          commit: "chore: version packages"
-          title: "chore: version packages"
+          commit: 'chore: version packages'
+          title: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: "true"
+          NPM_CONFIG_PROVENANCE: 'true'
 ```
 
 Notes (do NOT paste into the file — these are rationale):
+
 - `fetch-depth: 0` — changesets needs full history to diff against main
 - `registry-url: https://registry.npmjs.org` — makes `setup-node` write `~/.npmrc` with `//registry.npmjs.org/:_authToken=${NPM_TOKEN}`, so `pnpm publish` picks up the token
 - `cancel-in-progress: false` — never cancel a publish mid-flight
@@ -284,6 +295,7 @@ git commit -m "ci: add changesets release workflow"
 - [ ] **Step 1: Simulate a patch changeset**
 
 Run: `pnpm changeset` and interactively:
+
 - Select both `@guoba-ai/utils` and `@guoba-ai/hook`
 - Pick `patch` for both (no need to pick `minor`/`major`)
 - Summary: `test: dry-run changeset` (will be thrown away)
@@ -294,6 +306,7 @@ Expected: a new `.changeset/*.md` file is written with frontmatter listing both 
 
 Run: `pnpm version`
 Expected:
+
 - `packages/guoba-utils/package.json` version → `0.0.3`
 - `packages/guoba-hook/package.json` version → `0.0.2`
 - `packages/*/CHANGELOG.md` generated with the summary entry
@@ -302,6 +315,7 @@ Expected:
 - [ ] **Step 3: Roll back the dry-run**
 
 Run:
+
 ```bash
 git checkout -- packages/guoba-utils/package.json packages/guoba-hook/package.json
 git clean -fd .changeset packages/guoba-utils packages/guoba-hook
@@ -317,6 +331,7 @@ Expected: all green.
 - [ ] **Step 5: User-side setup reminder (output only, no edit)**
 
 Print to the user:
+
 > Before the first real release, add `NPM_TOKEN` (Automation Token with Publish scope) under GitHub repo Settings → Secrets and variables → Actions. Without it, the `Release` workflow will fail at the publish step but will NOT break the repo.
 
 No commit needed for this step.
@@ -326,6 +341,7 @@ No commit needed for this step.
 ## Task 7: Update Review Doc
 
 **Files:**
+
 - Modify: `docs/repo-optimization-review.md`
 
 - [ ] **Step 1: Flip P1-2 to ✅**
@@ -334,6 +350,7 @@ In `docs/repo-optimization-review.md`, change:
 
 ```markdown
 ### P1-2. 引入 Changesets 自动化发版
+
 - 现状：每个包的 `release` 脚本是 `pnpm build && pnpm publish`，无版本管理、无 CHANGELOG
 - 改：`pnpm add -Dw @changesets/cli` → `pnpm changeset init`；新增 `.github/workflows/release.yml`（changesets/action），开启 `--provenance` 提升 npm 信任；删除手写 release 脚本
 ```
@@ -342,6 +359,7 @@ To:
 
 ```markdown
 ### P1-2. 引入 Changesets 自动化发版 ✅
+
 - 已接入 `@changesets/cli` + `.github/workflows/release.yml`（changesets/action）
 - 两包 `publishConfig.provenance: true` 已开启，手写 `release` 脚本已删除
 - 首次发版前需在仓库 Settings 添加 `NPM_TOKEN` secret
@@ -371,12 +389,12 @@ git commit -m "docs: mark P1-2 changesets as done"
 
 ## Risks & Rollback
 
-| Risk | Mitigation |
-|---|---|
-| `NPM_TOKEN` missing in CI → publish step fails | Release PR still merges fine; workflow fails non-destructively, can retry after adding secret |
-| Provenance fails (OIDC not set up) | Remove `id-token: write` from `release.yml` and set `publishConfig.provenance: false`; re-run |
-| Changesets accidentally bumps `docs` | `ignore: ["docs"]` + `private: true` on the app — double safeguard |
-| First real version PR looks wrong | Don't merge the "Version Packages" PR until a human reviews `packages/*/CHANGELOG.md` and versions |
+| Risk                                           | Mitigation                                                                                         |
+| ---------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `NPM_TOKEN` missing in CI → publish step fails | Release PR still merges fine; workflow fails non-destructively, can retry after adding secret      |
+| Provenance fails (OIDC not set up)             | Remove `id-token: write` from `release.yml` and set `publishConfig.provenance: false`; re-run      |
+| Changesets accidentally bumps `docs`           | `ignore: ["docs"]` + `private: true` on the app — double safeguard                                 |
+| First real version PR looks wrong              | Don't merge the "Version Packages" PR until a human reviews `packages/*/CHANGELOG.md` and versions |
 
 ---
 
