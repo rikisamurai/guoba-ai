@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
+
 import { useUnmount } from '../src'
 
 describe('useUnmount', () => {
@@ -27,10 +28,9 @@ describe('useUnmount', () => {
   it('should use the latest callback reference', () => {
     const fn1 = vi.fn()
     const fn2 = vi.fn()
-    const { rerender, unmount } = renderHook(
-      ({ fn }) => useUnmount(fn),
-      { initialProps: { fn: fn1 } },
-    )
+    const { rerender, unmount } = renderHook(({ fn }) => useUnmount(fn), {
+      initialProps: { fn: fn1 },
+    })
     rerender({ fn: fn2 })
     unmount()
     expect(fn1).not.toHaveBeenCalled()

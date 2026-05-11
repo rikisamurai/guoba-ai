@@ -1,26 +1,29 @@
 {
   "name": "@guoba-ai/hook",
-  "type": "module",
   "version": "0.0.1",
   "description": "A collection of React hooks — zero dependencies, ESM-only, TypeScript-first.",
-  "author": "riki",
-  "license": "MIT",
+  "keywords": [
+    "esm",
+    "hooks",
+    "react",
+    "react-hooks",
+    "typescript"
+  ],
   "homepage": "https://guoba-ai.vercel.app/docs",
+  "bugs": {
+    "url": "https://github.com/rikisamurai/guoba-ai/issues"
+  },
+  "license": "MIT",
+  "author": "riki",
   "repository": {
     "type": "git",
     "url": "https://github.com/rikisamurai/guoba-ai",
     "directory": "packages/guoba-hook"
   },
-  "bugs": {
-    "url": "https://github.com/rikisamurai/guoba-ai/issues"
-  },
-  "keywords": [
-    "react",
-    "react-hooks",
-    "hooks",
-    "typescript",
-    "esm"
+  "files": [
+    "dist"
   ],
+  "type": "module",
   "sideEffects": false,
   "exports": {
     ".": {
@@ -29,23 +32,15 @@
     },
     "./package.json": "./package.json"
   },
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "tsdown",
-    "dev": "tsdown --watch",
-    "lint": "eslint . --max-warnings 0",
-    "lint:fix": "eslint . --fix --max-warnings 0",
-    "test": "vitest run",
-    "test:type": "tsc --noEmit",
-    "test:watch": "vitest"
-  },
   "publishConfig": {
     "access": "public"
   },
-  "peerDependencies": {
-    "react": ">=18"
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest run",
+    "test:type": "tsc --noEmit",
+    "test:watch": "vitest"
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.0",
@@ -56,5 +51,8 @@
     "react-dom": "^19.1.0",
     "tsdown": "^0.21.9",
     "typescript": "^6.0.2"
+  },
+  "peerDependencies": {
+    "react": ">=18"
   }
 }

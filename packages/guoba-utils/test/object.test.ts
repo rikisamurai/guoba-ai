@@ -1,5 +1,23 @@
 import { describe, expect, expectTypeOf, it } from 'vitest'
-import { construct, crush, deepClone, deepMerge, get, invert, listify, mapEntries, mapKeys, mapValues, objectEntries, objectKeys, omit, pick, set, shake } from '../src'
+
+import {
+  construct,
+  crush,
+  deepClone,
+  deepMerge,
+  get,
+  invert,
+  listify,
+  mapEntries,
+  mapKeys,
+  mapValues,
+  objectEntries,
+  objectKeys,
+  omit,
+  pick,
+  set,
+  shake,
+} from '../src'
 
 describe('object', () => {
   describe('objectKeys', () => {
@@ -15,7 +33,10 @@ describe('object', () => {
   describe('objectEntries', () => {
     it('should return typed entries', () => {
       const entries = objectEntries({ a: 1, b: 2 })
-      expect(entries).toEqual([['a', 1], ['b', 2]])
+      expect(entries).toEqual([
+        ['a', 1],
+        ['b', 2],
+      ])
     })
   })
 
@@ -155,7 +176,7 @@ describe('object', () => {
     })
 
     it('should preserve source type when a filter function is provided', () => {
-      const result = shake({} as { a: string | undefined }, (value) => {
+      const result = shake({} as { a: string | undefined }, value => {
         expectTypeOf(value).toEqualTypeOf<unknown>()
 
         return value === undefined
@@ -239,20 +260,17 @@ describe('object', () => {
 
   describe('mapEntries', () => {
     it('should transform both keys and values', () => {
-      const result = mapEntries(
-        { a: 1, b: 2 },
-        (key, value) => [(key as string).toUpperCase(), (value as number) * 10],
-      )
+      const result = mapEntries({ a: 1, b: 2 }, (key, value) => [
+        (key as string).toUpperCase(),
+        (value as number) * 10,
+      ])
       expect(result).toEqual({ A: 10, B: 20 })
     })
     it('should handle empty objects', () => {
       expect(mapEntries({}, (k, v) => [String(k), v])).toEqual({})
     })
     it('should allow completely different key-value shapes', () => {
-      const result = mapEntries(
-        { name: 'alice', age: '30' },
-        (key, value) => [String(value), key],
-      )
+      const result = mapEntries({ name: 'alice', age: '30' }, (key, value) => [String(value), key])
       expect(result).toEqual({ alice: 'name', 30: 'age' })
     })
   })
@@ -312,8 +330,7 @@ describe('object', () => {
         expect(() => set({}, 'constructor.prototype.polluted', 1)).toThrow(TypeError)
         expect(() => set({}, 'a.__proto__', 1)).toThrow(TypeError)
         expect(({} as Record<string, unknown>).polluted).toBeUndefined()
-      }
-      finally {
+      } finally {
         delete (Object.prototype as unknown as Record<string, unknown>).polluted
       }
     })
@@ -358,8 +375,7 @@ describe('object', () => {
         expect(() => construct({ '__proto__.polluted': 1 })).toThrow(TypeError)
         expect(() => construct({ 'constructor.prototype.polluted': 1 })).toThrow(TypeError)
         expect(({} as Record<string, unknown>).polluted).toBeUndefined()
-      }
-      finally {
+      } finally {
         delete (Object.prototype as unknown as Record<string, unknown>).polluted
       }
     })

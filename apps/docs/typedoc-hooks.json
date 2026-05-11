@@ -1,14 +1,8 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": [
-    "../../packages/guoba-hook/src/index.ts"
-  ],
+  "entryPoints": ["../../packages/guoba-hook/src/index.ts"],
   "tsconfig": "../../packages/guoba-hook/tsconfig.json",
-  "plugin": [
-    "typedoc-plugin-markdown",
-    "typedoc-plugin-frontmatter",
-    "./typedoc-frontmatter.mjs"
-  ],
+  "plugin": ["typedoc-plugin-markdown", "typedoc-plugin-frontmatter", "./typedoc-frontmatter.mjs"],
   "out": "content/docs/hooks",
   "publicPath": "/docs/hooks/",
   "cleanOutputDir": true,

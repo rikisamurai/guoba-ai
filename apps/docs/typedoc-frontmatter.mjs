@@ -11,7 +11,7 @@ export function load(app) {
   app.renderer.on(
     MarkdownPageEvent.BEGIN,
     /** @param {import('typedoc-plugin-markdown').MarkdownPageEvent} page */
-    (page) => {
+    page => {
       page.frontmatter = {
         ...page.frontmatter,
         title: page.model?.name ?? 'API Reference',

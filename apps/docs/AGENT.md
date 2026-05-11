@@ -25,13 +25,11 @@ All changes to this docs app must be visually verified in the browser before rep
 
 1. Start the dev server: `pnpm dev` (from `apps/docs/`) or `pnpm docs:dev` (from monorepo root)
 2. Use the `agent-browser` skill to open `http://localhost:3000` and verify:
-    - The page renders without errors
-    - Changed content displays correctly
-    - Sidebar navigation works and reflects any structural changes
-    - For API doc changes: check that the relevant `/docs/utils/*` and `/docs/hooks/*` pages render properly
+   - The page renders without errors
+   - Changed content displays correctly
+   - Sidebar navigation works and reflects any structural changes
+   - For API doc changes: check that the relevant `/docs/utils/*` and `/docs/hooks/*` pages render properly
 3. If the change affects multiple pages (e.g., layout, styling, sidebar ordering), navigate to each affected page and verify
-
-
 
 All commands run from this directory (`apps/docs/`), or use `pnpm docs:dev` / `pnpm docs:build` from the monorepo root.
 
@@ -44,7 +42,7 @@ Next.js requires the generated `.mdx` files to exist before it builds. Every `de
 1. **TypeDoc** — runs two configs sequentially:
    - `typedoc-utils.json` reads `../../packages/guoba-utils/src/{array,guard,object,string,types}.ts` → `content/docs/utils/`
    - `typedoc-hooks.json` reads `../../packages/guoba-hook/src/{useToggle,useDebounce,useThrottle,usePrevious,useMount,useUnmount}.ts` → `content/docs/hooks/`
-   Both generate `.mdx` files with frontmatter (via `typedoc-plugin-markdown`, `typedoc-plugin-frontmatter`, and custom `typedoc-frontmatter.mjs`)
+     Both generate `.mdx` files with frontmatter (via `typedoc-plugin-markdown`, `typedoc-plugin-frontmatter`, and custom `typedoc-frontmatter.mjs`)
 2. **Post-processing** (`typedoc-postprocess.mjs`) — processes both `content/docs/utils/` and `content/docs/hooks/`: flattens `functions/` and `type-aliases/` subdirectories, fixes internal links, generates `meta.json` sidebar entries per module
 
 ### App Router Structure

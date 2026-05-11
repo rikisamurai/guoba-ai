@@ -1,9 +1,4 @@
 {
   "title": "Guoba AI",
-  "pages": [
-    "index",
-    "---Packages---",
-    "utils",
-    "hooks"
-  ]
+  "pages": ["index", "---Packages---", "utils", "hooks"]
 }

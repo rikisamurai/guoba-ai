@@ -42,10 +42,8 @@ export function uniq<T>(array: T[]): T[] {
 export function flattenDeep<T>(array: NestedArray<T>): T[] {
   const result: T[] = []
   for (const item of array) {
-    if (Array.isArray(item))
-      result.push(...flattenDeep(item as NestedArray<T>))
-    else
-      result.push(item)
+    if (Array.isArray(item)) result.push(...flattenDeep(item as NestedArray<T>))
+    else result.push(item)
   }
   return result
 }
@@ -63,8 +61,7 @@ export function flattenDeep<T>(array: NestedArray<T>): T[] {
  */
 export function chunk<T>(array: T[], size: number): T[][] {
   const result: T[][] = []
-  for (let i = 0; i < array.length; i += size)
-    result.push(array.slice(i, i + size))
+  for (let i = 0; i < array.length; i += size) result.push(array.slice(i, i + size))
   return result
 }
 
@@ -81,8 +78,8 @@ export function chunk<T>(array: T[], size: number): T[][] {
 export function shuffle<T>(array: T[]): T[] {
   const result = [...array]
   for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j]!, result[i]!]
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[result[i], result[j]] = [result[j]!, result[i]!]
   }
   return result
 }
@@ -144,8 +141,7 @@ export function group<T>(
   const result: Partial<Record<string | number | symbol, T[]>> = {}
   for (const item of array) {
     const key = fn(item)
-    if (!result[key])
-      result[key] = []
+    if (!result[key]) result[key] = []
     result[key]!.push(item)
   }
   return result
@@ -198,8 +194,7 @@ export function select<T, U>(
   const result: U[] = []
   for (let i = 0; i < array.length; i++) {
     const item = array[i]!
-    if (filter(item, i))
-      result.push(mapper(item, i))
+    if (filter(item, i)) result.push(mapper(item, i))
   }
   return result
 }
@@ -233,10 +228,8 @@ export function fork<T>(array: T[], fn: (item: T) => boolean): [T[], T[]] {
   const pass: T[] = []
   const fail: T[] = []
   for (const item of array) {
-    if (fn(item))
-      pass.push(item)
-    else
-      fail.push(item)
+    if (fn(item)) pass.push(item)
+    else fail.push(item)
   }
   return [pass, fail]
 }
@@ -289,8 +282,7 @@ export function objectify<T, K extends string | number | symbol, V>(
   valueFn?: (item: T) => V,
 ): Record<K, T | V> {
   const result = {} as Record<K, T | V>
-  for (const item of array)
-    result[keyFn(item)] = valueFn ? valueFn(item) : item
+  for (const item of array) result[keyFn(item)] = valueFn ? valueFn(item) : item
   return result
 }
 
@@ -355,11 +347,9 @@ export function zip<A, B>(a: A[], b: B[]): [A, B][]
 export function zip<A, B, C>(a: A[], b: B[], c: C[]): [A, B, C][]
 export function zip(...arrays: unknown[][]): unknown[][]
 export function zip(...arrays: unknown[][]): unknown[][] {
-  if (arrays.length === 0)
-    return []
+  if (arrays.length === 0) return []
   const minLen = Math.min(...arrays.map(a => a.length))
   const result: unknown[][] = []
-  for (let i = 0; i < minLen; i++)
-    result.push(arrays.map(a => a[i]))
+  for (let i = 0; i < minLen; i++) result.push(arrays.map(a => a[i]))
   return result
 }

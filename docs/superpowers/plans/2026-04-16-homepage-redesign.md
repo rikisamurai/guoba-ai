@@ -13,6 +13,7 @@
 ### Task 1: Add custom CSS variables and keyframes to globals.css
 
 **Files:**
+
 - Modify: `apps/docs/app/globals.css`
 
 - [ ] **Step 1: Add neon theme variables and float animation**
@@ -27,9 +28,16 @@ Append after the existing imports in `apps/docs/app/globals.css`:
 }
 
 @keyframes float {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(20px, -15px); }
-  66% { transform: translate(-15px, 10px); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(20px, -15px);
+  }
+  66% {
+    transform: translate(-15px, 10px);
+  }
 }
 ```
 
@@ -50,9 +58,10 @@ git commit -m "feat(docs): add neon theme variables and float animation"
 ### Task 2: Create the Canvas particle animation client component
 
 **Files:**
+
 - Create: `apps/docs/app/_components/hero-particles.tsx`
 
-- [ ] **Step 1: Create the _components directory and hero-particles.tsx**
+- [ ] **Step 1: Create the \_components directory and hero-particles.tsx**
 
 Create `apps/docs/app/_components/hero-particles.tsx`:
 
@@ -152,12 +161,7 @@ export function HeroParticles(): React.ReactElement {
     }
   }, [])
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 size-full"
-    />
-  )
+  return <canvas ref={canvasRef} className="absolute inset-0 size-full" />
 }
 ```
 
@@ -178,6 +182,7 @@ git commit -m "feat(docs): add canvas particle animation client component"
 ### Task 3: Create the Hero server component
 
 **Files:**
+
 - Create: `apps/docs/app/_components/hero.tsx`
 
 - [ ] **Step 1: Create hero.tsx**
@@ -241,6 +246,7 @@ git commit -m "feat(docs): add hero section with neon glow effects"
 ### Task 4: Create the Features server component
 
 **Files:**
+
 - Create: `apps/docs/app/_components/features.tsx`
 
 - [ ] **Step 1: Create features.tsx**
@@ -294,9 +300,7 @@ export function Features(): React.ReactElement {
         <h2 className="mb-3 bg-gradient-to-br from-slate-100 to-slate-400 bg-clip-text text-4xl font-bold tracking-tight text-transparent max-md:text-3xl">
           为什么选择 Guoba AI
         </h2>
-        <p className="text-base text-slate-500">
-          精心设计的工具，为现代开发而生
-        </p>
+        <p className="text-base text-slate-500">精心设计的工具，为现代开发而生</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -308,15 +312,13 @@ export function Features(): React.ReactElement {
             {/* Hover glow overlay */}
             <div className="absolute inset-0 rounded-2xl bg-[radial-gradient(ellipse_at_50%_0%,rgba(139,92,246,0.08)_0%,transparent_60%)] opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
 
-            <div className={`relative mb-5 flex size-12 items-center justify-center rounded-xl text-[22px] ${feature.color}`}>
+            <div
+              className={`relative mb-5 flex size-12 items-center justify-center rounded-xl text-[22px] ${feature.color}`}
+            >
               {feature.icon}
             </div>
-            <h3 className="relative mb-2 text-lg font-semibold text-slate-200">
-              {feature.title}
-            </h3>
-            <p className="relative text-sm leading-relaxed text-slate-400">
-              {feature.description}
-            </p>
+            <h3 className="relative mb-2 text-lg font-semibold text-slate-200">{feature.title}</h3>
+            <p className="relative text-sm leading-relaxed text-slate-400">{feature.description}</p>
           </div>
         ))}
       </div>
@@ -342,6 +344,7 @@ git commit -m "feat(docs): add features section with neon-styled cards"
 ### Task 5: Rewrite page.tsx to compose Hero + Features
 
 **Files:**
+
 - Modify: `apps/docs/app/page.tsx`
 
 - [ ] **Step 1: Replace page.tsx contents**
@@ -371,6 +374,7 @@ Expected: Build succeeds with no errors.
 
 Run: `cd /Users/shanyulong/riki/repo/guoba-ai/apps/docs && pnpm dev`
 Open `http://localhost:3000` in the browser and verify:
+
 - Hero section renders with particle animation, glowing orbs, Guoba icon, gradient title, and CTA button
 - Features section renders with 6 cards in a 3-column grid
 - Hover effects work on feature cards
@@ -388,6 +392,7 @@ git commit -m "feat(docs): compose homepage with hero and features sections"
 ### Task 6: Lint check and fix
 
 **Files:**
+
 - Potentially modify: all new files in `apps/docs/app/_components/`
 
 - [ ] **Step 1: Run lint**

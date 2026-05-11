@@ -1,5 +1,6 @@
 import { act, renderHook } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
+
 import { useSyncState } from '../src'
 
 describe('useSyncState', () => {
@@ -9,10 +10,9 @@ describe('useSyncState', () => {
   })
 
   it('should sync state when prop changes', () => {
-    const { result, rerender } = renderHook(
-      ({ prop }) => useSyncState(prop),
-      { initialProps: { prop: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ prop }) => useSyncState(prop), {
+      initialProps: { prop: 'a' },
+    })
     expect(result.current[0]).toBe('a')
     rerender({ prop: 'b' })
     expect(result.current[0]).toBe('b')
@@ -25,10 +25,9 @@ describe('useSyncState', () => {
   })
 
   it('should override local state when prop changes', () => {
-    const { result, rerender } = renderHook(
-      ({ prop }) => useSyncState(prop),
-      { initialProps: { prop: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ prop }) => useSyncState(prop), {
+      initialProps: { prop: 'a' },
+    })
     act(() => result.current[1]('local'))
     expect(result.current[0]).toBe('local')
     rerender({ prop: 'b' })
@@ -36,10 +35,9 @@ describe('useSyncState', () => {
   })
 
   it('should not reset state when prop stays the same', () => {
-    const { result, rerender } = renderHook(
-      ({ prop }) => useSyncState(prop),
-      { initialProps: { prop: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ prop }) => useSyncState(prop), {
+      initialProps: { prop: 'a' },
+    })
     act(() => result.current[1]('local'))
     expect(result.current[0]).toBe('local')
     rerender({ prop: 'a' })
@@ -47,10 +45,9 @@ describe('useSyncState', () => {
   })
 
   it('should work with numbers', () => {
-    const { result, rerender } = renderHook(
-      ({ prop }) => useSyncState(prop),
-      { initialProps: { prop: 1 } },
-    )
+    const { result, rerender } = renderHook(({ prop }) => useSyncState(prop), {
+      initialProps: { prop: 1 },
+    })
     expect(result.current[0]).toBe(1)
     rerender({ prop: 2 })
     expect(result.current[0]).toBe(2)
@@ -62,10 +59,9 @@ describe('useSyncState', () => {
     const obj2 = { id: 1, name: 'Bob' }
     const obj3 = { id: 2, name: 'Charlie' }
 
-    const { result, rerender } = renderHook(
-      ({ prop }) => useSyncState(prop, comparator),
-      { initialProps: { prop: obj1 } },
-    )
+    const { result, rerender } = renderHook(({ prop }) => useSyncState(prop, comparator), {
+      initialProps: { prop: obj1 },
+    })
     expect(result.current[0]).toBe(obj1)
 
     // same id → comparator returns true → state should NOT sync

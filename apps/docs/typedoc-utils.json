@@ -8,11 +8,7 @@
     "../../packages/guoba-utils/src/types.ts"
   ],
   "tsconfig": "../../packages/guoba-utils/tsconfig.json",
-  "plugin": [
-    "typedoc-plugin-markdown",
-    "typedoc-plugin-frontmatter",
-    "./typedoc-frontmatter.mjs"
-  ],
+  "plugin": ["typedoc-plugin-markdown", "typedoc-plugin-frontmatter", "./typedoc-frontmatter.mjs"],
   "out": "content/docs/utils",
   "publicPath": "/docs/utils/",
   "cleanOutputDir": true,
