@@ -84,6 +84,7 @@ function _splitWords(str: string): string[] {
   return str
     .replace(/([a-z])([A-Z])/g, '$1\0$2')
     .replace(/([A-Z]+)([A-Z][a-z])/g, '$1\0$2')
+    // oxlint-disable-next-line no-control-regex -- \0 is an intentional internal delimiter inserted above
     .split(/[\0\-_.\s]+/)
     .filter(Boolean)
 }

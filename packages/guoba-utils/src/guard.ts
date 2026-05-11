@@ -70,7 +70,6 @@ export function isObject(val: unknown): val is Record<string, any> {
  * isFunction({}) // false
  * ```
  */
-// eslint-disable-next-line ts/no-unsafe-function-type
 export function isFunction(val: unknown): val is Function {
   return typeof val === 'function'
 }
