@@ -1,0 +1,21 @@
+AGENT.md
+  s_adb365fa905e28::t_9b13da719bf0ad 43
+apps/docs/AGENT.md
+  s_adb365fa905e28::t_33b2db8d192340 40,42,44-55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "174fc2e57127165ac9579e5b29989800c99693bb",
+  "prompts": {},
+  "sessions": {
+    "s_adb365fa905e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "665b6314-a35f-4b95-b1be-a6a6106e4220",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
