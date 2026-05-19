@@ -37,15 +37,22 @@ All commands run from this directory (`apps/docs/`), or use `pnpm docs:dev` / `p
 
 ## Architecture
 
-### Two-Stage Build Pipeline
+### Build Pipeline
 
-Next.js requires the generated `.mdx` files to exist before it builds. Every `dev` and `build` run executes this pipeline first:
+A single packages table (`lib/packages.ts`) drives the entire docs build. Each row is a `PackageMeta` whose `layout` selects how TypeDoc reads the source and how the postprocess pass reshapes the output:
 
-1. **TypeDoc** — runs two configs sequentially:
-   - `typedoc-utils.json` reads `../../packages/guoba-utils/src/{array,guard,object,string,types}.ts` → `content/docs/utils/`
-   - `typedoc-hooks.json` reads `../../packages/guoba-hook/src/{useToggle,useDebounce,useThrottle,usePrevious,useMount,useUnmount}.ts` → `content/docs/hooks/`
-   Both generate `.mdx` files with frontmatter (via `typedoc-plugin-markdown`, `typedoc-plugin-frontmatter`, and custom `typedoc-frontmatter.mjs`)
-2. **Post-processing** (`typedoc-postprocess.mjs`) — processes both `content/docs/utils/` and `content/docs/hooks/`: flattens `functions/` and `type-aliases/` subdirectories, fixes internal links, generates `meta.json` sidebar entries per module
+- **`topical`** — package is a set of topical modules; one TypeDoc entry point per source file; postprocess flattens per-module subdirs and writes per-module `meta.json`. Today: `@guoba-ai/utils` (array, async, guard, object, string, types).
+- **`flat`** — package is a single surface; one barrel TypeDoc entry point (`src/index.ts`); postprocess flattens top-level subdirs only. Today: `@guoba-ai/hook`.
+
+(See `CONTEXT.md` for the layout vocabulary.)
+
+Every `dev` and `build` runs `scripts/build-docs.ts`, which:
+
+1. Iterates the `packages` table.
+2. For each package, invokes TypeDoc programmatically (`lib/docs-pipeline/typedoc.ts`) with the right entry points, tsconfig, and the inline frontmatter listener that adds `title` to every generated page.
+3. Runs the layout-aware postprocess (`lib/docs-pipeline/postprocess.ts`): removes stale `modules.mdx`/`globals.mdx`, dispatches to the layout strategy (`lib/docs-pipeline/layout.ts`), and fixes internal links.
+
+**Adding a third package**: add one row to `lib/packages.ts` with the right `srcDir`, `tsconfig`, `layout`, and `outSlug`. Add the slug to `content/docs/meta.json`'s `pages` array for sidebar order. Nothing else.
 
 ### App Router Structure
 
