@@ -1,0 +1,19 @@
+.github/workflows/release.yml
+  s_cf231dd6348e1f::t_ba1a0eee4fb7c2 35-37,75-76,78-79
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "b28500ce205fcaa8638a3beba9130a1c27da362a",
+  "prompts": {},
+  "sessions": {
+    "s_cf231dd6348e1f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b207ab21-9dca-4bdc-965d-729481e863b7",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
