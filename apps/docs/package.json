@@ -9,6 +9,7 @@
     "build": "typedoc --options typedoc-utils.json && typedoc --options typedoc-hooks.json && node typedoc-postprocess.mjs && next build",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix --max-warnings 0",
+    "test": "vitest --run",
     "start": "next start"
   },
   "dependencies": {
@@ -30,9 +31,11 @@
     "portless": "^0.13.0",
     "postcss": "^8.5.10",
     "tailwindcss": "^4.2.4",
+    "tsx": "^4.22.3",
     "typedoc": "^0.28.19",
     "typedoc-plugin-frontmatter": "^1.3.1",
     "typedoc-plugin-markdown": "^4.11.0",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.5"
   }
 }
