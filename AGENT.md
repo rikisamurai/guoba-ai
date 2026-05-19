@@ -31,12 +31,12 @@ pnpm docs:build   # runs typedoc + postprocess, then next build
 **Monorepo layout** (pnpm workspaces):
 
 - `packages/guoba-utils/` — the utility library (`@guoba-ai/utils`)
-  - Source modules: `src/{array,guard,object,string,types}.ts`, re-exported via `src/index.ts`
-  - Built with **tsdown** (ESM-only, with .d.mts declarations)
+  - Source modules: `src/{array,async,guard,object,string,types}.ts`, re-exported via `src/index.ts`
+  - Built with **tsdown** (dual ESM + CJS, with .d.mts and .d.cts declarations)
   - Tests live in `test/` (vitest, config in `vitest.config.ts`)
 - `packages/guoba-hook/` — React hook library (`@guoba-ai/hook`)
   - Source modules: `src/{useToggle,useDebounce,useThrottle,usePrevious,useMount,useUnmount}.ts`, re-exported via `src/index.ts`
-  - Built with **tsdown** (ESM-only, with .d.mts declarations)
+  - Built with **tsdown** (dual ESM + CJS, with .d.mts and .d.cts declarations)
   - Tests live in `test/` (vitest, config in `vitest.config.ts`)
 - `apps/docs/` — documentation site
   - **Next.js** + **fumadocs-ui/fumadocs-mdx** for rendering
@@ -48,7 +48,7 @@ pnpm docs:build   # runs typedoc + postprocess, then next build
 
 ## Key Conventions
 
-- ESM-only (`"type": "module"` everywhere), Node >= 24, TypeScript with `verbatimModuleSyntax`
+- Source authored as ESM (`"type": "module"` everywhere), Node >= 24, TypeScript with `verbatimModuleSyntax`. Packages ship dual ESM + CJS via tsdown so legacy resolvers (Metro/React Native, old bundlers) can consume them.
 - ESLint config: `@antfu/eslint-config` in lib mode — no semicolons, single quotes, no trailing commas in most places
 - The docs site is excluded from linting (`docs/**` in eslint ignores)
 - Source uses JSDoc comments with `@example` blocks — these feed into TypeDoc-generated API docs

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code when working with code in this direct
 
 ## Overview
 
-`@guoba-ai/hook` — React Hook 库。Pure ESM，React 18+ peerDependency，全量 TSDoc 注释。
+`@guoba-ai/hook` — React Hook 库。Dual ESM + CJS（兼容 Metro / React Native），React 18+ peerDependency，全量 TSDoc 注释。
 
 ## Commands
 
