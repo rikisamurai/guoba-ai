@@ -1,0 +1,23 @@
+packages/guoba-utils/src/async.ts
+  s_cf231dd6348e1f::t_1f211166fac203 1-13
+packages/guoba-utils/src/index.ts
+  s_cf231dd6348e1f::t_c9995147260cb2 2
+packages/guoba-utils/test/async.test.ts
+  s_cf231dd6348e1f::t_a75494aa915301 1-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "aef05bfefda2179e00009c1b34da97eb5e34e8fd",
+  "prompts": {},
+  "sessions": {
+    "s_cf231dd6348e1f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b207ab21-9dca-4bdc-965d-729481e863b7",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
