@@ -9,7 +9,7 @@ Documentation site for `@guoba-ai/utils` and `@guoba-ai/hook`, built with Next.j
 ## Commands
 
 ```bash
-# Dev server (runs TypeDoc → postprocess → next dev)
+# Dev server (runs scripts/build-docs.ts → next dev)
 pnpm dev
 
 # Production build
