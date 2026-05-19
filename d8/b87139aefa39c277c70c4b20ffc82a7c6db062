@@ -1,0 +1,22 @@
+CONTEXT.md
+  s_adb365fa905e28::t_f8814d4346d716 1-19
+docs/superpowers/plans/2026-05-19-docs-build-pipeline-deepening.md
+  s_adb365fa905e28::t_5cc319a0078e0d 1-521
+  s_adb365fa905e28::t_89899381fde4ac 522-882
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "d8b87139aefa39c277c70c4b20ffc82a7c6db062",
+  "prompts": {},
+  "sessions": {
+    "s_adb365fa905e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "665b6314-a35f-4b95-b1be-a6a6106e4220",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
