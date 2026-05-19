@@ -1,0 +1,23 @@
+apps/docs/lib/docs-pipeline/layout.ts
+  s_adb365fa905e28::t_5e12e2b0cd855f 1
+  s_adb365fa905e28::t_fe31de25690043 2-60
+apps/docs/lib/docs-pipeline/__tests__/layout.test.ts
+  s_adb365fa905e28::t_5e12e2b0cd855f 1
+  s_adb365fa905e28::t_d6f9ea2ffa75e3 2-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "398e9983d087c7a6fe77a5a2a1d88b8c5f12a22e",
+  "prompts": {},
+  "sessions": {
+    "s_adb365fa905e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "665b6314-a35f-4b95-b1be-a6a6106e4220",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
