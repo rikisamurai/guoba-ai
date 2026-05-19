@@ -1,0 +1,21 @@
+apps/docs/lib/docs-pipeline/index.ts
+  s_adb365fa905e28::t_733cc10593c9f0 1-15
+apps/docs/scripts/build-docs.ts
+  s_adb365fa905e28::t_58be9f9456fa0a 1-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "0e1d23630b9b90002e4e3713043e404de038df83",
+  "prompts": {},
+  "sessions": {
+    "s_adb365fa905e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "665b6314-a35f-4b95-b1be-a6a6106e4220",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
