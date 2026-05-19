@@ -44,7 +44,7 @@ A single packages table (`lib/packages.ts`) drives the entire docs build. Each r
 - **`topical`** — package is a set of topical modules; one TypeDoc entry point per source file; postprocess flattens per-module subdirs and writes per-module `meta.json`. Today: `@guoba-ai/utils` (array, async, guard, object, string, types).
 - **`flat`** — package is a single surface; one barrel TypeDoc entry point (`src/index.ts`); postprocess flattens top-level subdirs only. Today: `@guoba-ai/hook`.
 
-(See `CONTEXT.md` for the layout vocabulary.)
+(See the root `CONTEXT.md` for the layout vocabulary.)
 
 Every `dev` and `build` runs `scripts/build-docs.ts`, which:
 
