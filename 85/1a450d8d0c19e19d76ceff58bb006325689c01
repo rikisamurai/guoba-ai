@@ -1,0 +1,23 @@
+apps/docs/lib/docs-pipeline/typedoc.ts
+  s_adb365fa905e28::t_8a76cb0a2a9aca 29,31
+  s_adb365fa905e28::t_532f1d62a5a3ba 1
+  s_adb365fa905e28::t_afc16b32e75684 3-26,28,30,32-42
+  s_adb365fa905e28::t_1d11cca6b83f17 27
+  s_adb365fa905e28::t_df8146f21236b7 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "851a450d8d0c19e19d76ceff58bb006325689c01",
+  "prompts": {},
+  "sessions": {
+    "s_adb365fa905e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "665b6314-a35f-4b95-b1be-a6a6106e4220",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
