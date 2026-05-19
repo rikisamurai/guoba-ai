@@ -1,0 +1,19 @@
+apps/docs/typedoc-utils.json
+  s_0a244aa0e1d63b::t_8061664c61c21d 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "1b012c8df8cbfc0c5da24f0b1db0a3058ad3035d",
+  "prompts": {},
+  "sessions": {
+    "s_0a244aa0e1d63b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f6be664b-7d86-41a3-be4a-4e2731eac252",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
