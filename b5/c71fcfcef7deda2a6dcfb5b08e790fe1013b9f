@@ -1,0 +1,23 @@
+apps/docs/lib/docs-pipeline/postprocess.ts
+  s_adb365fa905e28::t_9502d1b4514e3d 1
+  s_adb365fa905e28::t_1de1e8034ad27e 2-49
+apps/docs/lib/docs-pipeline/__tests__/postprocess.test.ts
+  s_adb365fa905e28::t_88accccb85697d 2-95
+  s_adb365fa905e28::t_9502d1b4514e3d 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "b5c71fcfcef7deda2a6dcfb5b08e790fe1013b9f",
+  "prompts": {},
+  "sessions": {
+    "s_adb365fa905e28": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "665b6314-a35f-4b95-b1be-a6a6106e4220",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
