@@ -1,0 +1,38 @@
+packages/guoba-hook/tsdown.config.ts
+  s_cf231dd6348e1f::t_ec10000db1aacb 5
+packages/guoba-hook/AGENT.md
+  s_cf231dd6348e1f::t_0f51cc4c83797d 7
+AGENT.md
+  s_cf231dd6348e1f::t_eddeec9d9465a4 34-35,39
+  s_cf231dd6348e1f::t_450f4c2c3798f9 51
+packages/guoba-utils/package.json
+  s_cf231dd6348e1f::t_191c53e5ec6a6d 31-38
+  s_cf231dd6348e1f::t_ca00cb0f2ec660 5
+  s_cf231dd6348e1f::t_66335fff8be0c2 42-44
+packages/guoba-utils/tsdown.config.ts
+  s_cf231dd6348e1f::t_348df3bcda4911 5
+packages/guoba-hook/package.json
+  s_cf231dd6348e1f::t_6bbff9a1ef86f6 27-34
+  s_cf231dd6348e1f::t_66335fff8be0c2 38-40
+  s_cf231dd6348e1f::t_e9d03ff1d1beb0 5
+packages/guoba-utils/AGENT.md
+  s_cf231dd6348e1f::t_ce5eccfc0be8c6 7
+.changeset/dual-cjs-esm-build.md
+  s_cf231dd6348e1f::t_d50dd8db31066f 1-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "9ca14723e4dddcc624195db230a1e73e2b94278e",
+  "prompts": {},
+  "sessions": {
+    "s_cf231dd6348e1f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b207ab21-9dca-4bdc-965d-729481e863b7",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
