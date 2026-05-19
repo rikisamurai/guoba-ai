@@ -32,9 +32,9 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write        # changeset 要 commit 版本 bump + 推 tag
-  pull-requests: write   # 自动开 "Version Packages" PR
-  id-token: write        # 关键：换 npm OIDC token，没这个 trusted publishing 失败
+  contents: write # changeset 要 commit 版本 bump + 推 tag
+  pull-requests: write # 自动开 "Version Packages" PR
+  id-token: write # 关键：换 npm OIDC token，没这个 trusted publishing 失败
 
 jobs:
   release:
@@ -72,11 +72,11 @@ jobs:
         uses: changesets/action@v1
         with:
           # 复用 root package.json 已有脚本，避免在这里硬编码命令
-          version: pnpm run version    # 消费 changeset、bump 版本、生成 CHANGELOG
-          publish: pnpm run release    # 跑 build + changeset publish（走 OIDC）
+          version: pnpm run version # 消费 changeset、bump 版本、生成 CHANGELOG
+          publish: pnpm run release # 跑 build + changeset publish（走 OIDC）
           # 合并 version PR 后的 commit message
-          commit: "chore(release): version packages"
-          title: "chore(release): version packages"
+          commit: 'chore(release): version packages'
+          title: 'chore(release): version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # 不需要 NPM_TOKEN，OIDC 取代了 token
