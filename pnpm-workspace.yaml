@@ -1,7 +1,40 @@
-shellEmulator: true
-
-trustPolicy: no-downgrade
-
 packages:
   - packages/*
   - apps/*
+
+# —— 行为设置（pnpm 11 起，非 auth/registry 设置须放这里，不再放 .npmrc）——
+# shell 脚本跨平台模拟（Windows 上也能跑 package.json scripts 里的 shell 语法）
+shellEmulator: true
+# 与迁移前 .npmrc 行为一致（两者均为 pnpm 默认值，显式写出以表意图）
+shamefullyHoist: false
+strictPeerDependencies: false
+
+# —— 供应链安全 ——
+# 不允许把已锁定的依赖降级（既有设置，pnpm 11 仍支持）
+trustPolicy: no-downgrade
+# 发布冷静期：新发布的版本需满 N 分钟才会被安装（pnpm 11 默认 1440=24h）。
+# 本仓有意关闭（0）：这是个人小仓，依赖更新频繁且常需立即拉取刚发布的
+# 工具链版本（如 oxfmt 的平台二进制），24h 冷静期会挡住正常的依赖升级流程。
+minimumReleaseAge: 0
+
+# —— build 脚本白名单 ——
+# pnpm 11 默认 strictDepBuilds=true：带 install/postinstall 脚本但未列入此处的依赖
+# 会让 install 直接报错。这里显式允许本仓真正需要构建的依赖。
+allowBuilds:
+  esbuild: true
+  sharp: true
+
+# —— catalog：集中管理多包共用依赖的版本，避免漂移 ——
+# 按类别命名：'dev' = 构建/测试工具链，'react' = React 运行时及其类型。
+# 各 package.json 用 "catalog:dev" / "catalog:react" 引用，版本统一在此维护。
+catalogMode: prefer
+catalogs:
+  dev:
+    typescript: ^6.0.3
+    tsdown: ^0.22.2
+    vitest: ^4.1.8
+  react:
+    react: ^19.2.7
+    react-dom: ^19.2.7
+    '@types/react': ^19.2.17
+    '@types/react-dom': ^19.2.3
