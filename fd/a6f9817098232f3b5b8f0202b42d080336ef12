@@ -1,0 +1,19 @@
+.npmrc
+  s_1d85a77236af0d::t_f268840c5ff315 1-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "fda6f9817098232f3b5b8f0202b42d080336ef12",
+  "prompts": {},
+  "sessions": {
+    "s_1d85a77236af0d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "03c7f894-3639-4298-8a09-9b1d6e5816bf",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
