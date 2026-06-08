@@ -56,7 +56,7 @@
     "test:watch": "vitest"
   },
   "devDependencies": {
-    "tsdown": "^0.22.2",
-    "typescript": "^6.0.3"
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
   }
 }

@@ -47,7 +47,7 @@ jobs:
 
       # pnpm/action-setup 安装 pnpm CLI
       # 故意不传 version：它会自动读 root package.json 里 "packageManager" 字段
-      # (pnpm@10.8.1)，升级 pnpm 只改 package.json 一处即可
+      # (pnpm@11.5.2)，升级 pnpm 只改 package.json 一处即可
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
 

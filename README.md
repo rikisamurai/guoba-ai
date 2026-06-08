@@ -50,7 +50,7 @@ function Search() {
 
 ## Development
 
-Requires **Node ≥ 24** and **pnpm ≥ 10**.
+Requires **Node ≥ 24** and **pnpm ≥ 11**.
 
 ```bash
 pnpm install      # install deps
