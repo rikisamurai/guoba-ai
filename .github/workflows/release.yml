@@ -1,0 +1,82 @@
+# Release workflow: changesets PR bot + npm trusted publishing (OIDC)
+#
+# How it works:
+#   1. 你在 PR 里跑 `pnpm changeset` 生成一个 .changeset/*.md 文件，描述 bump 类型
+#   2. PR 合并进 main 后，这个 workflow 触发
+#   3. 如果 .changeset/ 下有未消费的 changeset，bot 会自动开一个 "Version Packages" PR
+#      （或者更新已存在的那个），里面包含 package.json bump + CHANGELOG 更新
+#   4. 你 review 没问题就 merge 那个 PR
+#   5. 合并触发 workflow 再次跑，这次没有未消费的 changeset，但 package.json 版本
+#      高于 registry 版本，于是执行 publish → 走 OIDC trusted publishing → 不需要 OTP
+#
+# 前置：需在 npmjs.com 上为每个包配置 "Trusted Publisher"：
+#   - Publisher: GitHub Actions
+#   - Owner: rikisamurai
+#   - Repository: guoba-ai
+#   - Workflow filename: release.yml  ← 必须和这个文件名一致
+#   - Environment: (留空)
+# 配置入口: https://www.npmjs.com/package/<pkg>/access
+
+name: Release
+
+on:
+  push:
+    branches: [main]
+  # 允许手动从 Actions 页面触发，方便手动补一次发布
+  workflow_dispatch:
+
+# 同一时刻只跑一份 release，避免并发推同一版本
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+  # 不要 cancel-in-progress：发布过程被砍可能留下 git tag/registry 不一致
+  cancel-in-progress: false
+
+permissions:
+  contents: write # changeset 要 commit 版本 bump + 推 tag
+  pull-requests: write # 自动开 "Version Packages" PR
+  id-token: write # 关键：换 npm OIDC token，没这个 trusted publishing 失败
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          # changeset 需要完整 history 才能算出哪些包要发
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        # 不传 version，自动读 root package.json 的 packageManager 字段
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+          # registry-url 让 setup-node 写一份带 OIDC 占位的 .npmrc
+          registry-url: https://registry.npmjs.org
+
+      # Node 24 自带的 npm 通常已经 >=11.5.1，但显式升级一下兜底
+      # OIDC trusted publishing 要求 npm CLI >= 11.5.1
+      - name: Upgrade npm for OIDC trusted publishing
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Create Release Pull Request or Publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          # 复用 root package.json 已有脚本，避免在这里硬编码命令
+          version: pnpm run version # 消费 changeset、bump 版本、生成 CHANGELOG
+          publish: pnpm run release # 跑 build + changeset publish（走 OIDC）
+          # 合并 version PR 后的 commit message
+          commit: 'chore(release): version packages'
+          title: 'chore(release): version packages'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # 不需要 NPM_TOKEN，OIDC 取代了 token

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code when working with code in this direct
 
 ## Overview
 
-`@guoba-ai/utils` — 个人 TypeScript 工具函数库。Pure ESM，zero dependencies，全量 TSDoc 注释（供 `apps/docs` 生成 API 文档用）。
+`@guoba-ai/utils` — 个人 TypeScript 工具函数库。Dual ESM + CJS（兼容 Metro / React Native），zero dependencies，全量 TSDoc 注释（供 `apps/docs` 生成 API 文档用）。
 
 ## Commands
 

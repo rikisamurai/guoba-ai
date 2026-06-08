@@ -1,7 +1,7 @@
 {
   "name": "@guoba-ai/hook",
-  "version": "0.0.1",
-  "description": "A collection of React hooks — zero dependencies, ESM-only, TypeScript-first.",
+  "version": "0.0.3",
+  "description": "A collection of React hooks — zero dependencies, ships dual ESM + CJS, TypeScript-first.",
   "keywords": [
     "esm",
     "hooks",
@@ -25,10 +25,19 @@
   ],
   "type": "module",
   "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.mts",
-      "import": "./dist/index.mjs"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./package.json": "./package.json"
   },

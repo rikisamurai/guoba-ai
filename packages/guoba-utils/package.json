@@ -1,7 +1,7 @@
 {
   "name": "@guoba-ai/utils",
-  "version": "0.0.2",
-  "description": "A collection of TypeScript utility functions — zero dependencies, ESM-only.",
+  "version": "0.0.4",
+  "description": "A collection of TypeScript utility functions — zero dependencies, ships dual ESM + CJS.",
   "keywords": [
     "array",
     "esm",
@@ -29,10 +29,19 @@
   ],
   "type": "module",
   "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.mts",
-      "import": "./dist/index.mjs"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./package.json": "./package.json"
   },

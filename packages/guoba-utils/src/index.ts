@@ -17,6 +17,7 @@ export {
   uniq,
   zip,
 } from './array'
+export { sleep } from './async'
 export {
   isBoolean,
   isDef,

@@ -22,6 +22,8 @@
     "no-console": "off",
     "no-underscore-dangle": "off",
     "no-shadow": "off",
+    "no-await-in-loop": "off",
+    "unicorn/no-array-sort": "off",
     "eslint/no-unused-vars": [
       "error",
       {
