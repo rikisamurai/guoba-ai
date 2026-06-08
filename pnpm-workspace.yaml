@@ -13,9 +13,8 @@ strictPeerDependencies: false
 # 不允许把已锁定的依赖降级（既有设置，pnpm 11 仍支持）
 trustPolicy: no-downgrade
 # 发布冷静期：新发布的版本需满 N 分钟才会被安装（pnpm 11 默认 1440=24h）。
-# 暂设为 0（关闭）：本仓最近升级的 oxfmt 0.54.0 等平台二进制发布不足 24h，
-# 开启 1440 会让 pnpm 11 无法重建 lockfile。待这批包过 24h 后，
-# 另开 PR 调回 1440 以获得供应链冷静期保护。
+# 本仓有意关闭（0）：这是个人小仓，依赖更新频繁且常需立即拉取刚发布的
+# 工具链版本（如 oxfmt 的平台二进制），24h 冷静期会挡住正常的依赖升级流程。
 minimumReleaseAge: 0
 
 # —— build 脚本白名单 ——
