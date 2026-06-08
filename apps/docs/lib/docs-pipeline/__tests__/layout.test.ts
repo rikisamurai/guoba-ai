@@ -1,6 +1,7 @@
-import type { PackageMeta } from '../types'
 import { describe, expect, it } from 'vitest'
+
 import { resolveEntryPoints } from '../layout'
+import type { PackageMeta } from '../types'
 
 const utilsPkg: PackageMeta = {
   name: 'utils',
@@ -20,9 +21,7 @@ const hookPkg: PackageMeta = {
 
 describe('resolveEntryPoints', () => {
   it('flat layout returns only the barrel index.ts', () => {
-    expect(resolveEntryPoints(hookPkg)).toEqual([
-      '../../packages/guoba-hook/src/index.ts',
-    ])
+    expect(resolveEntryPoints(hookPkg)).toEqual(['../../packages/guoba-hook/src/index.ts'])
   })
 
   it('topical layout returns every src/*.ts except index.ts, sorted', () => {

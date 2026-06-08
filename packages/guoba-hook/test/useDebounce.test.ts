@@ -1,5 +1,6 @@
 import { act, renderHook } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
 import { useDebounce } from '../src'
 
 describe('useDebounce', () => {
@@ -16,10 +17,9 @@ describe('useDebounce', () => {
   })
 
   it('should debounce value updates', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useDebounce(value, 500),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ value }) => useDebounce(value, 500), {
+      initialProps: { value: 'a' },
+    })
     rerender({ value: 'b' })
     expect(result.current).toBe('a')
     act(() => vi.advanceTimersByTime(500))
@@ -27,10 +27,9 @@ describe('useDebounce', () => {
   })
 
   it('should only keep the last value on rapid updates', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useDebounce(value, 300),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ value }) => useDebounce(value, 300), {
+      initialProps: { value: 'a' },
+    })
     rerender({ value: 'b' })
     act(() => vi.advanceTimersByTime(100))
     rerender({ value: 'c' })
@@ -41,10 +40,9 @@ describe('useDebounce', () => {
   })
 
   it('should use 500ms as the default delay', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useDebounce(value),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ value }) => useDebounce(value), {
+      initialProps: { value: 'a' },
+    })
     rerender({ value: 'b' })
     act(() => vi.advanceTimersByTime(499))
     expect(result.current).toBe('a')
@@ -53,10 +51,9 @@ describe('useDebounce', () => {
   })
 
   it('should cleanup timer on unmount', () => {
-    const { result, rerender, unmount } = renderHook(
-      ({ value }) => useDebounce(value, 500),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender, unmount } = renderHook(({ value }) => useDebounce(value, 500), {
+      initialProps: { value: 'a' },
+    })
     rerender({ value: 'b' })
     unmount()
     act(() => vi.advanceTimersByTime(500))

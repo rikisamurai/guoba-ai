@@ -1,9 +1,11 @@
-import type { PackageMeta } from '../types'
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+
 import { postprocess } from '../postprocess'
+import type { PackageMeta } from '../types'
 
 const flatPkg: PackageMeta = {
   name: 'hook',
@@ -60,10 +62,10 @@ describe('postprocess flat layout', () => {
     expect(existsSync(join(outDir, 'type-aliases'))).toBe(false)
     expect(existsSync(join(outDir, 'useToggle.mdx'))).toBe(true)
     expect(existsSync(join(outDir, 'ToggleSetter.mdx'))).toBe(true)
-    expect(readFileSync(join(outDir, 'useToggle.mdx'), 'utf-8'))
-      .toBe('see [useDebounce](/useDebounce)')
-    expect(readFileSync(join(outDir, 'ToggleSetter.mdx'), 'utf-8'))
-      .toBe('see [Other](/Other)')
+    expect(readFileSync(join(outDir, 'useToggle.mdx'), 'utf-8')).toBe(
+      'see [useDebounce](/useDebounce)',
+    )
+    expect(readFileSync(join(outDir, 'ToggleSetter.mdx'), 'utf-8')).toBe('see [Other](/Other)')
   })
 })
 
@@ -71,10 +73,7 @@ describe('postprocess topical layout', () => {
   it('flattens per-module subdirs, writes capitalized meta.json, fixes links', () => {
     const outDir = 'content/docs/utils'
     mkdirSync(join(outDir, 'array', 'functions'), { recursive: true })
-    writeFileSync(
-      join(outDir, 'array', 'index.mdx'),
-      'see [chunk](/array/functions/chunk.mdx)',
-    )
+    writeFileSync(join(outDir, 'array', 'index.mdx'), 'see [chunk](/array/functions/chunk.mdx)')
     writeFileSync(join(outDir, 'array', 'functions', 'chunk.mdx'), '# chunk')
     writeFileSync(join(outDir, 'modules.mdx'), '')
 
@@ -83,10 +82,12 @@ describe('postprocess topical layout', () => {
     expect(existsSync(join(outDir, 'modules.mdx'))).toBe(false)
     expect(existsSync(join(outDir, 'array', 'functions'))).toBe(false)
     expect(existsSync(join(outDir, 'array', 'chunk.mdx'))).toBe(true)
-    expect(readFileSync(join(outDir, 'array', 'meta.json'), 'utf-8'))
-      .toBe('{\n  "title": "Array"\n}\n')
-    expect(readFileSync(join(outDir, 'array', 'index.mdx'), 'utf-8'))
-      .toBe('see [chunk](/array/chunk)')
+    expect(readFileSync(join(outDir, 'array', 'meta.json'), 'utf-8')).toBe(
+      '{\n  "title": "Array"\n}\n',
+    )
+    expect(readFileSync(join(outDir, 'array', 'index.mdx'), 'utf-8')).toBe(
+      'see [chunk](/array/chunk)',
+    )
   })
 
   it('is a no-op if outDir does not exist', () => {

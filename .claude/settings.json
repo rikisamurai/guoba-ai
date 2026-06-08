@@ -4,11 +4,7 @@
     "pr": ""
   },
   "permissions": {
-    "allow": [
-      "Bash",
-      "WebFetch",
-      "Skill(agent-browser)"
-    ]
+    "allow": ["Bash", "WebFetch", "Skill(agent-browser)"]
   },
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true,

@@ -1,5 +1,6 @@
 import { act, renderHook } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
 import { useThrottle } from '../src'
 
 describe('useThrottle', () => {
@@ -16,10 +17,9 @@ describe('useThrottle', () => {
   })
 
   it('should not update within the throttle interval', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useThrottle(value, 500),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ value }) => useThrottle(value, 500), {
+      initialProps: { value: 'a' },
+    })
     rerender({ value: 'b' })
     expect(result.current).toBe('a')
     act(() => vi.advanceTimersByTime(200))
@@ -27,20 +27,18 @@ describe('useThrottle', () => {
   })
 
   it('should update after the throttle interval', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useThrottle(value, 500),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ value }) => useThrottle(value, 500), {
+      initialProps: { value: 'a' },
+    })
     rerender({ value: 'b' })
     act(() => vi.advanceTimersByTime(500))
     expect(result.current).toBe('b')
   })
 
   it('should update immediately when the first change happens after an idle interval', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useThrottle(value, 500),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ value }) => useThrottle(value, 500), {
+      initialProps: { value: 'a' },
+    })
 
     act(() => vi.advanceTimersByTime(600))
     rerender({ value: 'b' })
@@ -49,10 +47,9 @@ describe('useThrottle', () => {
   })
 
   it('should use 500ms as the default interval', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useThrottle(value),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ value }) => useThrottle(value), {
+      initialProps: { value: 'a' },
+    })
     rerender({ value: 'b' })
     act(() => vi.advanceTimersByTime(499))
     expect(result.current).toBe('a')
@@ -61,10 +58,9 @@ describe('useThrottle', () => {
   })
 
   it('should take the latest value after interval', () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useThrottle(value, 300),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender } = renderHook(({ value }) => useThrottle(value, 300), {
+      initialProps: { value: 'a' },
+    })
     rerender({ value: 'b' })
     act(() => vi.advanceTimersByTime(100))
     rerender({ value: 'c' })
@@ -73,10 +69,9 @@ describe('useThrottle', () => {
   })
 
   it('should cleanup timer on unmount', () => {
-    const { result, rerender, unmount } = renderHook(
-      ({ value }) => useThrottle(value, 500),
-      { initialProps: { value: 'a' } },
-    )
+    const { result, rerender, unmount } = renderHook(({ value }) => useThrottle(value, 500), {
+      initialProps: { value: 'a' },
+    })
 
     rerender({ value: 'b' })
     unmount()

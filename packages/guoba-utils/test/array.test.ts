@@ -1,5 +1,24 @@
 import { describe, expect, it } from 'vitest'
-import { chunk, counting, diff, flattenDeep, fork, group, intersects, last, objectify, remove, select, shuffle, sift, sort, toArray, uniq, zip } from '../src'
+
+import {
+  chunk,
+  counting,
+  diff,
+  flattenDeep,
+  fork,
+  group,
+  intersects,
+  last,
+  objectify,
+  remove,
+  select,
+  shuffle,
+  sift,
+  sort,
+  toArray,
+  uniq,
+  zip,
+} from '../src'
 
 describe('array', () => {
   describe('toArray', () => {
@@ -46,7 +65,10 @@ describe('array', () => {
       expect(chunk([1, 2, 3, 4, 5], 2)).toEqual([[1, 2], [3, 4], [5]])
     })
     it('should handle exact divisions', () => {
-      expect(chunk([1, 2, 3, 4], 2)).toEqual([[1, 2], [3, 4]])
+      expect(chunk([1, 2, 3, 4], 2)).toEqual([
+        [1, 2],
+        [3, 4],
+      ])
     })
     it('should handle empty arrays', () => {
       expect(chunk([], 2)).toEqual([])
@@ -127,14 +149,28 @@ describe('array', () => {
 
   describe('select', () => {
     it('should filter and map in one pass', () => {
-      const result = select([1, 2, 3, 4], v => v * 2, v => v % 2 === 0)
+      const result = select(
+        [1, 2, 3, 4],
+        v => v * 2,
+        v => v % 2 === 0,
+      )
       expect(result).toEqual([4, 8])
     })
     it('should handle empty arrays', () => {
-      expect(select([], v => v, () => true)).toEqual([])
+      expect(
+        select(
+          [],
+          v => v,
+          () => true,
+        ),
+      ).toEqual([])
     })
     it('should pass index to both callbacks', () => {
-      const result = select(['a', 'b', 'c'], (_v, i) => i, (_v, i) => i !== 1)
+      const result = select(
+        ['a', 'b', 'c'],
+        (_v, i) => i,
+        (_v, i) => i !== 1,
+      )
       expect(result).toEqual([0, 2])
     })
   })
@@ -184,7 +220,10 @@ describe('array', () => {
   describe('objectify', () => {
     it('should convert array to object with key and value functions', () => {
       const result = objectify(
-        [{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }],
+        [
+          { id: 1, name: 'Alice' },
+          { id: 2, name: 'Bob' },
+        ],
         v => v.id,
         v => v.name,
       )
@@ -235,10 +274,16 @@ describe('array', () => {
 
   describe('zip', () => {
     it('should combine arrays element-wise', () => {
-      expect(zip([1, 2], ['a', 'b'])).toEqual([[1, 'a'], [2, 'b']])
+      expect(zip([1, 2], ['a', 'b'])).toEqual([
+        [1, 'a'],
+        [2, 'b'],
+      ])
     })
     it('should use shortest array length', () => {
-      expect(zip([1, 2, 3], ['a', 'b'])).toEqual([[1, 'a'], [2, 'b']])
+      expect(zip([1, 2, 3], ['a', 'b'])).toEqual([
+        [1, 'a'],
+        [2, 'b'],
+      ])
     })
     it('should handle empty arrays', () => {
       expect(zip([], [])).toEqual([])

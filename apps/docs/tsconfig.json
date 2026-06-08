@@ -5,16 +5,8 @@
     "paths": {
       "@/*": ["./*"]
     },
-    "plugins": [
-      { "name": "next" }
-    ]
+    "plugins": [{ "name": "next" }]
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".source/**/*.ts",
-    "mdx-components.tsx"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".source/**/*.ts", "mdx-components.tsx"],
   "exclude": ["node_modules", "eslint.config.ts"]
 }

@@ -25,13 +25,11 @@ All changes to this docs app must be visually verified in the browser before rep
 
 1. Start the dev server: `pnpm dev` (from `apps/docs/`) or `pnpm docs:dev` (from monorepo root)
 2. Use the `agent-browser` skill to open `http://localhost:3000` and verify:
-    - The page renders without errors
-    - Changed content displays correctly
-    - Sidebar navigation works and reflects any structural changes
-    - For API doc changes: check that the relevant `/docs/utils/*` and `/docs/hooks/*` pages render properly
+   - The page renders without errors
+   - Changed content displays correctly
+   - Sidebar navigation works and reflects any structural changes
+   - For API doc changes: check that the relevant `/docs/utils/*` and `/docs/hooks/*` pages render properly
 3. If the change affects multiple pages (e.g., layout, styling, sidebar ordering), navigate to each affected page and verify
-
-
 
 All commands run from this directory (`apps/docs/`), or use `pnpm docs:dev` / `pnpm docs:build` from the monorepo root.
 

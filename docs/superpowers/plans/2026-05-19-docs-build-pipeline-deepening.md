@@ -15,6 +15,7 @@
 ## Files
 
 **Create:**
+
 - `apps/docs/lib/packages.ts` — the table (source of truth)
 - `apps/docs/lib/docs-pipeline/types.ts` — `PackageMeta`, `Layout`
 - `apps/docs/lib/docs-pipeline/layout.ts` — `resolveEntryPoints` + `reshapeOutputDirFor` (per-layout strategies)
@@ -27,10 +28,12 @@
 - `apps/docs/vitest.config.ts`
 
 **Modify:**
+
 - `apps/docs/package.json` — add `tsx` + `vitest` devDeps, add `test` script, replace 3× chained typedoc invocations with `tsx scripts/build-docs.ts`
 - `apps/docs/CLAUDE.md` — update architecture section to describe the new pipeline
 
 **Delete (in final task only, after byte-for-byte verification):**
+
 - `apps/docs/typedoc-utils.json`
 - `apps/docs/typedoc-hooks.json`
 - `apps/docs/typedoc-postprocess.mjs`
@@ -43,6 +46,7 @@
 ## Task 1: Vitest + tsx setup in apps/docs
 
 **Files:**
+
 - Modify: `apps/docs/package.json`
 - Create: `apps/docs/vitest.config.ts`
 
@@ -100,6 +104,7 @@ git commit -m "chore(docs): add vitest + tsx for docs build pipeline tests"
 ## Task 2: Types and packages table
 
 **Files:**
+
 - Create: `apps/docs/lib/docs-pipeline/types.ts`
 - Create: `apps/docs/lib/packages.ts`
 
@@ -168,6 +173,7 @@ git commit -m "feat(docs): introduce packages table as source of truth for docs 
 ## Task 3: Layout strategies (TDD)
 
 **Files:**
+
 - Test: `apps/docs/lib/docs-pipeline/__tests__/layout.test.ts`
 - Create: `apps/docs/lib/docs-pipeline/layout.ts`
 
@@ -198,9 +204,7 @@ const hookPkg: PackageMeta = {
 
 describe('resolveEntryPoints', () => {
   it('flat layout returns only the barrel index.ts', () => {
-    expect(resolveEntryPoints(hookPkg)).toEqual([
-      '../../packages/guoba-hook/src/index.ts',
-    ])
+    expect(resolveEntryPoints(hookPkg)).toEqual(['../../packages/guoba-hook/src/index.ts'])
   })
 
   it('topical layout returns every src/*.ts except index.ts, sorted', () => {
@@ -237,8 +241,7 @@ import type { Layout, PackageMeta } from './types'
 const FLATTENABLE_SUBDIRS = ['functions', 'type-aliases'] as const
 
 export function resolveEntryPoints(pkg: PackageMeta): string[] {
-  if (pkg.layout === 'flat')
-    return [`${pkg.srcDir}/index.ts`]
+  if (pkg.layout === 'flat') return [`${pkg.srcDir}/index.ts`]
   return globSync(`${pkg.srcDir}/*.ts`)
     .filter(f => !f.endsWith('/index.ts'))
     .sort()
@@ -250,8 +253,7 @@ interface LayoutStrategy {
 
 const topical: LayoutStrategy = {
   reshapeOutputDir(outDir) {
-    const modules = readdirSync(outDir, { withFileTypes: true })
-      .filter(d => d.isDirectory())
+    const modules = readdirSync(outDir, { withFileTypes: true }).filter(d => d.isDirectory())
     for (const mod of modules) {
       const modDir = join(outDir, mod.name)
       flattenSubdirs(modDir)
@@ -275,10 +277,8 @@ export function reshapeOutputDirFor(pkg: PackageMeta, outDir: string): void {
 function flattenSubdirs(dir: string): void {
   for (const sub of FLATTENABLE_SUBDIRS) {
     const subDir = join(dir, sub)
-    if (!existsSync(subDir))
-      continue
-    for (const file of readdirSync(subDir))
-      renameSync(join(subDir, file), join(dir, file))
+    if (!existsSync(subDir)) continue
+    for (const file of readdirSync(subDir)) renameSync(join(subDir, file), join(dir, file))
     rmSync(subDir, { recursive: true })
   }
 }
@@ -324,6 +324,7 @@ git commit -m "feat(docs): add topical/flat layout strategies for docs pipeline"
 ## Task 4: Postprocess (TDD)
 
 **Files:**
+
 - Test: `apps/docs/lib/docs-pipeline/__tests__/postprocess.test.ts`
 - Create: `apps/docs/lib/docs-pipeline/postprocess.ts`
 
@@ -394,10 +395,10 @@ describe('postprocess flat layout', () => {
     expect(existsSync(join(outDir, 'type-aliases'))).toBe(false)
     expect(existsSync(join(outDir, 'useToggle.mdx'))).toBe(true)
     expect(existsSync(join(outDir, 'ToggleSetter.mdx'))).toBe(true)
-    expect(readFileSync(join(outDir, 'useToggle.mdx'), 'utf-8'))
-      .toBe('see [useDebounce](/useDebounce)')
-    expect(readFileSync(join(outDir, 'ToggleSetter.mdx'), 'utf-8'))
-      .toBe('see [Other](/Other)')
+    expect(readFileSync(join(outDir, 'useToggle.mdx'), 'utf-8')).toBe(
+      'see [useDebounce](/useDebounce)',
+    )
+    expect(readFileSync(join(outDir, 'ToggleSetter.mdx'), 'utf-8')).toBe('see [Other](/Other)')
   })
 })
 
@@ -405,10 +406,7 @@ describe('postprocess topical layout', () => {
   it('flattens per-module subdirs, writes capitalized meta.json, fixes links', () => {
     const outDir = 'content/docs/utils'
     mkdirSync(join(outDir, 'array', 'functions'), { recursive: true })
-    writeFileSync(
-      join(outDir, 'array', 'index.mdx'),
-      'see [chunk](/array/functions/chunk.mdx)',
-    )
+    writeFileSync(join(outDir, 'array', 'index.mdx'), 'see [chunk](/array/functions/chunk.mdx)')
     writeFileSync(join(outDir, 'array', 'functions', 'chunk.mdx'), '# chunk')
     writeFileSync(join(outDir, 'modules.mdx'), '')
 
@@ -417,10 +415,12 @@ describe('postprocess topical layout', () => {
     expect(existsSync(join(outDir, 'modules.mdx'))).toBe(false)
     expect(existsSync(join(outDir, 'array', 'functions'))).toBe(false)
     expect(existsSync(join(outDir, 'array', 'chunk.mdx'))).toBe(true)
-    expect(readFileSync(join(outDir, 'array', 'meta.json'), 'utf-8'))
-      .toBe('{\n  "title": "Array"\n}\n')
-    expect(readFileSync(join(outDir, 'array', 'index.mdx'), 'utf-8'))
-      .toBe('see [chunk](/array/chunk)')
+    expect(readFileSync(join(outDir, 'array', 'meta.json'), 'utf-8')).toBe(
+      '{\n  "title": "Array"\n}\n',
+    )
+    expect(readFileSync(join(outDir, 'array', 'index.mdx'), 'utf-8')).toBe(
+      'see [chunk](/array/chunk)',
+    )
   })
 
   it('is a no-op if outDir does not exist', () => {
@@ -453,8 +453,7 @@ const STALE_TOP_LEVEL_FILES = ['modules.mdx', 'globals.mdx'] as const
 
 export function postprocess(pkg: PackageMeta): void {
   const outDir = `content/docs/${pkg.outSlug}`
-  if (!existsSync(outDir))
-    return
+  if (!existsSync(outDir)) return
 
   removeStaleFiles(outDir)
   reshapeOutputDirFor(pkg, outDir)
@@ -464,8 +463,7 @@ export function postprocess(pkg: PackageMeta): void {
 function removeStaleFiles(dir: string): void {
   for (const stale of STALE_TOP_LEVEL_FILES) {
     const path = join(dir, stale)
-    if (existsSync(path))
-      rmSync(path)
+    if (existsSync(path)) rmSync(path)
   }
 }
 
@@ -477,8 +475,7 @@ function fixLinksRecursively(dir: string): void {
       .replace(/\/type-aliases\//g, '/')
       .replace(/\.mdx\)/g, ')')
       .replace(/\/index\)/g, ')')
-    if (updated !== content)
-      writeFileSync(file, updated)
+    if (updated !== content) writeFileSync(file, updated)
   }
 }
 
@@ -486,10 +483,8 @@ function collectMdxFiles(dir: string): string[] {
   const out: string[] = []
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     const full = join(dir, entry.name)
-    if (entry.isDirectory())
-      out.push(...collectMdxFiles(full))
-    else if (entry.name.endsWith('.mdx'))
-      out.push(full)
+    if (entry.isDirectory()) out.push(...collectMdxFiles(full))
+    else if (entry.name.endsWith('.mdx')) out.push(full)
   }
   return out
 }
@@ -523,6 +518,7 @@ git commit -m "feat(docs): add layout-dispatching postprocess for docs pipeline"
 ## Task 5: Programmatic TypeDoc invocation
 
 **Files:**
+
 - Create: `apps/docs/lib/docs-pipeline/typedoc.ts`
 
 No unit test — TypeDoc invocation is exercised end-to-end in Task 7's byte-for-byte diff against the existing pipeline output.
@@ -554,14 +550,15 @@ export async function runTypedoc(pkg: PackageMeta): Promise<void> {
       useCodeBlocks: true,
       sanitizeComments: true,
       gitRevision: 'main',
-      sourceLinkTemplate: 'https://github.com/rikisamurai/guoba-ai/blob/{gitRevision}/{path}#L{line}',
+      sourceLinkTemplate:
+        'https://github.com/rikisamurai/guoba-ai/blob/{gitRevision}/{path}#L{line}',
       excludeScopesInPaths: true,
       frontmatterGlobals: { layout: 'docs' },
     } as Parameters<typeof Application.bootstrapWithPlugins>[0],
     [new TSConfigReader()],
   )
 
-  app.renderer.on(MarkdownPageEvent.BEGIN, (page) => {
+  app.renderer.on(MarkdownPageEvent.BEGIN, page => {
     page.frontmatter = {
       ...page.frontmatter,
       title: page.model?.name ?? 'API Reference',
@@ -569,8 +566,7 @@ export async function runTypedoc(pkg: PackageMeta): Promise<void> {
   })
 
   const project = await app.convert()
-  if (!project)
-    throw new Error(`TypeDoc failed to convert package "${pkg.name}"`)
+  if (!project) throw new Error(`TypeDoc failed to convert package "${pkg.name}"`)
   await app.generateOutputs(project)
 }
 ```
@@ -607,6 +603,7 @@ git commit -m "feat(docs): add programmatic TypeDoc invocation with inline front
 ## Task 6: Public surface + build script
 
 **Files:**
+
 - Create: `apps/docs/lib/docs-pipeline/index.ts`
 - Create: `apps/docs/scripts/build-docs.ts`
 
@@ -627,8 +624,7 @@ export async function buildPackageDocs(pkg: PackageMeta): Promise<void> {
 }
 
 export async function buildAllDocs(pkgs: PackageMeta[]): Promise<void> {
-  for (const pkg of pkgs)
-    await buildPackageDocs(pkg)
+  for (const pkg of pkgs) await buildPackageDocs(pkg)
 }
 ```
 
@@ -669,6 +665,7 @@ git commit -m "feat(docs): add docs-pipeline public surface and build-docs entry
 This is the cutover. Verification first; deletion only after diff is clean.
 
 **Files:**
+
 - Modify: `apps/docs/package.json`
 - Delete: `apps/docs/typedoc-utils.json`
 - Delete: `apps/docs/typedoc-hooks.json`
@@ -777,6 +774,7 @@ byte-for-byte identical."
 ## Task 8: Update CLAUDE.md
 
 **Files:**
+
 - Modify: `apps/docs/CLAUDE.md`
 
 - [ ] **Step 1: Replace the architecture section**
@@ -849,6 +847,7 @@ This task is verification only. If anything looks wrong, that's a bug in an earl
 ## Self-Review
 
 **Spec coverage:**
+
 - ✅ Central `packages` table → Task 2 (`lib/packages.ts`)
 - ✅ `topical` / `flat` named in `CONTEXT.md` → already written before this plan
 - ✅ Programmatic TypeDoc → Task 5 (`typedoc.ts`)
@@ -862,6 +861,7 @@ This task is verification only. If anything looks wrong, that's a bug in an earl
 **Placeholder scan:** none. Every code block and command is concrete.
 
 **Type consistency:**
+
 - `PackageMeta` defined in Task 2 with `{ name, srcDir, tsconfig, layout, outSlug }` — every later task uses these fields and no others.
 - `Layout = 'topical' | 'flat'` — only these two literals appear in `strategies` (Task 3) and as the discriminant in `resolveEntryPoints` (Task 3) and `reshapeOutputDirFor` (Task 3).
 - `resolveEntryPoints` signature `(pkg: PackageMeta) => string[]` — matches Task 5's usage in `typedoc.ts`.

@@ -162,14 +162,14 @@ function useUnmount(fn: () => void): void
 
 **测试覆盖：**
 
-| Hook | 关键测试点 |
-|------|-----------|
-| useToggle | 初始值（默认 false）、toggle 切换、传入指定值 |
+| Hook        | 关键测试点                                           |
+| ----------- | ---------------------------------------------------- |
+| useToggle   | 初始值（默认 false）、toggle 切换、传入指定值        |
 | useDebounce | 延迟更新、快速连续更新只保留最后一个、卸载清理 timer |
-| useThrottle | 节流间隔内不更新、间隔结束后更新 |
-| usePrevious | 初始 undefined、值变化后返回前一个值 |
-| useMount | 挂载时调用一次、重渲染不重复调用 |
-| useUnmount | 卸载时调用、回调引用保持最新（闭包安全） |
+| useThrottle | 节流间隔内不更新、间隔结束后更新                     |
+| usePrevious | 初始 undefined、值变化后返回前一个值                 |
+| useMount    | 挂载时调用一次、重渲染不重复调用                     |
+| useUnmount  | 卸载时调用、回调引用保持最新（闭包安全）             |
 
 **时间相关测试：** useDebounce 和 useThrottle 使用 `vi.useFakeTimers()` 控制时间。
 

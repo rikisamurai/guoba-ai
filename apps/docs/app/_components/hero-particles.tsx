@@ -17,12 +17,10 @@ export function HeroParticles(): React.ReactElement {
 
   useEffect(() => {
     const canvas = canvasRef.current
-    if (!canvas)
-      return
+    if (!canvas) return
 
     const ctx = canvas.getContext('2d')
-    if (!ctx)
-      return
+    if (!ctx) return
 
     let animationId: number
 
@@ -30,8 +28,7 @@ export function HeroParticles(): React.ReactElement {
     const count = isMobile ? 30 : 60
 
     function resize(): void {
-      if (!canvas)
-        return
+      if (!canvas) return
       canvas.width = canvas.offsetWidth * devicePixelRatio
       canvas.height = canvas.offsetHeight * devicePixelRatio
       ctx!.scale(devicePixelRatio, devicePixelRatio)
@@ -50,8 +47,7 @@ export function HeroParticles(): React.ReactElement {
     }))
 
     function draw(): void {
-      if (!canvas || !ctx)
-        return
+      if (!canvas || !ctx) return
       const w = canvas.offsetWidth
       const h = canvas.offsetHeight
 
@@ -83,10 +79,8 @@ export function HeroParticles(): React.ReactElement {
         p.x += p.vx
         p.y += p.vy
 
-        if (p.x < 0 || p.x > w)
-          p.vx *= -1
-        if (p.y < 0 || p.y > h)
-          p.vy *= -1
+        if (p.x < 0 || p.x > w) p.vx *= -1
+        if (p.y < 0 || p.y > h) p.vy *= -1
       }
 
       animationId = requestAnimationFrame(draw)
@@ -99,10 +93,5 @@ export function HeroParticles(): React.ReactElement {
     }
   }, [])
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 size-full"
-    />
-  )
+  return <canvas ref={canvasRef} className="absolute inset-0 size-full" />
 }

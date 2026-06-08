@@ -1,12 +1,12 @@
-import type { Layout, PackageMeta } from './types'
 import { existsSync, globSync, readdirSync, renameSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
+
+import type { Layout, PackageMeta } from './types'
 
 const FLATTENABLE_SUBDIRS = ['functions', 'type-aliases'] as const
 
 export function resolveEntryPoints(pkg: PackageMeta): string[] {
-  if (pkg.layout === 'flat')
-    return [`${pkg.srcDir}/index.ts`]
+  if (pkg.layout === 'flat') return [`${pkg.srcDir}/index.ts`]
   return globSync(`${pkg.srcDir}/*.ts`)
     .filter(f => !f.endsWith('/index.ts'))
     .sort()
@@ -18,8 +18,7 @@ interface LayoutStrategy {
 
 const topical: LayoutStrategy = {
   reshapeOutputDir(outDir) {
-    const modules = readdirSync(outDir, { withFileTypes: true })
-      .filter(d => d.isDirectory())
+    const modules = readdirSync(outDir, { withFileTypes: true }).filter(d => d.isDirectory())
     for (const mod of modules) {
       const modDir = join(outDir, mod.name)
       flattenSubdirs(modDir)
@@ -43,10 +42,8 @@ export function reshapeOutputDirFor(pkg: PackageMeta, outDir: string): void {
 function flattenSubdirs(dir: string): void {
   for (const sub of FLATTENABLE_SUBDIRS) {
     const subDir = join(dir, sub)
-    if (!existsSync(subDir))
-      continue
-    for (const file of readdirSync(subDir))
-      renameSync(join(subDir, file), join(dir, file))
+    if (!existsSync(subDir)) continue
+    for (const file of readdirSync(subDir)) renameSync(join(subDir, file), join(dir, file))
     rmSync(subDir, { recursive: true })
   }
 }

@@ -9,10 +9,10 @@ A personal TypeScript toolkit monorepo: utility functions and React hooks, fully
 
 ## Packages
 
-| Package | Version | Description |
-| --- | --- | --- |
+| Package                                     | Version                                                                                                   | Description                                                                     |
+| ------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | [`@guoba-ai/utils`](./packages/guoba-utils) | [![npm](https://img.shields.io/npm/v/@guoba-ai/utils.svg)](https://www.npmjs.com/package/@guoba-ai/utils) | Pure TypeScript utilities (array / object / string / guard) — zero dependencies |
-| [`@guoba-ai/hook`](./packages/guoba-hook)   | [![npm](https://img.shields.io/npm/v/@guoba-ai/hook.svg)](https://www.npmjs.com/package/@guoba-ai/hook)   | React hooks collection — React 18+ peer dependency |
+| [`@guoba-ai/hook`](./packages/guoba-hook)   | [![npm](https://img.shields.io/npm/v/@guoba-ai/hook.svg)](https://www.npmjs.com/package/@guoba-ai/hook)   | React hooks collection — React 18+ peer dependency                              |
 
 ## Quick Start
 
