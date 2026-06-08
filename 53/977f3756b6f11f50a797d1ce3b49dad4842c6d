@@ -1,0 +1,29 @@
+packages/guoba-utils/package.json
+  s_7168132a7f4f04::t_beff12f8ab19ae 59-60
+apps/docs/package.json
+  s_7168132a7f4f04::t_44fe1f8b8387c8 36-37
+  s_7168132a7f4f04::t_dd01fab97539d6 19-20
+  s_7168132a7f4f04::t_cf8d96036810c4 27-28
+pnpm-workspace.yaml
+  s_7168132a7f4f04::t_23001a86c11b3a 29-30,32-41
+package.json
+  s_7168132a7f4f04::t_cbd8eff1023f6c 23
+packages/guoba-hook/package.json
+  s_7168132a7f4f04::t_4d15b820fca46d 56-57,59-62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "53977f3756b6f11f50a797d1ce3b49dad4842c6d",
+  "prompts": {},
+  "sessions": {
+    "s_7168132a7f4f04": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e2f6cdee-7c32-4dcb-85ec-f5e1061bde90",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
