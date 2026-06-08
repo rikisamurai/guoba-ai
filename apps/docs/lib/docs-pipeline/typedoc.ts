@@ -1,12 +1,12 @@
 import { Application, TSConfigReader } from 'typedoc'
-import type { MarkdownApplication } from 'typedoc-plugin-markdown'
+import type { MarkdownRenderer } from 'typedoc-plugin-markdown'
 import { MarkdownPageEvent } from 'typedoc-plugin-markdown'
 
 import { resolveEntryPoints } from './layout'
 import type { PackageMeta } from './types'
 
 export async function runTypedoc(pkg: PackageMeta): Promise<void> {
-  const app = (await Application.bootstrapWithPlugins(
+  const app = await Application.bootstrapWithPlugins(
     {
       entryPoints: resolveEntryPoints(pkg),
       tsconfig: pkg.tsconfig,
@@ -28,9 +28,12 @@ export async function runTypedoc(pkg: PackageMeta): Promise<void> {
       frontmatterGlobals: { layout: 'docs' },
     } as Parameters<typeof Application.bootstrapWithPlugins>[0],
     [new TSConfigReader()],
-  )) as MarkdownApplication
+  )
 
-  app.renderer.on(MarkdownPageEvent.BEGIN, page => {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- typedoc-plugin-markdown replaces TypeDoc's renderer during bootstrap
+  const renderer = app.renderer as MarkdownRenderer
+
+  renderer.on(MarkdownPageEvent.BEGIN, page => {
     page.frontmatter = {
       ...page.frontmatter,
       title: page.model?.name ?? 'API Reference',

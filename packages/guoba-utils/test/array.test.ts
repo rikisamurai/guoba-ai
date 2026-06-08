@@ -20,6 +20,8 @@ import {
   zip,
 } from '../src'
 
+const compareNumbers = (a: number, b: number): number => a - b
+
 describe('array', () => {
   describe('toArray', () => {
     it('should wrap non-array values', () => {
@@ -83,7 +85,7 @@ describe('array', () => {
       const arr = [1, 2, 3, 4, 5]
       const result = shuffle(arr)
       expect(result).not.toBe(arr)
-      expect(result.sort()).toEqual(arr.sort())
+      expect(result.sort(compareNumbers)).toEqual(arr.sort(compareNumbers))
     })
     it('should handle empty arrays', () => {
       expect(shuffle([])).toEqual([])

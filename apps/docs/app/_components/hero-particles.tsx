@@ -17,10 +17,10 @@ export function HeroParticles(): React.ReactElement {
 
   useEffect(() => {
     const canvas = canvasRef.current
-    if (!canvas) return
+    if (!canvas) return undefined
 
     const ctx = canvas.getContext('2d')
-    if (!ctx) return
+    if (!ctx) return undefined
 
     let animationId: number
 

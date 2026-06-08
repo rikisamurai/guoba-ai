@@ -145,7 +145,7 @@ export function deepMerge<T extends object>(target: T, ...sources: DeepPartial<T
 
   for (const source of sources) {
     for (const key of Object.keys(source) as (keyof T)[]) {
-      const sourceVal = source[key as keyof typeof source]
+      const sourceVal = source[key]
       const targetVal = result[key]
 
       if (isObject(sourceVal) && isObject(targetVal)) {
@@ -169,9 +169,7 @@ export function deepMerge<T extends object>(target: T, ...sources: DeepPartial<T
  * invert({ a: '1', b: '2' }) // { '1': 'a', '2': 'b' }
  * ```
  */
-export function invert<T extends Record<string, string | number | symbol>>(
-  obj: T,
-): Record<string, string> {
+export function invert(obj: Record<string, string | number | symbol>): Record<string, string> {
   const result: Record<string, string> = {}
   for (const key of Object.keys(obj)) result[String(obj[key])] = key
   return result
@@ -338,7 +336,7 @@ export function set<T extends object>(obj: T, path: string, value: unknown): T {
  * // { 'a.b': 1, 'a.c.d': 2 }
  * ```
  */
-export function crush<T extends object>(obj: T): Record<string, unknown> {
+export function crush(obj: object): Record<string, unknown> {
   const result: Record<string, unknown> = {}
 
   function flatten(current: unknown, prefix: string): void {
@@ -367,6 +365,7 @@ export function crush<T extends object>(obj: T): Record<string, unknown> {
  * // { a: { b: 1, c: { d: 2 } } }
  * ```
  */
+// oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- callers use T to describe the expected nested object shape
 export function construct<T extends object>(obj: Record<string, unknown>): T {
   const result = {} as Record<string, unknown>
   for (const key of Object.keys(obj)) set(result, key, obj[key])

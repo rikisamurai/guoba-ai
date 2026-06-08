@@ -22,7 +22,7 @@ describe('useDebounce', () => {
     })
     rerender({ value: 'b' })
     expect(result.current).toBe('a')
-    act(() => vi.advanceTimersByTime(500))
+    void act(() => vi.advanceTimersByTime(500))
     expect(result.current).toBe('b')
   })
 
@@ -31,11 +31,11 @@ describe('useDebounce', () => {
       initialProps: { value: 'a' },
     })
     rerender({ value: 'b' })
-    act(() => vi.advanceTimersByTime(100))
+    void act(() => vi.advanceTimersByTime(100))
     rerender({ value: 'c' })
-    act(() => vi.advanceTimersByTime(100))
+    void act(() => vi.advanceTimersByTime(100))
     rerender({ value: 'd' })
-    act(() => vi.advanceTimersByTime(300))
+    void act(() => vi.advanceTimersByTime(300))
     expect(result.current).toBe('d')
   })
 
@@ -44,9 +44,9 @@ describe('useDebounce', () => {
       initialProps: { value: 'a' },
     })
     rerender({ value: 'b' })
-    act(() => vi.advanceTimersByTime(499))
+    void act(() => vi.advanceTimersByTime(499))
     expect(result.current).toBe('a')
-    act(() => vi.advanceTimersByTime(1))
+    void act(() => vi.advanceTimersByTime(1))
     expect(result.current).toBe('b')
   })
 
@@ -56,7 +56,7 @@ describe('useDebounce', () => {
     })
     rerender({ value: 'b' })
     unmount()
-    act(() => vi.advanceTimersByTime(500))
+    void act(() => vi.advanceTimersByTime(500))
     expect(result.current).toBe('a')
   })
 })

@@ -42,7 +42,7 @@ export function uniq<T>(array: T[]): T[] {
 export function flattenDeep<T>(array: NestedArray<T>): T[] {
   const result: T[] = []
   for (const item of array) {
-    if (Array.isArray(item)) result.push(...flattenDeep(item as NestedArray<T>))
+    if (Array.isArray(item)) result.push(...flattenDeep(item))
     else result.push(item)
   }
   return result
@@ -141,8 +141,8 @@ export function group<T>(
   const result: Partial<Record<string | number | symbol, T[]>> = {}
   for (const item of array) {
     const key = fn(item)
-    if (!result[key]) result[key] = []
-    result[key]!.push(item)
+    const values = (result[key] ??= [])
+    values.push(item)
   }
   return result
 }
@@ -281,9 +281,9 @@ export function objectify<T, K extends string | number | symbol, V>(
   keyFn: (item: T) => K,
   valueFn?: (item: T) => V,
 ): Record<K, T | V> {
-  const result = {} as Record<K, T | V>
+  const result: Partial<Record<K, T | V>> = {}
   for (const item of array) result[keyFn(item)] = valueFn ? valueFn(item) : item
-  return result
+  return result as Record<K, T | V>
 }
 
 /**

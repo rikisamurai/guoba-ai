@@ -5,8 +5,9 @@
   "scripts": {
     "build": "pnpm -r run build",
     "dev": "pnpm -r run dev",
-    "lint": "oxlint --max-warnings 0 --report-unused-disable-directives",
-    "lint:fix": "oxlint --fix --max-warnings 0",
+    "lint": "oxlint",
+    "lint:ci": "oxlint --format=github",
+    "lint:fix": "oxlint --fix",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "test": "pnpm -r run test",
@@ -20,6 +21,7 @@
     "@changesets/cli": "^2.31.0",
     "oxfmt": "^0.54.0",
     "oxlint": "^1.63.0",
+    "oxlint-tsgolint": "catalog:dev",
     "vitest": "catalog:dev"
   },
   "engines": {
