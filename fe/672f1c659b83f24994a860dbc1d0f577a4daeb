@@ -1,0 +1,45 @@
+package.json
+  s_7168132a7f4f04::t_69f1db416d8f96 21
+  s_7168132a7f4f04::t_119c381c011699 23
+packages/guoba-utils/package.json
+  s_7168132a7f4f04::t_acb1fbc6b3720f 59
+  s_7168132a7f4f04::t_dd31266a981f75 60
+apps/docs/package.json
+  s_7168132a7f4f04::t_6da7f66d4570a4 17
+  s_7168132a7f4f04::t_64213ff864cd8a 27
+  s_7168132a7f4f04::t_d97fd51fb70460 29
+  s_7168132a7f4f04::t_eb706949c21a28 25
+  s_7168132a7f4f04::t_0f4b5ed00d69dd 21
+  s_7168132a7f4f04::t_0f2335289f3437 15
+  s_7168132a7f4f04::t_e2e35555f1610c 18
+  s_7168132a7f4f04::t_41bbe688588ca4 30
+  s_7168132a7f4f04::t_a9f4eb7d07888f 24
+  s_7168132a7f4f04::t_3e279055cc9ae5 26
+  s_7168132a7f4f04::t_dd31266a981f75 36
+  s_7168132a7f4f04::t_0375c19f50b886 19-20
+  s_7168132a7f4f04::t_b2813880b2ce8d 35
+  s_7168132a7f4f04::t_119c381c011699 37
+  s_7168132a7f4f04::t_cbea6567641043 32
+  s_7168132a7f4f04::t_5e1d8468a438be 31
+packages/guoba-hook/package.json
+  s_7168132a7f4f04::t_060161403dd437 61
+  s_7168132a7f4f04::t_0375c19f50b886 59-60
+  s_7168132a7f4f04::t_64213ff864cd8a 56
+  s_7168132a7f4f04::t_dd31266a981f75 62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "fe672f1c659b83f24994a860dbc1d0f577a4daeb",
+  "prompts": {},
+  "sessions": {
+    "s_7168132a7f4f04": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e2f6cdee-7c32-4dcb-85ec-f5e1061bde90",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
