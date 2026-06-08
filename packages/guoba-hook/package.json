@@ -53,13 +53,13 @@
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.0",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
+    "@types/react": "catalog:react",
+    "@types/react-dom": "catalog:react",
     "jsdom": "^29.1.1",
-    "react": "catalog:",
-    "react-dom": "catalog:",
-    "tsdown": "catalog:",
-    "typescript": "catalog:"
+    "react": "catalog:react",
+    "react-dom": "catalog:react",
+    "tsdown": "catalog:dev",
+    "typescript": "catalog:dev"
   },
   "peerDependencies": {
     "react": ">=18"

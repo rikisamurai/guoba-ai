@@ -5,7 +5,17 @@ settings:
   excludeLinksFromLockfile: false
 
 catalogs:
-  default:
+  dev:
+    tsdown:
+      specifier: ^0.22.2
+      version: 0.22.2
+    typescript:
+      specifier: ^6.0.3
+      version: 6.0.3
+    vitest:
+      specifier: ^4.1.8
+      version: 4.1.8
+  react:
     '@types/react':
       specifier: ^19.2.17
       version: 19.2.17
@@ -18,15 +28,6 @@ catalogs:
     react-dom:
       specifier: ^19.2.7
       version: 19.2.7
-    tsdown:
-      specifier: ^0.22.2
-      version: 0.22.2
-    typescript:
-      specifier: ^6.0.3
-      version: 6.0.3
-    vitest:
-      specifier: ^4.1.8
-      version: 4.1.8
 
 importers:
 
@@ -42,7 +43,7 @@ importers:
         specifier: ^1.63.0
         version: 1.69.0
       vitest:
-        specifier: 'catalog:'
+        specifier: catalog:dev
         version: 4.1.8(@types/node@25.9.2)(jsdom@29.1.1)(vite@8.0.8(@types/node@25.9.2)(esbuild@0.28.0)(jiti@2.6.1)(tsx@4.22.4)(yaml@2.8.3))
 
   apps/docs:
@@ -63,10 +64,10 @@ importers:
         specifier: ^16.2.7
         version: 16.2.7(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react:
-        specifier: 'catalog:'
+        specifier: catalog:react
         version: 19.2.7
       react-dom:
-        specifier: 'catalog:'
+        specifier: catalog:react
         version: 19.2.7(react@19.2.7)
       zod:
         specifier: ^4.4.3
@@ -82,10 +83,10 @@ importers:
         specifier: 25.9.2
         version: 25.9.2
       '@types/react':
-        specifier: 'catalog:'
+        specifier: catalog:react
         version: 19.2.17
       '@types/react-dom':
-        specifier: 'catalog:'
+        specifier: catalog:react
         version: 19.2.3(@types/react@19.2.17)
       portless:
         specifier: ^0.14.0
@@ -109,10 +110,10 @@ importers:
         specifier: ^4.12.0
         version: 4.12.0(typedoc@0.28.19(typescript@6.0.3))
       typescript:
-        specifier: 'catalog:'
+        specifier: catalog:dev
         version: 6.0.3
       vitest:
-        specifier: 'catalog:'
+        specifier: catalog:dev
         version: 4.1.8(@types/node@25.9.2)(jsdom@29.1.1)(vite@8.0.8(@types/node@25.9.2)(esbuild@0.28.0)(jiti@2.6.1)(tsx@4.22.4)(yaml@2.8.3))
 
   packages/guoba-hook:
@@ -121,34 +122,34 @@ importers:
         specifier: ^16.3.0
         version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@types/react':
-        specifier: 'catalog:'
+        specifier: catalog:react
         version: 19.2.17
       '@types/react-dom':
-        specifier: 'catalog:'
+        specifier: catalog:react
         version: 19.2.3(@types/react@19.2.17)
       jsdom:
         specifier: ^29.1.1
         version: 29.1.1
       react:
-        specifier: 'catalog:'
+        specifier: catalog:react
         version: 19.2.7
       react-dom:
-        specifier: 'catalog:'
+        specifier: catalog:react
         version: 19.2.7(react@19.2.7)
       tsdown:
-        specifier: 'catalog:'
+        specifier: catalog:dev
         version: 0.22.2(tsx@4.22.4)(typescript@6.0.3)(unrun@0.2.36(synckit@0.11.12))
       typescript:
-        specifier: 'catalog:'
+        specifier: catalog:dev
         version: 6.0.3
 
   packages/guoba-utils:
     devDependencies:
       tsdown:
-        specifier: 'catalog:'
+        specifier: catalog:dev
         version: 0.22.2(tsx@4.22.4)(typescript@6.0.3)(unrun@0.2.36(synckit@0.11.12))
       typescript:
-        specifier: 'catalog:'
+        specifier: catalog:dev
         version: 6.0.3
 
 packages:

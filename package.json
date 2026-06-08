@@ -20,7 +20,7 @@
     "@changesets/cli": "^2.31.0",
     "oxfmt": "^0.54.0",
     "oxlint": "^1.63.0",
-    "vitest": "catalog:"
+    "vitest": "catalog:dev"
   },
   "engines": {
     "node": ">=24"
