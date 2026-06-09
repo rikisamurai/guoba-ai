@@ -25,9 +25,6 @@
   ],
   "rules": {
     "no-console": ["error", { "allow": ["warn", "error", "info"] }],
-    "no-shadow": "off",
-    "no-await-in-loop": "off",
-    "unicorn/no-array-sort": "off",
     "eslint/no-unused-vars": [
       "error",
       {

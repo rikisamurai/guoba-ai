@@ -10,5 +10,8 @@ export async function buildPackageDocs(pkg: PackageMeta): Promise<void> {
 }
 
 export async function buildAllDocs(pkgs: PackageMeta[]): Promise<void> {
-  for (const pkg of pkgs) await buildPackageDocs(pkg)
+  // Packages build in parallel: each runs an isolated TypeDoc program with its
+  // own tsconfig and output dir, so there's no shared state to contend over.
+  // Verified byte-identical to a sequential build, and faster on average.
+  await Promise.all(pkgs.map(pkg => buildPackageDocs(pkg)))
 }

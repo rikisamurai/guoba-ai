@@ -164,8 +164,8 @@ export function group<T>(
 export function sort<T>(array: T[], fn: (item: T) => number, desc?: boolean): T[] {
   const result = [...array]
   result.sort((a, b) => {
-    const diff = fn(a) - fn(b)
-    return desc ? -diff : diff
+    const delta = fn(a) - fn(b)
+    return desc ? -delta : delta
   })
   return result
 }
