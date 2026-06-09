@@ -22,7 +22,7 @@ describe('useThrottle', () => {
     })
     rerender({ value: 'b' })
     expect(result.current).toBe('a')
-    act(() => vi.advanceTimersByTime(200))
+    void act(() => vi.advanceTimersByTime(200))
     expect(result.current).toBe('a')
   })
 
@@ -31,7 +31,7 @@ describe('useThrottle', () => {
       initialProps: { value: 'a' },
     })
     rerender({ value: 'b' })
-    act(() => vi.advanceTimersByTime(500))
+    void act(() => vi.advanceTimersByTime(500))
     expect(result.current).toBe('b')
   })
 
@@ -40,7 +40,7 @@ describe('useThrottle', () => {
       initialProps: { value: 'a' },
     })
 
-    act(() => vi.advanceTimersByTime(600))
+    void act(() => vi.advanceTimersByTime(600))
     rerender({ value: 'b' })
 
     expect(result.current).toBe('b')
@@ -51,9 +51,9 @@ describe('useThrottle', () => {
       initialProps: { value: 'a' },
     })
     rerender({ value: 'b' })
-    act(() => vi.advanceTimersByTime(499))
+    void act(() => vi.advanceTimersByTime(499))
     expect(result.current).toBe('a')
-    act(() => vi.advanceTimersByTime(1))
+    void act(() => vi.advanceTimersByTime(1))
     expect(result.current).toBe('b')
   })
 
@@ -62,9 +62,9 @@ describe('useThrottle', () => {
       initialProps: { value: 'a' },
     })
     rerender({ value: 'b' })
-    act(() => vi.advanceTimersByTime(100))
+    void act(() => vi.advanceTimersByTime(100))
     rerender({ value: 'c' })
-    act(() => vi.advanceTimersByTime(200))
+    void act(() => vi.advanceTimersByTime(200))
     expect(result.current).toBe('c')
   })
 
@@ -75,7 +75,7 @@ describe('useThrottle', () => {
 
     rerender({ value: 'b' })
     unmount()
-    act(() => vi.advanceTimersByTime(500))
+    void act(() => vi.advanceTimersByTime(500))
 
     expect(result.current).toBe('a')
   })

@@ -9,7 +9,7 @@ export function resolveEntryPoints(pkg: PackageMeta): string[] {
   if (pkg.layout === 'flat') return [`${pkg.srcDir}/index.ts`]
   return globSync(`${pkg.srcDir}/*.ts`)
     .filter(f => !f.endsWith('/index.ts'))
-    .sort()
+    .toSorted()
 }
 
 interface LayoutStrategy {

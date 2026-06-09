@@ -1,3 +1,4 @@
+import { buildLookup } from './internal/array'
 import type { Arrayable, NestedArray } from './types'
 
 /**
@@ -42,7 +43,7 @@ export function uniq<T>(array: T[]): T[] {
 export function flattenDeep<T>(array: NestedArray<T>): T[] {
   const result: T[] = []
   for (const item of array) {
-    if (Array.isArray(item)) result.push(...flattenDeep(item as NestedArray<T>))
+    if (Array.isArray(item)) result.push(...flattenDeep(item))
     else result.push(item)
   }
   return result
@@ -141,8 +142,8 @@ export function group<T>(
   const result: Partial<Record<string | number | symbol, T[]>> = {}
   for (const item of array) {
     const key = fn(item)
-    if (!result[key]) result[key] = []
-    result[key]!.push(item)
+    const values = (result[key] ??= [])
+    values.push(item)
   }
   return result
 }
@@ -163,8 +164,8 @@ export function group<T>(
 export function sort<T>(array: T[], fn: (item: T) => number, desc?: boolean): T[] {
   const result = [...array]
   result.sort((a, b) => {
-    const diff = fn(a) - fn(b)
-    return desc ? -diff : diff
+    const delta = fn(a) - fn(b)
+    return desc ? -delta : delta
   })
   return result
 }
@@ -281,9 +282,9 @@ export function objectify<T, K extends string | number | symbol, V>(
   keyFn: (item: T) => K,
   valueFn?: (item: T) => V,
 ): Record<K, T | V> {
-  const result = {} as Record<K, T | V>
+  const result: Partial<Record<K, T | V>> = {}
   for (const item of array) result[keyFn(item)] = valueFn ? valueFn(item) : item
-  return result
+  return result as Record<K, T | V>
 }
 
 /**
@@ -299,7 +300,7 @@ export function objectify<T, K extends string | number | symbol, V>(
  * ```
  */
 export function diff<T>(a: T[], b: T[], fn?: (item: T) => unknown): T[] {
-  const lookup = _buildLookup(b, fn)
+  const lookup = buildLookup(b, fn)
   return a.filter(item => !lookup(item))
 }
 
@@ -317,17 +318,8 @@ export function diff<T>(a: T[], b: T[], fn?: (item: T) => unknown): T[] {
  * ```
  */
 export function intersects<T>(a: T[], b: T[], fn?: (item: T) => unknown): boolean {
-  const lookup = _buildLookup(b, fn)
+  const lookup = buildLookup(b, fn)
   return a.some(item => lookup(item))
-}
-
-function _buildLookup<T>(b: T[], fn?: (item: T) => unknown): (item: T) => boolean {
-  if (fn) {
-    const bSet = new Set(b.map(fn))
-    return item => bSet.has(fn(item))
-  }
-  const bSet = new Set(b)
-  return item => bSet.has(item)
 }
 
 /**

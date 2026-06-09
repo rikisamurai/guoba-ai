@@ -67,7 +67,7 @@ jobs:
 
       # run 表示直接在 runner 里跑 shell 命令（默认 bash）
       - name: Lint
-        run: pnpm lint
+        run: pnpm lint:ci
 
       # -r = recursive，遍历所有 workspace 包；--filter 限定只跑 packages/* 下的包
       # apps/docs 没有 test:type 脚本，过滤一下避免 pnpm 报找不到脚本

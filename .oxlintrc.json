@@ -1,11 +1,16 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "options": {
+    "typeAware": true,
+    "maxWarnings": 0,
+    "reportUnusedDisableDirectives": "deny"
+  },
   "categories": {
     "correctness": "error",
     "suspicious": "warn",
     "perf": "warn"
   },
-  "plugins": ["react", "typescript", "unicorn", "import", "jsdoc", "oxc"],
+  "plugins": ["react", "typescript", "unicorn", "import", "jsdoc", "oxc", "promise"],
   "ignorePatterns": [
     "**/dist/**",
     "**/.next/**",
@@ -19,11 +24,7 @@
     "**/*.snap"
   ],
   "rules": {
-    "no-console": "off",
-    "no-underscore-dangle": "off",
-    "no-shadow": "off",
-    "no-await-in-loop": "off",
-    "unicorn/no-array-sort": "off",
+    "no-console": ["error", { "allow": ["warn", "error", "info"] }],
     "eslint/no-unused-vars": [
       "error",
       {
@@ -32,11 +33,16 @@
         "caughtErrorsIgnorePattern": "^_"
       }
     ],
-    "import/no-named-as-default": "off",
-    "react/react-in-jsx-scope": "off",
-    "unicorn/consistent-function-scoping": "off"
+    "import/no-named-as-default": "error",
+    "react/react-in-jsx-scope": "off"
   },
   "overrides": [
+    {
+      "files": ["packages/guoba-utils/src/**"],
+      "rules": {
+        "typescript/no-unsafe-type-assertion": "off"
+      }
+    },
     {
       "files": ["**/test/**", "**/*.test.ts", "**/*.test.tsx"],
       "plugins": ["vitest"],
@@ -45,6 +51,14 @@
         "typescript/no-unsafe-function-type": "off",
         "unicorn/no-array-sort": "off",
         "vitest/require-mock-type-parameters": "off"
+      }
+    },
+    {
+      "files": ["apps/docs/**"],
+      "plugins": ["nextjs"],
+      "rules": {
+        "import/no-unassigned-import": "off",
+        "nextjs/no-img-element": "off"
       }
     },
     {
@@ -62,19 +76,11 @@
         "**/*.config.mts",
         "**/*.config.cts",
         "apps/docs/typedoc-postprocess.mjs",
+        "apps/docs/scripts/**",
         "scripts/**"
       ],
       "rules": {
-        "no-console": "off",
-        "typescript/no-explicit-any": "off"
-      }
-    },
-    {
-      "files": ["apps/docs/**"],
-      "plugins": ["nextjs"],
-      "rules": {
-        "import/no-unassigned-import": "off",
-        "nextjs/no-img-element": "off"
+        "no-console": "off"
       }
     }
   ]

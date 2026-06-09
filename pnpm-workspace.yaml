@@ -30,6 +30,7 @@ allowBuilds:
 catalogMode: prefer
 catalogs:
   dev:
+    oxlint-tsgolint: 0.23.0
     typescript: ^6.0.3
     tsdown: ^0.22.2
     vitest: ^4.1.8

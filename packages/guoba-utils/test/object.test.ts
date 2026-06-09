@@ -155,7 +155,8 @@ describe('object', () => {
     })
 
     it('should remove undefined from property types without a filter', () => {
-      const result = shake({} as { a: string | undefined })
+      const source: { a: string | undefined } = { a: undefined }
+      const result = shake(source)
       expectTypeOf(result).toEqualTypeOf<{ a: string }>()
     })
 
@@ -176,7 +177,8 @@ describe('object', () => {
     })
 
     it('should preserve source type when a filter function is provided', () => {
-      const result = shake({} as { a: string | undefined }, value => {
+      const source: { a: string | undefined } = { a: undefined }
+      const result = shake(source, value => {
         expectTypeOf(value).toEqualTypeOf<unknown>()
 
         return value === undefined
@@ -236,7 +238,7 @@ describe('object', () => {
       expect(result).toEqual({ A: 1, B: 2 })
     })
     it('should pass value as second argument', () => {
-      const result = mapKeys({ x: 10, y: 20 }, (key, value) => `${String(key)}_${value}`)
+      const result = mapKeys({ x: 10, y: 20 }, (key, value) => `${key}_${value}`)
       expect(result).toEqual({ x_10: 10, y_20: 20 })
     })
     it('should handle empty objects', () => {
@@ -246,11 +248,11 @@ describe('object', () => {
 
   describe('mapValues', () => {
     it('should transform values using the mapping function', () => {
-      const result = mapValues({ a: 1, b: 2 }, value => (value as number) * 10)
+      const result = mapValues({ a: 1, b: 2 }, value => value * 10)
       expect(result).toEqual({ a: 10, b: 20 })
     })
     it('should pass key as second argument', () => {
-      const result = mapValues({ x: 1, y: 2 }, (value, key) => `${String(key)}=${value}`)
+      const result = mapValues({ x: 1, y: 2 }, (value, key) => `${key}=${value}`)
       expect(result).toEqual({ x: 'x=1', y: 'y=2' })
     })
     it('should handle empty objects', () => {
@@ -260,24 +262,21 @@ describe('object', () => {
 
   describe('mapEntries', () => {
     it('should transform both keys and values', () => {
-      const result = mapEntries({ a: 1, b: 2 }, (key, value) => [
-        (key as string).toUpperCase(),
-        (value as number) * 10,
-      ])
+      const result = mapEntries({ a: 1, b: 2 }, (key, value) => [key.toUpperCase(), value * 10])
       expect(result).toEqual({ A: 10, B: 20 })
     })
     it('should handle empty objects', () => {
       expect(mapEntries({}, (k, v) => [String(k), v])).toEqual({})
     })
     it('should allow completely different key-value shapes', () => {
-      const result = mapEntries({ name: 'alice', age: '30' }, (key, value) => [String(value), key])
+      const result = mapEntries({ name: 'alice', age: '30' }, (key, value) => [value, key])
       expect(result).toEqual({ alice: 'name', 30: 'age' })
     })
   })
 
   describe('listify', () => {
     it('should convert object to array', () => {
-      const result = listify({ a: 1, b: 2 }, (key, value) => `${String(key)}=${value}`)
+      const result = listify({ a: 1, b: 2 }, (key, value) => `${key}=${value}`)
       expect(result).toEqual(['a=1', 'b=2'])
     })
     it('should return values only', () => {
@@ -329,9 +328,9 @@ describe('object', () => {
         expect(() => set({}, '__proto__.polluted', 1)).toThrow(TypeError)
         expect(() => set({}, 'constructor.prototype.polluted', 1)).toThrow(TypeError)
         expect(() => set({}, 'a.__proto__', 1)).toThrow(TypeError)
-        expect(({} as Record<string, unknown>).polluted).toBeUndefined()
+        expect(Reflect.get({}, 'polluted')).toBeUndefined()
       } finally {
-        delete (Object.prototype as unknown as Record<string, unknown>).polluted
+        Reflect.deleteProperty(Object.prototype, 'polluted')
       }
     })
   })
@@ -374,9 +373,9 @@ describe('object', () => {
       try {
         expect(() => construct({ '__proto__.polluted': 1 })).toThrow(TypeError)
         expect(() => construct({ 'constructor.prototype.polluted': 1 })).toThrow(TypeError)
-        expect(({} as Record<string, unknown>).polluted).toBeUndefined()
+        expect(Reflect.get({}, 'polluted')).toBeUndefined()
       } finally {
-        delete (Object.prototype as unknown as Record<string, unknown>).polluted
+        Reflect.deleteProperty(Object.prototype, 'polluted')
       }
     })
   })

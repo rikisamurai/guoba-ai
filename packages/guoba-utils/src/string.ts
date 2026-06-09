@@ -1,3 +1,5 @@
+import { joinCapitalized, joinLower, splitWords } from './internal/string'
+
 /**
  * Capitalize the first letter of a string.
  *
@@ -75,34 +77,6 @@ export function slash(str: string): string {
 }
 
 /**
- * Split a string into word segments by detecting camelCase boundaries,
- * consecutive uppercase sequences, and common separators (dash, underscore,
- * dot, space).
- */
-function _splitWords(str: string): string[] {
-  return (
-    str
-      .replace(/([a-z])([A-Z])/g, '$1\0$2')
-      .replace(/([A-Z]+)([A-Z][a-z])/g, '$1\0$2')
-      // oxlint-disable-next-line no-control-regex -- \0 is an intentional internal delimiter inserted above
-      .split(/[\0\-_.\s]+/)
-      .filter(Boolean)
-  )
-}
-
-function _joinLower(str: string, sep: string): string {
-  return _splitWords(str)
-    .map(w => w.toLowerCase())
-    .join(sep)
-}
-
-function _joinCapitalized(str: string, sep: string): string {
-  return _splitWords(str)
-    .map(w => capitalize(w.toLowerCase()))
-    .join(sep)
-}
-
-/**
  * Convert a string to camelCase.
  *
  * @param str - The string to convert
@@ -115,7 +89,7 @@ function _joinCapitalized(str: string, sep: string): string {
  * ```
  */
 export function camel(str: string): string {
-  const words = _splitWords(str)
+  const words = splitWords(str)
   return words.map((w, i) => (i === 0 ? w.toLowerCase() : capitalize(w.toLowerCase()))).join('')
 }
 
@@ -132,7 +106,7 @@ export function camel(str: string): string {
  * ```
  */
 export function snake(str: string): string {
-  return _joinLower(str, '_')
+  return joinLower(str, '_')
 }
 
 /**
@@ -148,7 +122,7 @@ export function snake(str: string): string {
  * ```
  */
 export function pascal(str: string): string {
-  return _joinCapitalized(str, '')
+  return joinCapitalized(str, '')
 }
 
 /**
@@ -164,7 +138,7 @@ export function pascal(str: string): string {
  * ```
  */
 export function dash(str: string): string {
-  return _joinLower(str, '-')
+  return joinLower(str, '-')
 }
 
 /**
@@ -181,5 +155,5 @@ export function dash(str: string): string {
  * ```
  */
 export function title(str: string): string {
-  return _joinCapitalized(str, ' ')
+  return joinCapitalized(str, ' ')
 }

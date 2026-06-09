@@ -54,7 +54,6 @@ describe('useSyncState', () => {
   })
 
   it('should use custom comparator', () => {
-    const comparator = (pre: { id: number }, cur: { id: number }) => pre.id === cur.id
     const obj1 = { id: 1, name: 'Alice' }
     const obj2 = { id: 1, name: 'Bob' }
     const obj3 = { id: 2, name: 'Charlie' }
@@ -81,3 +80,5 @@ describe('useSyncState', () => {
     expect(result.current[0]).toBe(6)
   })
 })
+
+const comparator = (pre: { id: number }, cur: { id: number }) => pre.id === cur.id
