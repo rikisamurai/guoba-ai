@@ -1,0 +1,56 @@
+packages/guoba-hook/test/useThrottle.test.ts
+  s_b0f1e22d0264f8::t_1775dfde2d0eed 25,34,43,54,56,65,67,78
+packages/guoba-utils/src/array.ts
+  s_b0f1e22d0264f8::t_965fa57a525b04 45,284,286
+  s_b0f1e22d0264f8::t_7e40e941ed741d 144-145
+pnpm-workspace.yaml
+  s_b0f1e22d0264f8::t_6c02288259117e 33
+apps/docs/app/_components/hero-particles.tsx
+  s_b0f1e22d0264f8::t_6179cf8e2584d9 23
+  h_5d5a5826f18d67 20
+packages/guoba-utils/test/array.test.ts
+  h_5d5a5826f18d67 88
+  s_b0f1e22d0264f8::t_92c9bca4b34ac2 23-24
+package.json
+  s_b0f1e22d0264f8::t_5cf8e9761b0e7a 8-9
+  s_b0f1e22d0264f8::t_191551417cc32e 23
+packages/guoba-utils/src/object.ts
+  s_b0f1e22d0264f8::t_16e0adea714747 368
+  s_b0f1e22d0264f8::t_96f91a2f81f15d 148
+  s_b0f1e22d0264f8::t_3b3be5224e542d 172,339
+oxlint.config.ts
+  s_b0f1e22d0264f8::t_3bda12ef300f9d 1,4-19,25,28-30,32,34-43,46-52,54-56,59-61,65,67,71-72,74-77,83-84,88-89,91-92,96
+  s_b0f1e22d0264f8::t_63150579368f92 2-3,20-24,27,31,33,45,57,63-64,66,68-69,73,78,81-82,85,90,93-95
+apps/docs/lib/docs-pipeline/typedoc.ts
+  s_b0f1e22d0264f8::t_6f42c1e80f0238 2,33-36
+  s_b0f1e22d0264f8::t_3b9dcb21f9c116 9,31
+packages/guoba-hook/test/useDebounce.test.ts
+  s_b0f1e22d0264f8::t_a4078a29a344f4 34,36,38,47,49,59
+  h_5d5a5826f18d67 25
+packages/guoba-utils/test/object.test.ts
+  s_b0f1e22d0264f8::t_f544e8f871d20b 158-159,180-181,331,333,376,378
+  s_b0f1e22d0264f8::t_4cdbb9d9063b81 241,251,255,272
+  s_b0f1e22d0264f8::t_ea625f4770c087 265
+  s_b0f1e22d0264f8::t_482462862d30d6 279
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "09bebd0f1415f3a3b370e44abd0b1a051d3d7fab",
+  "prompts": {},
+  "humans": {
+    "h_5d5a5826f18d67": {
+      "author": "riki <rikisamurai310@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_b0f1e22d0264f8": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ea833-fe85-7d73-ba13-3d117301cf82",
+        "model": "gpt-5.5"
+      },
+      "human_author": null
+    }
+  }
+}
