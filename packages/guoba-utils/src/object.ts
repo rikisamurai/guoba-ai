@@ -9,6 +9,11 @@ import type { DeepPartial } from './types'
  * @example
  * ```ts
  * objectKeys({ a: 1, b: 2 }) // ['a', 'b'] typed as ('a' | 'b')[]
+ *
+ * objectKeys({}) // []
+ *
+ * objectKeys(Object.assign(Object.create({ hidden: true }), { visible: true }))
+ * // ['visible']
  * ```
  */
 export function objectKeys<T extends object>(obj: T): (keyof T)[] {
@@ -23,6 +28,10 @@ export function objectKeys<T extends object>(obj: T): (keyof T)[] {
  * @example
  * ```ts
  * objectEntries({ a: 1, b: 2 }) // [['a', 1], ['b', 2]]
+ *
+ * objectEntries({}) // []
+ *
+ * objectEntries({ enabled: true }) // [['enabled', true]]
  * ```
  */
 export function objectEntries<T extends object>(obj: T): [keyof T, T[keyof T]][] {
@@ -40,7 +49,13 @@ export function objectEntries<T extends object>(obj: T): [keyof T, T[keyof T]][]
  * const copy = deepClone(original)
  * copy.a.b = 2
  * original.a.b // still 1
+ *
+ * deepClone([1, [2, [3]]]) // [1, [2, [3]]]
+ *
+ * deepClone(new Date('2024-01-01')).getFullYear() // 2024
  * ```
+ *
+ * @warning Values unsupported by `structuredClone`, such as functions, will throw.
  */
 export function deepClone<T>(obj: T): T {
   return structuredClone(obj)
@@ -55,7 +70,14 @@ export function deepClone<T>(obj: T): T {
  * @example
  * ```ts
  * omit({ a: 1, b: 2, c: 3 }, ['b', 'c']) // { a: 1 }
+ *
+ * omit({ a: 1, b: 2 }, []) // { a: 1, b: 2 }
+ *
+ * const nested = { value: 1 }
+ * omit({ nested, hidden: true }, ['hidden']).nested === nested // true
  * ```
+ *
+ * @warning This is a shallow copy. Nested objects are shared with the source object.
  */
 export function omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
   const result = { ...obj }
@@ -72,7 +94,14 @@ export function omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Om
  * @example
  * ```ts
  * pick({ a: 1, b: 2, c: 3 }, ['a', 'c']) // { a: 1, c: 3 }
+ *
+ * pick({ a: 1, b: 2 }, []) // {}
+ *
+ * const nested = { value: 1 }
+ * pick({ nested, hidden: true }, ['nested']).nested === nested // true
  * ```
+ *
+ * @warning This is a shallow copy. Nested objects are shared with the source object.
  */
 export function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
   const result = {} as Pick<T, K>
@@ -90,6 +119,13 @@ export function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pi
  * @example
  * ```ts
  * shake({ a: 1, b: undefined, c: null }) // { a: 1, c: null }
+ *
+ * shake({ count: 0, enabled: false, missing: undefined })
+ * // { count: 0, enabled: false }
+ *
+ * const source = { a: 1, b: undefined }
+ * shake(source) // { a: 1 }
+ * source // { a: 1, b: undefined }
  * ```
  */
 export function shake<T extends object>(
@@ -107,6 +143,10 @@ export function shake<T extends object>(
  * @example
  * ```ts
  * shake({ a: 1, b: 2 }, value => value === 2) // { a: 1 }
+ *
+ * shake({ a: null, b: 1 }, value => value === null) // { b: 1 }
+ *
+ * shake({ a: 0, b: '' }, value => value === '') // { a: 0 }
  * ```
  */
 export function shake<T extends object>(
@@ -138,7 +178,17 @@ export function shake<T extends object>(
  * ```ts
  * deepMerge({ a: 1, b: { c: 2 } }, { b: { d: 3 } })
  * // { a: 1, b: { c: 2, d: 3 } }
+ *
+ * deepMerge({ a: [1, 2] }, { a: [3, 4, 5] })
+ * // { a: [3, 4, 5] }
+ *
+ * const target = { a: { b: 1 } }
+ * const result = deepMerge(target, { a: { b: 2 } })
+ * target.a.b // 1
+ * result.a.b // 2
  * ```
+ *
+ * @warning Array properties are replaced by the source array, not merged element by element.
  */
 export function deepMerge<T extends object>(target: T, ...sources: DeepPartial<T>[]): T {
   const result = structuredClone(target)
@@ -167,7 +217,13 @@ export function deepMerge<T extends object>(target: T, ...sources: DeepPartial<T
  * @example
  * ```ts
  * invert({ a: '1', b: '2' }) // { '1': 'a', '2': 'b' }
+ *
+ * invert({ x: 1, y: 2 }) // { '1': 'x', '2': 'y' }
+ *
+ * invert({ a: 'same', b: 'same' }) // { same: 'b' }
  * ```
+ *
+ * @warning Values are stringified as object keys. If values collide, the later key wins.
  */
 export function invert(obj: Record<string, string | number | symbol>): Record<string, string> {
   const result: Record<string, string> = {}
@@ -184,7 +240,14 @@ export function invert(obj: Record<string, string | number | symbol>): Record<st
  * @example
  * ```ts
  * mapKeys({ a: 1, b: 2 }, key => key.toUpperCase()) // { A: 1, B: 2 }
+ *
+ * mapKeys({ x: 10, y: 20 }, (key, value) => `${key}_${value}`)
+ * // { x_10: 10, y_20: 20 }
+ *
+ * mapKeys({ a: 1, b: 2 }, () => 'same') // { same: 2 }
  * ```
+ *
+ * @warning If the mapping function returns the same key for multiple entries, the later value wins.
  */
 export function mapKeys<T extends object, K extends string>(
   obj: T,
@@ -204,6 +267,11 @@ export function mapKeys<T extends object, K extends string>(
  * @example
  * ```ts
  * mapValues({ a: 1, b: 2 }, value => value * 10) // { a: 10, b: 20 }
+ *
+ * mapValues({ x: 1, y: 2 }, (value, key) => `${key}=${value}`)
+ * // { x: 'x=1', y: 'y=2' }
+ *
+ * mapValues({}, value => value) // {}
  * ```
  */
 export function mapValues<T extends object, U>(
@@ -225,7 +293,15 @@ export function mapValues<T extends object, U>(
  * ```ts
  * mapEntries({ a: 1, b: 2 }, (key, value) => [key.toUpperCase(), value * 10])
  * // { A: 10, B: 20 }
+ *
+ * mapEntries({ name: 'alice', age: '30' }, (key, value) => [value, key])
+ * // { alice: 'name', 30: 'age' }
+ *
+ * mapEntries({ a: 1, b: 2 }, (_key, value) => ['same', value])
+ * // { same: 2 }
  * ```
+ *
+ * @warning If the mapping function returns the same key for multiple entries, the later value wins.
  */
 export function mapEntries<T extends object, K extends string, V>(
   obj: T,
@@ -249,6 +325,11 @@ export function mapEntries<T extends object, K extends string, V>(
  * ```ts
  * listify({ a: 1, b: 2 }, (key, value) => `${key}=${value}`)
  * // ['a=1', 'b=2']
+ *
+ * listify({ x: 10, y: 20 }, (_key, value) => value)
+ * // [10, 20]
+ *
+ * listify({}, (key, value) => [key, value]) // []
  * ```
  */
 export function listify<T extends object, U>(
@@ -270,8 +351,13 @@ export function listify<T extends object, U>(
  * @example
  * ```ts
  * get({ a: { b: { c: 42 } } }, 'a.b.c') // 42
+ *
  * get({ a: 1 }, 'b.c', 'default') // 'default'
+ *
+ * get({ users: [{ name: 'Ada' }] }, 'users.0.name') // 'Ada'
  * ```
+ *
+ * @warning Only dot-separated paths are supported. Bracket paths such as `items[0].name` are not parsed.
  */
 export function get<T = unknown>(obj: unknown, path: string, defaultValue?: T): T {
   const segments = path.split('.')
@@ -305,8 +391,16 @@ function assertSafeObjectPath(segments: string[]): void {
  * @example
  * ```ts
  * set({}, 'a.b.c', 42) // { a: { b: { c: 42 } } }
+ *
  * set({}, 'a.0.b', 1) // { a: [{ b: 1 }] }
+ *
+ * const obj = { x: 1 }
+ * set(obj, 'y', 2) === obj // true
+ *
+ * set({}, '__proto__.polluted', 1) // throws TypeError
  * ```
+ *
+ * @warning This function mutates `obj`, only supports dot-separated paths, and rejects unsafe segments such as `__proto__`.
  */
 export function set<T extends object>(obj: T, path: string, value: unknown): T {
   const segments = path.split('.')
@@ -334,6 +428,10 @@ export function set<T extends object>(obj: T, path: string, value: unknown): T {
  * ```ts
  * crush({ a: { b: 1, c: { d: 2 } } })
  * // { 'a.b': 1, 'a.c.d': 2 }
+ *
+ * crush({ x: 1, y: 2 }) // { x: 1, y: 2 }
+ *
+ * crush({ a: { b: [1, 2, 3] } }) // { 'a.b': [1, 2, 3] }
  * ```
  */
 export function crush(obj: object): Record<string, unknown> {
@@ -363,6 +461,12 @@ export function crush(obj: object): Record<string, unknown> {
  * ```ts
  * construct({ 'a.b': 1, 'a.c.d': 2 })
  * // { a: { b: 1, c: { d: 2 } } }
+ *
+ * construct({ x: 1, y: 2 }) // { x: 1, y: 2 }
+ *
+ * construct(crush({ a: { b: 1 } })) // { a: { b: 1 } }
+ *
+ * construct({ '__proto__.polluted': 1 }) // throws TypeError
  * ```
  */
 // oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- callers use T to describe the expected nested object shape

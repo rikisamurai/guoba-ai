@@ -94,3 +94,171 @@ describe('postprocess topical layout', () => {
     expect(() => postprocess(topicalPkg)).not.toThrow()
   })
 })
+
+describe('postprocess generated content', () => {
+  it('removes Type Parameters sections and preserves following sections', () => {
+    const outDir = 'content/docs/hooks'
+    mkdirSync(outDir, { recursive: true })
+    writeFileSync(
+      join(outDir, 'useValue.mdx'),
+      [
+        '# Function: useValue()',
+        '',
+        '## Type Parameters',
+        '',
+        '### T',
+        '',
+        'The value type.',
+        '',
+        '## Parameters',
+        '',
+        '### value',
+        '',
+        'The value.',
+        '',
+        '## Returns',
+        '',
+        'The same value.',
+      ].join('\n'),
+    )
+
+    postprocess(flatPkg)
+
+    expect(readFileSync(join(outDir, 'useValue.mdx'), 'utf-8')).toBe(
+      [
+        '# Function: useValue()',
+        '',
+        '## Parameters',
+        '',
+        '### value',
+        '',
+        'The value.',
+        '',
+        '## Returns',
+        '',
+        'The same value.',
+      ].join('\n'),
+    )
+  })
+
+  it('removes nested overload Type Parameters sections only to the next peer section', () => {
+    const outDir = 'content/docs/hooks'
+    mkdirSync(outDir, { recursive: true })
+    writeFileSync(
+      join(outDir, 'useValue.mdx'),
+      [
+        '## Call Signature',
+        '',
+        '### Type Parameters',
+        '',
+        '#### T',
+        '',
+        'The value type.',
+        '',
+        '### Parameters',
+        '',
+        '#### value',
+        '',
+        'The value.',
+        '',
+        '## Example',
+        '',
+        '```ts',
+        'useValue(1)',
+        '```',
+      ].join('\n'),
+    )
+
+    postprocess(flatPkg)
+
+    expect(readFileSync(join(outDir, 'useValue.mdx'), 'utf-8')).toBe(
+      [
+        '## Call Signature',
+        '',
+        '### Parameters',
+        '',
+        '#### value',
+        '',
+        'The value.',
+        '',
+        '## Example',
+        '',
+        '```ts',
+        'useValue(1)',
+        '```',
+      ].join('\n'),
+    )
+  })
+
+  it('leaves files without Type Parameters unchanged', () => {
+    const outDir = 'content/docs/hooks'
+    mkdirSync(outDir, { recursive: true })
+    const content = [
+      '# Function: useReady()',
+      '',
+      '## Example',
+      '',
+      '```ts',
+      'useReady()',
+      '```',
+    ].join('\n')
+    writeFileSync(join(outDir, 'useReady.mdx'), content)
+
+    postprocess(flatPkg)
+
+    expect(readFileSync(join(outDir, 'useReady.mdx'), 'utf-8')).toBe(content)
+  })
+
+  it('converts generated Warning sections to Fumadocs callouts', () => {
+    const outDir = 'content/docs/hooks'
+    mkdirSync(outDir, { recursive: true })
+    writeFileSync(
+      join(outDir, 'useValue.mdx'),
+      [
+        '# Function: useValue()',
+        '',
+        '## Example',
+        '',
+        '```ts',
+        'useValue(value)',
+        '```',
+        '',
+        '## Warning',
+        '',
+        'The first value is returned immediately.',
+        'Later changes are delayed.',
+        '',
+        '## See Also',
+        '',
+        '[React docs](https://react.dev)',
+      ].join('\n'),
+    )
+
+    postprocess(flatPkg)
+
+    expect(readFileSync(join(outDir, 'useValue.mdx'), 'utf-8')).toBe(
+      [
+        '# Function: useValue()',
+        '',
+        '## Example',
+        '',
+        '```ts',
+        'useValue(value)',
+        '```',
+        '',
+        '## Warning',
+        '',
+        '<Callout type="warn">',
+        '',
+        'The first value is returned immediately.',
+        'Later changes are delayed.',
+        '',
+        '</Callout>',
+        '',
+        '## See Also',
+        '',
+        '[React docs](https://react.dev)',
+      ].join('\n'),
+    )
+  })
+})

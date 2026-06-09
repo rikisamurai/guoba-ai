@@ -8,6 +8,10 @@ import { joinCapitalized, joinLower, splitWords } from './internal/string'
  * @example
  * ```ts
  * capitalize('hello') // 'Hello'
+ *
+ * capitalize('Hello') // 'Hello'
+ *
+ * capitalize('') // ''
  * ```
  */
 export function capitalize<T extends string>(str: T): Capitalize<T> {
@@ -23,7 +27,10 @@ export function capitalize<T extends string>(str: T): Capitalize<T> {
  * @example
  * ```ts
  * ensurePrefix('/path', '/') // '/path'
+ *
  * ensurePrefix('path', '/') // '/path'
+ *
+ * ensurePrefix('api/users', '/v1/') // '/v1/api/users'
  * ```
  */
 export function ensurePrefix(str: string, prefix: string): string {
@@ -39,7 +46,10 @@ export function ensurePrefix(str: string, prefix: string): string {
  * @example
  * ```ts
  * ensureSuffix('file.ts', '.ts') // 'file.ts'
+ *
  * ensureSuffix('file', '.ts') // 'file.ts'
+ *
+ * ensureSuffix('/api/users', '/') // '/api/users/'
  * ```
  */
 export function ensureSuffix(str: string, suffix: string): string {
@@ -56,7 +66,13 @@ export function ensureSuffix(str: string, suffix: string): string {
  * @example
  * ```ts
  * template('Hello {name}!', { name: 'World' }) // 'Hello World!'
+ *
+ * template('{a} + {b} = {c}', { a: '1', b: '2', c: '3' }) // '1 + 2 = 3'
+ *
+ * template('Hello {name}!', {}) // 'Hello {name}!'
  * ```
+ *
+ * @warning Only `{word}` placeholders are replaced. Keys containing dots or hyphens are left unchanged.
  */
 export function template(str: string, data: Record<string, string>): string {
   return str.replace(/\{(\w+)\}/g, (match, key: string) => (key in data ? data[key]! : match))
@@ -70,6 +86,10 @@ export function template(str: string, data: Record<string, string>): string {
  * @example
  * ```ts
  * slash('foo\\bar\\baz') // 'foo/bar/baz'
+ *
+ * slash('foo/bar/baz') // 'foo/bar/baz'
+ *
+ * slash('C:\\Users\\me/file.txt') // 'C:/Users/me/file.txt'
  * ```
  */
 export function slash(str: string): string {
@@ -84,9 +104,13 @@ export function slash(str: string): string {
  * @example
  * ```ts
  * camel('foo-bar') // 'fooBar'
+ *
  * camel('FooBar') // 'fooBar'
+ *
  * camel('foo_bar') // 'fooBar'
  * ```
+ *
+ * @warning Conversion follows the current word-splitting rules for separators, casing, and acronyms.
  */
 export function camel(str: string): string {
   const words = splitWords(str)
@@ -101,9 +125,15 @@ export function camel(str: string): string {
  * @example
  * ```ts
  * snake('fooBar') // 'foo_bar'
+ *
  * snake('FooBar') // 'foo_bar'
+ *
  * snake('foo-bar') // 'foo_bar'
+ *
+ * snake('HTMLParser') // 'html_parser'
  * ```
+ *
+ * @warning Conversion follows the current word-splitting rules for separators, casing, and acronyms.
  */
 export function snake(str: string): string {
   return joinLower(str, '_')
@@ -117,9 +147,13 @@ export function snake(str: string): string {
  * @example
  * ```ts
  * pascal('foo-bar') // 'FooBar'
+ *
  * pascal('fooBar') // 'FooBar'
+ *
  * pascal('foo_bar') // 'FooBar'
  * ```
+ *
+ * @warning Conversion follows the current word-splitting rules for separators, casing, and acronyms.
  */
 export function pascal(str: string): string {
   return joinCapitalized(str, '')
@@ -133,9 +167,15 @@ export function pascal(str: string): string {
  * @example
  * ```ts
  * dash('fooBar') // 'foo-bar'
+ *
  * dash('FooBar') // 'foo-bar'
+ *
  * dash('foo_bar') // 'foo-bar'
+ *
+ * dash('HTMLParser') // 'html-parser'
  * ```
+ *
+ * @warning Conversion follows the current word-splitting rules for separators, casing, and acronyms.
  */
 export function dash(str: string): string {
   return joinLower(str, '-')
@@ -150,9 +190,15 @@ export function dash(str: string): string {
  * @example
  * ```ts
  * title('foo bar') // 'Foo Bar'
+ *
  * title('foo-bar') // 'Foo Bar'
+ *
  * title('fooBar') // 'Foo Bar'
+ *
+ * title('foo_bar') // 'Foo Bar'
  * ```
+ *
+ * @warning Conversion follows the current word-splitting rules for separators, casing, and acronyms.
  */
 export function title(str: string): string {
   return joinCapitalized(str, ' ')

@@ -11,7 +11,15 @@ import { useCallback, useState } from 'react'
  * toggleOpen()     // true
  * toggleOpen()     // false
  * toggleOpen(true) // true
+ *
+ * const [enabled, setEnabled] = useToggle(true)
+ * setEnabled(false) // false
+ *
+ * const [visible, toggleVisible] = useToggle()
+ * toggleVisible(undefined) // toggles, same as toggleVisible()
  * ```
+ *
+ * @warning `initialValue` is only used for the initial render. Pass a boolean to the setter when you need an explicit state.
  */
 export function useToggle(initialValue = false): [boolean, (next?: boolean) => void] {
   const [value, setValue] = useState(initialValue)

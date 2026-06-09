@@ -33,6 +33,7 @@
         "caughtErrorsIgnorePattern": "^_"
       }
     ],
+    "jsdoc/check-tag-names": ["error", { "definedTags": ["warning"] }],
     "import/no-named-as-default": "error",
     "react/react-in-jsx-scope": "off"
   },
