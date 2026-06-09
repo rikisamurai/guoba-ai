@@ -57,10 +57,10 @@ pnpm install      # install deps
 pnpm test         # run all package tests
 pnpm lint         # eslint
 pnpm build        # build utils + hook + docs
-pnpm docs:dev     # run the docs site locally
+pnpm dev:docs     # run the docs site locally
 ```
 
-`pnpm docs:dev` serves the docs site at `https://guoba-docs.localhost` via [portless](https://github.com/vercel-labs/portless); first run installs a local CA into the system trust store (one-time sudo). See [`apps/guoba-docs/README.md`](./apps/guoba-docs/README.md) for the per-app commands.
+`pnpm dev:docs` serves the docs site at `https://guoba-docs.localhost` via [portless](https://github.com/vercel-labs/portless); first run installs a local CA into the system trust store (one-time sudo). See [`apps/guoba-docs/README.md`](./apps/guoba-docs/README.md) for the per-app commands.
 
 See [`AGENTS.md`](./AGENTS.md) for architecture notes and contribution conventions.
 

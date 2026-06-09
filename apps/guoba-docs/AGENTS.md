@@ -26,7 +26,7 @@ Run app commands from `apps/guoba-docs/`:
 - `pnpm test` - run docs pipeline tests
 - `pnpm build` - run TypeDoc, then build the Next.js app
 
-From the repo root, use `pnpm docs:dev` and `pnpm docs:build`.
+From the repo root, use `pnpm dev:docs` and `pnpm build:docs`.
 
 ## Verification
 

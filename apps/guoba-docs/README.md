@@ -11,8 +11,8 @@ Built with **Next.js 16** (App Router) + **fumadocs** + **TypeDoc**. API referen
 From the monorepo root:
 
 ```bash
-pnpm docs:dev     # full pipeline: typedoc -> next dev (via portless)
-pnpm docs:build   # production build
+pnpm dev:docs     # full pipeline: typedoc -> next dev (via portless)
+pnpm build:docs   # production build
 ```
 
 From this directory (`apps/guoba-docs/`):
