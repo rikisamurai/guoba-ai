@@ -91,6 +91,7 @@ pnpm build:docs  # generate docs, then build docs site
 ## Verification
 
 - Repo-wide config, dependency, or package graph changes: run the relevant root checks, usually `pnpm lint`, `pnpm test -- --run`, and `pnpm build`.
+- Root tooling changes must include a fresh `pnpm lint` run before completion. This includes Git hooks, `lint-staged`, oxlint/oxfmt config, package scripts, `pnpm-workspace.yaml`, and lockfile/dependency updates; do not substitute `lint-staged`, formatting, or install checks for the root lint check.
 - Package-only changes: follow that package's `AGENTS.md` first, then add root checks only when shared behavior changed.
 - Docs app changes: follow `apps/guoba-docs/AGENTS.md`.
 - Before publishing PR updates, run `git diff --check`.
