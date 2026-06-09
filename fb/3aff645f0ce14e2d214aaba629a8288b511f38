@@ -1,0 +1,43 @@
+package.json
+  s_47495983cb09eb::t_8caf7b4d1b43cf 14-15
+README.md
+  s_47495983cb09eb::t_530d84cd0b3c4f 60
+  s_47495983cb09eb::t_d401b6764aa600 63
+apps/guoba-docs/AGENTS.md
+  s_47495983cb09eb::t_1d41ade3f5e07a 29
+apps/guoba-docs/README.md
+  s_47495983cb09eb::t_e36e88f74e1166 14-15
+AGENTS.md
+  h_5d5a5826f18d67 3,5,7,9,11-37,39-41,43,45-58,61-67
+  s_e68394169be863::t_bdc4b56f45aaeb 68,70,72,74-79,81-88,90-98,100-103
+  s_e68394169be863::t_10b510c93b633f 69,71,73,80,89,99
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "fb3aff645f0ce14e2d214aaba629a8288b511f38",
+  "prompts": {},
+  "humans": {
+    "h_5d5a5826f18d67": {
+      "author": "riki <rikisamurai310@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_47495983cb09eb": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "fc422867-4fee-4718-9cf5-fa5cf7bf5fcb",
+        "model": "composer-2.5"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    },
+    "s_e68394169be863": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ead02-8bee-7fc1-951b-42ab84fb1791",
+        "model": "gpt-5.5"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
