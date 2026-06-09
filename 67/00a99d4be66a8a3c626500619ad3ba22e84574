@@ -1,0 +1,30 @@
+.oxlintrc.json
+  s_b0f1e22d0264f8::t_859cda4eea3177 3-6
+packages/guoba-hook/test/useThrottle.test.ts
+  s_b0f1e22d0264f8::t_1775dfde2d0eed 25,34,43,54,56,65,67,78
+package.json
+  s_b0f1e22d0264f8::t_191551417cc32e 23
+  s_b0f1e22d0264f8::t_5cf8e9761b0e7a 8-9
+packages/guoba-utils/test/array.test.ts
+  s_b0f1e22d0264f8::t_92c9bca4b34ac2 23-24,88
+pnpm-workspace.yaml
+  s_b0f1e22d0264f8::t_6c02288259117e 33
+packages/guoba-hook/test/useDebounce.test.ts
+  s_b0f1e22d0264f8::t_a4078a29a344f4 25,34,36,38,47,49,59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "6700a99d4be66a8a3c626500619ad3ba22e84574",
+  "prompts": {},
+  "sessions": {
+    "s_b0f1e22d0264f8": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ea833-fe85-7d73-ba13-3d117301cf82",
+        "model": "gpt-5.5"
+      },
+      "human_author": null
+    }
+  }
+}
