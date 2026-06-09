@@ -60,7 +60,7 @@ pnpm build        # build utils + hook + docs
 pnpm docs:dev     # run the docs site locally
 ```
 
-`pnpm docs:dev` serves the docs site at `https://guoba-docs.localhost` via [portless](https://github.com/vercel-labs/portless); first run installs a local CA into the system trust store (one-time sudo). See [`apps/docs/README.md`](./apps/docs/README.md) for the per-app commands.
+`pnpm docs:dev` serves the docs site at `https://guoba-docs.localhost` via [portless](https://github.com/vercel-labs/portless); first run installs a local CA into the system trust store (one-time sudo). See [`apps/guoba-docs/README.md`](./apps/guoba-docs/README.md) for the per-app commands.
 
 See [`AGENT.md`](./AGENT.md) for architecture notes and contribution conventions.
 
@@ -119,7 +119,7 @@ For an ongoing beta / rc channel, use `pnpm changeset pre enter beta` → `pnpm 
 
 - Both packages publish as `access: public`; `dist/` is the only thing in the tarball (`files: ["dist"]`).
 - npm provenance is intentionally **off** — it requires GitHub OIDC and would fail on a local publish. Re-enable it in `publishConfig.provenance` if/when releases move back into a CI workflow.
-- The docs app (`apps/docs`) is private and excluded via `.changeset/config.json` `ignore`.
+- The docs app (`apps/guoba-docs`) is private and excluded via `.changeset/config.json` `ignore`.
 
 ## License
 

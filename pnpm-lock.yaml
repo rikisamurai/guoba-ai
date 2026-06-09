@@ -52,7 +52,7 @@ importers:
         specifier: catalog:dev
         version: 4.1.8(@types/node@25.9.2)(jsdom@29.1.1)(vite@8.0.8(@types/node@25.9.2)(esbuild@0.28.0)(jiti@2.6.1)(tsx@4.22.4)(yaml@2.8.3))
 
-  apps/docs:
+  apps/guoba-docs:
     dependencies:
       flexsearch:
         specifier: ^0.8.212

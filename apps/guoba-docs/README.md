@@ -1,4 +1,4 @@
-# @guoba-ai/docs
+# guoba-docs
 
 Documentation site for [`@guoba-ai/utils`](../../packages/guoba-utils) and [`@guoba-ai/hook`](../../packages/guoba-hook).
 
@@ -15,7 +15,7 @@ pnpm docs:dev     # full pipeline: typedoc -> next dev (via portless)
 pnpm docs:build   # production build
 ```
 
-From this directory (`apps/docs/`):
+From this directory (`apps/guoba-docs/`):
 
 ```bash
 pnpm dev          # = typedoc + post-process + dev:fast

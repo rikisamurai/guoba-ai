@@ -17,8 +17,8 @@
     "**/.source/**",
     "**/node_modules/**",
     "**/next-env.d.ts",
-    "apps/docs/content/docs/utils/**",
-    "apps/docs/content/docs/hooks/**",
+    "apps/guoba-docs/content/docs/utils/**",
+    "apps/guoba-docs/content/docs/hooks/**",
     "**/*.mdx",
     "**/*.md",
     "**/*.snap"
@@ -54,7 +54,7 @@
       }
     },
     {
-      "files": ["apps/docs/**"],
+      "files": ["apps/guoba-docs/**"],
       "plugins": ["nextjs"],
       "rules": {
         "import/no-unassigned-import": "off",
@@ -75,8 +75,8 @@
         "**/*.config.ts",
         "**/*.config.mts",
         "**/*.config.cts",
-        "apps/docs/typedoc-postprocess.mjs",
-        "apps/docs/scripts/**",
+        "apps/guoba-docs/typedoc-postprocess.mjs",
+        "apps/guoba-docs/scripts/**",
         "scripts/**"
       ],
       "rules": {
