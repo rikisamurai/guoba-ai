@@ -8,6 +8,6 @@ next-env.d.ts
 coverage
 .DS_Store
 .idea
-apps/docs/content/docs/utils/
-apps/docs/content/docs/hooks/
+apps/guoba-docs/content/docs/utils/
+apps/guoba-docs/content/docs/hooks/
 .superpowers/

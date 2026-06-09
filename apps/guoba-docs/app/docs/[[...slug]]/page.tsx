@@ -29,7 +29,7 @@ export default async function Page(props: {
         <MarkdownCopyButton markdownUrl={markdownUrl} />
         <ViewOptionsPopover
           markdownUrl={markdownUrl}
-          githubUrl={`https://github.com/rikisamurai/guoba-ai/blob/main/apps/docs/content/docs/${page.path}`}
+          githubUrl={`https://github.com/rikisamurai/guoba-ai/blob/main/apps/guoba-docs/content/docs/${page.path}`}
         />
       </div>
       <DocsBody>

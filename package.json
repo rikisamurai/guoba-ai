@@ -11,8 +11,8 @@
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "test": "pnpm -r run test",
-    "docs:dev": "pnpm --filter guoba-docs dev",
-    "docs:build": "pnpm --filter guoba-docs build",
+    "dev:docs": "pnpm --filter guoba-docs dev",
+    "build:docs": "pnpm --filter guoba-docs build",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "pnpm -r --filter \"./packages/*\" run build && changeset publish"

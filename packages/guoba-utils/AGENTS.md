@@ -1,10 +1,10 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code when working with code in this directory.
+This file provides guidance to Codex and compatible coding agents when working with code in this directory.
 
 ## Overview
 
-`@guoba-ai/utils` — 个人 TypeScript 工具函数库。Dual ESM + CJS（兼容 Metro / React Native），zero dependencies，全量 TSDoc 注释（供 `apps/docs` 生成 API 文档用）。
+`@guoba-ai/utils` — 个人 TypeScript 工具函数库。Dual ESM + CJS（兼容 Metro / React Native），zero dependencies，全量 TSDoc 注释（供 `apps/guoba-docs` 生成 API 文档用）。
 
 ## Commands
 
@@ -56,7 +56,7 @@ pnpm build           # 构建必须成功
 ## Conventions
 
 - 每个模块对应一个 `src/*.ts` + `test/*.test.ts`，新功能遵循同样结构
-- 所有导出函数必须有完整 TSDoc（`@param`、`@returns`、`@example`），`apps/docs` 的 API 文档由此自动生成
+- 所有导出函数必须有完整 TSDoc（`@param`、`@returns`、`@example`），`apps/guoba-docs` 的 API 文档由此自动生成
 - 修改或新增函数后，需在对应 test 文件中添加测试，遵循 TDD 流程
 - 新增函数后记得在 `src/index.ts` 里 re-export
-- **仅内部复用、不对外暴露的 helper 放进 `src/internal/`，按所属模块命名（如 `internal/string.ts`），并 `export` 供同包其它模块 import。** 不要在模块顶层写未导出的私有函数（`apps/docs` 的 typedoc 只扫 `src/*.ts` 顶层，`internal/` 子目录天然不进文档；放 `internal/` 还能避免 `_` 前缀命名与 lint 规则的摩擦）
+- **仅内部复用、不对外暴露的 helper 放进 `src/internal/`，按所属模块命名（如 `internal/string.ts`），并 `export` 供同包其它模块 import。** 不要在模块顶层写未导出的私有函数（`apps/guoba-docs` 的 typedoc 只扫 `src/*.ts` 顶层，`internal/` 子目录天然不进文档；放 `internal/` 还能避免 `_` 前缀命名与 lint 规则的摩擦）

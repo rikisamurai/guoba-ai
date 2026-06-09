@@ -4,7 +4,7 @@ Project-specific vocabulary. Use these terms exactly when discussing the domain,
 
 ## Docs site
 
-The docs site (`apps/docs`) renders generated API reference for each published package. Every package picks one of two layouts:
+The docs site (`apps/guoba-docs`) renders generated API reference for each published package. Every package picks one of two layouts:
 
 **`topical`**
 A package is a set of topical modules; each module renders as its own docs page. The reader navigates by topic.

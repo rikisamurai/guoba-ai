@@ -1,4 +1,4 @@
-# @guoba-ai/docs
+# guoba-docs
 
 Documentation site for [`@guoba-ai/utils`](../../packages/guoba-utils) and [`@guoba-ai/hook`](../../packages/guoba-hook).
 
@@ -11,11 +11,11 @@ Built with **Next.js 16** (App Router) + **fumadocs** + **TypeDoc**. API referen
 From the monorepo root:
 
 ```bash
-pnpm docs:dev     # full pipeline: typedoc -> next dev (via portless)
-pnpm docs:build   # production build
+pnpm dev:docs     # full pipeline: typedoc -> next dev (via portless)
+pnpm build:docs   # production build
 ```
 
-From this directory (`apps/docs/`):
+From this directory (`apps/guoba-docs/`):
 
 ```bash
 pnpm dev          # = typedoc + post-process + dev:fast
@@ -40,4 +40,4 @@ Edits to the generated directories are overwritten on the next `pnpm typedoc` ru
 
 ## Architecture notes
 
-See [`AGENT.md`](./AGENT.md) for the two-stage build pipeline, fumadocs source loader, and content conventions.
+See [`AGENTS.md`](./AGENTS.md) for the two-stage build pipeline, fumadocs source loader, and content conventions.
