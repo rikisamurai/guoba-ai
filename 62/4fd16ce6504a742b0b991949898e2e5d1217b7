@@ -1,0 +1,28 @@
+packages/guoba-utils/src/array.ts
+  s_4c7ed6fec60920::t_e435af68da7a6c 167-168
+apps/docs/lib/docs-pipeline/layout.ts
+  s_4c7ed6fec60920::t_47d4d82242d170 12
+apps/docs/lib/docs-pipeline/index.ts
+  s_4c7ed6fec60920::t_dee3e47ce03bbb 13-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "624fd16ce6504a742b0b991949898e2e5d1217b7",
+  "prompts": {},
+  "humans": {
+    "h_5d5a5826f18d67": {
+      "author": "riki <rikisamurai310@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_4c7ed6fec60920": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c90c0b4-dc91-4ffa-a6d7-173abb4e2ba0",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
