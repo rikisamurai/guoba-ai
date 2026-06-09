@@ -1,0 +1,72 @@
+packages/guoba-hook/src/useSyncState.ts
+  s_8bb8d682a56240::t_96959fefa7bc01 27-28
+  s_8bb8d682a56240::t_d6dc34cbf73d57 16-26
+packages/guoba-hook/src/useUnmount.ts
+  s_8bb8d682a56240::t_c69ec1d3f5ca32 13-24
+  s_8bb8d682a56240::t_96959fefa7bc01 26-27
+packages/guoba-hook/src/useToggle.ts
+  s_8bb8d682a56240::t_de8bf1aef4b014 14-19
+  s_8bb8d682a56240::t_96959fefa7bc01 21-22
+packages/guoba-utils/src/array.ts
+  s_8bb8d682a56240::t_2a42b1e9cd43e1 12-16,31-35,50-53,74-77,96-100,122,124-125,143-147,172-176,202,204-207,234-238,262-265,283-286,309-313,335-340,374-378,398,400-401,421,423-425
+  s_8bb8d682a56240::t_96959fefa7bc01 79-80,102-103,149-150,267-268,342-343,380-381,403-404,427-428
+apps/guoba-docs/lib/docs-pipeline/__tests__/postprocess.test.ts
+  s_8bb8d682a56240::t_9f8935a11b2a14 97-195,205-210,264
+  s_8bb8d682a56240::t_f351eb32d41821 196-204
+  s_8bb8d682a56240::t_5071d51de559ee 249-251
+  s_8bb8d682a56240::t_10eaefbc5215cd 211,213-219,221,234-242,252-256,259,261-263
+  s_8bb8d682a56240::t_eb50c98bb7fc91 212,220,222-233,243-248,257-258,260
+packages/guoba-utils/src/guard.ts
+  s_8bb8d682a56240::t_96959fefa7bc01 32-33,72-73,194-195
+  s_8bb8d682a56240::t_d43290c1d2a97b 9-11,27-29,47-49,58,61,65-67,69,87-89,105,107,123,125-126,141,143-144,159,161,181,183,185,187-189,191,214-217
+packages/guoba-utils/src/object.ts
+  s_8bb8d682a56240::t_efae6814f31a94 300-301
+  s_8bb8d682a56240::t_ef9676be8d49c5 12-16,31-34,52-55,73-77,97-101,122-128,146-149,181-188
+  s_8bb8d682a56240::t_a97d4032401689 220-223,243-247,270-274,296-299,328-332,354,356-357,394,396-400,431-434,464-469
+  s_8bb8d682a56240::t_96959fefa7bc01 57-58,79-80,103-104,190-191,225-226,249-250,303-304,359-360,402-403
+packages/guoba-utils/src/string.ts
+  s_8bb8d682a56240::t_45da95f7ca229b 11-14,30,32-33,49,51-52,69-72,89-92,107,109,128,130,132-133,150,152,170,172,174-175,193,195,197-198
+  s_8bb8d682a56240::t_96959fefa7bc01 74-75,112-113,135-136,155-156,177-178,200-201
+packages/guoba-hook/src/useThrottle.ts
+  s_8bb8d682a56240::t_a355fb5c93eb3c 14-19
+  s_8bb8d682a56240::t_96959fefa7bc01 21-22
+packages/guoba-hook/src/useMount.ts
+  s_8bb8d682a56240::t_96959fefa7bc01 22-23
+  s_8bb8d682a56240::t_f6cece91437ecb 12-20
+apps/guoba-docs/lib/docs-pipeline/postprocess.ts
+  s_8bb8d682a56240::t_67dd97c6c552d7 93
+  s_8bb8d682a56240::t_ad276a7c05d176 28,63,68-69,75,78-85,88-90
+  s_8bb8d682a56240::t_0f018d59c0ef08 58-62,64-67,70-73,76-77,86-87,91
+  s_8bb8d682a56240::t_f92eea52372a0a 74,92
+  s_8bb8d682a56240::t_0f2330c60b5c2a 15,25,37-47,49-51,53-57,94-96
+  s_8bb8d682a56240::t_d106efa09e93e6 48,52
+packages/guoba-utils/src/async.ts
+  s_8bb8d682a56240::t_96959fefa7bc01 14-15
+  s_8bb8d682a56240::t_3ee31fa9d916ed 9-12
+packages/guoba-hook/src/useDebounce.ts
+  s_8bb8d682a56240::t_925f7d83c5c23b 19,22
+  s_8bb8d682a56240::t_96959fefa7bc01 26-27
+  s_8bb8d682a56240::t_957e0ead956dee 15-18,20-21,23-24
+  s_8bb8d682a56240::t_0df4ae46f5a369 11
+packages/guoba-hook/src/usePrevious.ts
+  s_8bb8d682a56240::t_96959fefa7bc01 21-22
+  s_8bb8d682a56240::t_e3910cabc84323 14-19
+apps/guoba-docs/lib/docs-pipeline/typedoc.ts
+  s_8bb8d682a56240::t_20faa1ba229536 1,24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "a7d8d10c7615e7430f235f737614372862df61b5",
+  "prompts": {},
+  "sessions": {
+    "s_8bb8d682a56240": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ead44-1f9d-70a0-8b7d-449da9f8ffd5",
+        "model": "gpt-5.5"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
