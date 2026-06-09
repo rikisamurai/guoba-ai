@@ -62,7 +62,7 @@ pnpm docs:dev     # run the docs site locally
 
 `pnpm docs:dev` serves the docs site at `https://guoba-docs.localhost` via [portless](https://github.com/vercel-labs/portless); first run installs a local CA into the system trust store (one-time sudo). See [`apps/guoba-docs/README.md`](./apps/guoba-docs/README.md) for the per-app commands.
 
-See [`AGENT.md`](./AGENT.md) for architecture notes and contribution conventions.
+See [`AGENTS.md`](./AGENTS.md) for architecture notes and contribution conventions.
 
 ## Releasing
 

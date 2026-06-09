@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this directory.
+This file provides guidance to Codex and compatible coding agents when working with code in this directory.
 
 ## Overview
 

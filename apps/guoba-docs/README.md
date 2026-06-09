@@ -40,4 +40,4 @@ Edits to the generated directories are overwritten on the next `pnpm typedoc` ru
 
 ## Architecture notes
 
-See [`AGENT.md`](./AGENT.md) for the two-stage build pipeline, fumadocs source loader, and content conventions.
+See [`AGENTS.md`](./AGENTS.md) for the two-stage build pipeline, fumadocs source loader, and content conventions.
