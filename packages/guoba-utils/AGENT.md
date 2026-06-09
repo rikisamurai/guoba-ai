@@ -33,7 +33,10 @@ src/
 ├── guard.ts      # 类型守卫
 ├── object.ts     # 对象工具
 ├── string.ts     # 字符串工具
-└── types.ts      # 共享类型（Arrayable、Nullable 等）
+├── types.ts      # 共享类型（Arrayable、Nullable 等）
+└── internal/     # 仅内部复用、不对外导出的私有 helper（不进 barrel、不进文档）
+    ├── array.ts
+    └── string.ts
 test/
 ├── array.test.ts
 ├── guard.test.ts
@@ -56,3 +59,4 @@ pnpm build           # 构建必须成功
 - 所有导出函数必须有完整 TSDoc（`@param`、`@returns`、`@example`），`apps/docs` 的 API 文档由此自动生成
 - 修改或新增函数后，需在对应 test 文件中添加测试，遵循 TDD 流程
 - 新增函数后记得在 `src/index.ts` 里 re-export
+- **仅内部复用、不对外暴露的 helper 放进 `src/internal/`，按所属模块命名（如 `internal/string.ts`），并 `export` 供同包其它模块 import。** 不要在模块顶层写未导出的私有函数（`apps/docs` 的 typedoc 只扫 `src/*.ts` 顶层，`internal/` 子目录天然不进文档；放 `internal/` 还能避免 `_` 前缀命名与 lint 规则的摩擦）

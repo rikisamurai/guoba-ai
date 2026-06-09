@@ -1,3 +1,4 @@
+import { buildLookup } from './internal/array'
 import type { Arrayable, NestedArray } from './types'
 
 /**
@@ -299,7 +300,7 @@ export function objectify<T, K extends string | number | symbol, V>(
  * ```
  */
 export function diff<T>(a: T[], b: T[], fn?: (item: T) => unknown): T[] {
-  const lookup = _buildLookup(b, fn)
+  const lookup = buildLookup(b, fn)
   return a.filter(item => !lookup(item))
 }
 
@@ -317,17 +318,8 @@ export function diff<T>(a: T[], b: T[], fn?: (item: T) => unknown): T[] {
  * ```
  */
 export function intersects<T>(a: T[], b: T[], fn?: (item: T) => unknown): boolean {
-  const lookup = _buildLookup(b, fn)
+  const lookup = buildLookup(b, fn)
   return a.some(item => lookup(item))
-}
-
-function _buildLookup<T>(b: T[], fn?: (item: T) => unknown): (item: T) => boolean {
-  if (fn) {
-    const bSet = new Set(b.map(fn))
-    return item => bSet.has(fn(item))
-  }
-  const bSet = new Set(b)
-  return item => bSet.has(item)
 }
 
 /**

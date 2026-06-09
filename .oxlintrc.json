@@ -25,7 +25,6 @@
   ],
   "rules": {
     "no-console": ["error", { "allow": ["warn", "error", "info"] }],
-    "no-underscore-dangle": "off",
     "no-shadow": "off",
     "no-await-in-loop": "off",
     "unicorn/no-array-sort": "off",
