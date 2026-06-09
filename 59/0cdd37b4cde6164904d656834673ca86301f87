@@ -1,0 +1,35 @@
+CONTEXT.md
+  s_e68394169be863::t_49d2c5da19d786 7
+apps/guoba-docs/AGENT.md
+  s_e68394169be863::t_49d2c5da19d786 1-81
+packages/guoba-utils/AGENT.md
+  s_e68394169be863::t_49d2c5da19d786 7,59,62
+.gitignore
+  s_e68394169be863::t_49d2c5da19d786 11-12
+apps/guoba-docs/app/docs/[[...slug]]/page.tsx
+  s_e68394169be863::t_49d2c5da19d786 1-44
+AGENT.md
+  s_e68394169be863::t_49d2c5da19d786 41,43,50
+README.md
+  s_e68394169be863::t_49d2c5da19d786 63,122
+.oxlintrc.json
+  s_e68394169be863::t_49d2c5da19d786 20-21,57,78-79
+apps/guoba-docs/README.md
+  s_e68394169be863::t_49d2c5da19d786 1-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "590cdd37b4cde6164904d656834673ca86301f87",
+  "prompts": {},
+  "sessions": {
+    "s_e68394169be863": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ead02-8bee-7fc1-951b-42ab84fb1791",
+        "model": "gpt-5.5"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
