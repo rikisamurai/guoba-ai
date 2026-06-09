@@ -1,0 +1,40 @@
+packages/guoba-utils/AGENT.md
+  s_4c7ed6fec60920::t_1af0480c5da8c6 36-39
+  s_4c7ed6fec60920::t_f837704c1c0570 62
+packages/guoba-utils/src/internal/array.ts
+  s_4c7ed6fec60920::t_e2a8221ce5c787 1-14
+packages/guoba-utils/src/internal/string.ts
+  s_4c7ed6fec60920::t_651b3cb2e8237e 1-33
+packages/guoba-utils/src/string.ts
+  s_4c7ed6fec60920::t_d776e88134a5da 125
+  s_4c7ed6fec60920::t_4db65bfd13f4a5 158
+  s_4c7ed6fec60920::t_ff784ae7ceb2d9 92
+  s_4c7ed6fec60920::t_9a23a8a720ada6 1-2
+  s_4c7ed6fec60920::t_0003129343022f 109
+  s_4c7ed6fec60920::t_7ac878c03e038c 141
+packages/guoba-utils/src/array.ts
+  s_4c7ed6fec60920::t_dba5e2daae0d7b 1
+  s_4c7ed6fec60920::t_b2a2a71dced292 321
+  s_4c7ed6fec60920::t_338502cbb69cb3 303
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "3c976bf9bbfc0c97f9f187ec7ba5f05cab03f9da",
+  "prompts": {},
+  "humans": {
+    "h_5d5a5826f18d67": {
+      "author": "riki <rikisamurai310@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_4c7ed6fec60920": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c90c0b4-dc91-4ffa-a6d7-173abb4e2ba0",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
