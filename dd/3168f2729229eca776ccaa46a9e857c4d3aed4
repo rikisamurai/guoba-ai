@@ -1,0 +1,19 @@
+packages/guoba-utils/src/internal/array.ts
+  s_4c7ed6fec60920::t_7638cec237173c 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "dd3168f2729229eca776ccaa46a9e857c4d3aed4",
+  "prompts": {},
+  "sessions": {
+    "s_4c7ed6fec60920": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c90c0b4-dc91-4ffa-a6d7-173abb4e2ba0",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
