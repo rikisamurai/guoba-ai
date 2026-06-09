@@ -1,81 +1,53 @@
 # AGENTS.md
 
-This file provides guidance to Codex and compatible coding agents when working with code in this directory.
+Guidance for Codex and compatible coding agents working in `apps/guoba-docs`.
 
-## Overview
+## Harness Scope
 
-Documentation site for `@guoba-ai/utils` and `@guoba-ai/hook`, built with Next.js 16 (App Router) + fumadocs-ui/fumadocs-mdx. API reference pages are auto-generated from source via TypeDoc.
+This is the Next.js + fumadocs documentation app for `@guoba-ai/utils` and `@guoba-ai/hook`.
+
+The docs harness owns:
+
+- TypeDoc generation from package TSDoc into `content/docs/{utils,hooks}/`
+- Layout-aware post-processing in `lib/docs-pipeline/**`
+- fumadocs source loading via `.source/`, `source.config.ts`, and `lib/source.ts`
+- Next.js routes under `/` and `/docs/**`
+- Browser verification for docs UI, sidebar, generated pages, and source links
+
+It does not own package runtime behavior, package tests, release/versioning, or manual edits to generated docs. If a docs change requires editing `packages/*`, follow that package's `AGENTS.md` too.
 
 ## Commands
 
-```bash
-# Dev server (runs scripts/build-docs.ts → next dev)
-pnpm dev
+Run app commands from `apps/guoba-docs/`:
 
-# Production build
-pnpm build
+- `pnpm dev` - run TypeDoc, then start the portless dev server
+- `pnpm dev:fast` - start the dev server without regenerating TypeDoc
+- `pnpm typedoc` - regenerate generated API docs only
+- `pnpm test` - run docs pipeline tests
+- `pnpm build` - run TypeDoc, then build the Next.js app
 
-# Regenerate API docs only (without starting Next.js)
-pnpm typedoc
-```
+From the repo root, use `pnpm docs:dev` and `pnpm docs:build`.
 
 ## Verification
 
-All changes to this docs app must be visually verified in the browser before reporting as complete:
+- For `lib/docs-pipeline/**`, `lib/packages.ts`, or `scripts/build-docs.ts`: run `pnpm test` and `pnpm typedoc`.
+- For routes, layouts, styling, search, source loading, or sidebar changes: run `pnpm build`, then verify in browser.
+- For TSDoc changes in `packages/*`: run the relevant package checks, then run `pnpm typedoc` here.
+- Browser verification uses portless at `https://guoba-docs.localhost`; do not assume `localhost:3000`.
+- When browser-verifying shared layout, sidebar, source loading, or generated docs, check `/docs`, one `/docs/utils/*` page, and one `/docs/hooks/*` page.
 
-1. Start the dev server: `pnpm dev` (from `apps/guoba-docs/`) or `pnpm docs:dev` (from monorepo root)
-2. Use the `agent-browser` skill to open `http://localhost:3000` and verify:
-   - The page renders without errors
-   - Changed content displays correctly
-   - Sidebar navigation works and reflects any structural changes
-   - For API doc changes: check that the relevant `/docs/utils/*` and `/docs/hooks/*` pages render properly
-3. If the change affects multiple pages (e.g., layout, styling, sidebar ordering), navigate to each affected page and verify
+If Turbopack reports stale paths or `Next.js package not found` after a rename, dependency change, or branch switch, clear the ignored `.next/` cache before changing source code.
 
-All commands run from this directory (`apps/guoba-docs/`), or use `pnpm docs:dev` / `pnpm docs:build` from the monorepo root.
+## Generated Content
 
-## Architecture
+- Do not manually edit `content/docs/utils/` or `content/docs/hooks/`; TypeDoc overwrites them.
+- To change generated API content, edit TSDoc in `packages/guoba-utils/src/` or `packages/guoba-hook/src/`, then run `pnpm typedoc`.
+- Do not edit `.source/` or `.next/`; both are generated.
 
-### Build Pipeline
+## Architecture Rules
 
-A single packages table (`lib/packages.ts`) drives the entire docs build. Each row is a `PackageMeta` whose `layout` selects how TypeDoc reads the source and how the postprocess pass reshapes the output:
-
-- **`topical`** — package is a set of topical modules; one TypeDoc entry point per source file; postprocess flattens per-module subdirs and writes per-module `meta.json`. Today: `@guoba-ai/utils` (array, async, guard, object, string, types).
-- **`flat`** — package is a single surface; one barrel TypeDoc entry point (`src/index.ts`); postprocess flattens top-level subdirs only. Today: `@guoba-ai/hook`.
-
-(See the root `CONTEXT.md` for the layout vocabulary.)
-
-Every `dev` and `build` runs `scripts/build-docs.ts`, which:
-
-1. Iterates the `packages` table.
-2. For each package, invokes TypeDoc programmatically (`lib/docs-pipeline/typedoc.ts`) with the right entry points, tsconfig, and the inline frontmatter listener that adds `title` to every generated page.
-3. Runs the layout-aware postprocess (`lib/docs-pipeline/postprocess.ts`): removes stale `modules.mdx`/`globals.mdx`, dispatches to the layout strategy (`lib/docs-pipeline/layout.ts`), and fixes internal links.
-
-**Adding a third package**: add one row to `lib/packages.ts` with the right `srcDir`, `tsconfig`, `layout`, and `outSlug`. Add the slug to `content/docs/meta.json`'s `pages` array for sidebar order. Nothing else.
-
-### App Router Structure
-
-- `app/layout.tsx` — root layout with fumadocs RootProvider
-- `app/page.tsx` — homepage hero linking to `/docs`
-- `app/docs/layout.tsx` — docs layout with sidebar (from `source.pageTree`)
-- `app/docs/[[...slug]]/page.tsx` — catch-all route rendering MDX content via fumadocs components
-
-### Content
-
-- `content/docs/index.mdx` — hand-written "Getting Started" page
-- `content/docs/meta.json` — controls root sidebar ordering (uses `---@guoba-ai/utils---` and `---@guoba-ai/hook---` as section dividers)
-- `content/docs/utils/` — **entirely generated** by TypeDoc from `@guoba-ai/utils`; do not edit manually
-- `content/docs/hooks/` — **entirely generated** by TypeDoc from `@guoba-ai/hook`; do not edit manually
-
-### Key Files
-
-- `lib/source.ts` — fumadocs loader; exports `source` (provides `pageTree`, `getPage()`, `generateParams()`)
-- `mdx-components.tsx` — MDX component overrides (currently re-exports fumadocs defaults)
-- `layout.config.tsx` — shared fumadocs layout options (nav title)
-
-## Conventions
-
-- **`content/docs/utils/` and `content/docs/hooks/` are generated** — changes will be overwritten on next build. Edit the TSDoc in `packages/guoba-utils/src/` or `packages/guoba-hook/src/` instead, then re-run `pnpm typedoc`
-- **`.source/` is generated** — fumadocs runtime files, never edit manually
-- Sidebar ordering is controlled by `meta.json` files in content directories
-- Path alias: `@/*` maps to this directory root (e.g., `@/lib/source`)
-- Styling: Tailwind v4 + fumadocs CSS presets (`neutral` + `preset`), configured in `globals.css` and `postcss.config.mjs`
+- `lib/packages.ts` is the source of truth for documented packages.
+- `layout: 'topical'` means one docs page per source topic.
+- `layout: 'flat'` means one package-level surface with exports flattened for scanning.
+- Adding a documented package should require one `lib/packages.ts` row plus sidebar ordering in `content/docs/meta.json`.
+- Path alias `@/*` maps to `apps/guoba-docs/*`.
