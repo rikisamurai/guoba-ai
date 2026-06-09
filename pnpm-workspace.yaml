@@ -23,6 +23,7 @@ minimumReleaseAge: 0
 allowBuilds:
   esbuild: true
   sharp: true
+  simple-git-hooks: true
 
 # —— catalog：集中管理多包共用依赖的版本，避免漂移 ——
 # 按类别命名：'dev' = 构建/测试工具链，'react' = React 运行时及其类型。

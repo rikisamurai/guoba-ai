@@ -15,14 +15,27 @@
     "build:docs": "pnpm --filter guoba-docs build",
     "changeset": "changeset",
     "version": "changeset version",
-    "release": "pnpm -r --filter \"./packages/*\" run build && changeset publish"
+    "release": "pnpm -r --filter \"./packages/*\" run build && changeset publish",
+    "prepare": "simple-git-hooks"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
+    "lint-staged": "^17.0.5",
     "oxfmt": "^0.54.0",
     "oxlint": "^1.63.0",
     "oxlint-tsgolint": "catalog:dev",
+    "simple-git-hooks": "^2.13.1",
     "vitest": "catalog:dev"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mjs,cjs,mts,cts}": [
+      "oxfmt --write --no-error-on-unmatched-pattern",
+      "oxlint --no-error-on-unmatched-pattern"
+    ],
+    "*.{json,jsonc,json5,yml,yaml,css,scss,md,mdx,html}": "oxfmt --write --no-error-on-unmatched-pattern"
   },
   "engines": {
     "node": ">=24"
