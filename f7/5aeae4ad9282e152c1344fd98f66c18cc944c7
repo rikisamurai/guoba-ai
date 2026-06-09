@@ -1,0 +1,62 @@
+.github/workflows/ci.yml
+  s_b0f1e22d0264f8::t_6f5f138990dc10 70
+packages/guoba-hook/test/useSyncState.test.ts
+  s_b0f1e22d0264f8::t_0484a08f1567d9 84
+  h_5d5a5826f18d67 83
+packages/guoba-hook/test/useThrottle.test.ts
+  s_b0f1e22d0264f8::t_1775dfde2d0eed 25,34,43,54,56,65,67,78
+packages/guoba-utils/test/object.test.ts
+  s_b0f1e22d0264f8::t_4cdbb9d9063b81 241,251,255,272
+  s_b0f1e22d0264f8::t_482462862d30d6 279
+  s_b0f1e22d0264f8::t_f544e8f871d20b 158-159,180-181,331,333,376,378
+  s_b0f1e22d0264f8::t_ea625f4770c087 265
+packages/guoba-utils/src/object.ts
+  s_b0f1e22d0264f8::t_3b3be5224e542d 172,339
+  s_b0f1e22d0264f8::t_16e0adea714747 368
+  s_b0f1e22d0264f8::t_96f91a2f81f15d 148
+pnpm-workspace.yaml
+  s_b0f1e22d0264f8::t_6c02288259117e 33
+packages/guoba-hook/test/useDebounce.test.ts
+  h_5d5a5826f18d67 25
+  s_b0f1e22d0264f8::t_a4078a29a344f4 34,36,38,47,49,59
+.oxlintrc.json
+  s_b0f1e22d0264f8::t_dc674316610c3a 3-7,13,40-41,44-49,60-67,83,87
+  s_b0f1e22d0264f8::t_e181f47fc34158 27
+apps/docs/lib/docs-pipeline/typedoc.ts
+  s_b0f1e22d0264f8::t_3b9dcb21f9c116 9,31
+  s_b0f1e22d0264f8::t_6f42c1e80f0238 2,33-36
+apps/docs/app/_components/hero-particles.tsx
+  s_b0f1e22d0264f8::t_6179cf8e2584d9 23
+  h_5d5a5826f18d67 20
+package.json
+  s_b0f1e22d0264f8::t_191551417cc32e 24
+  s_b0f1e22d0264f8::t_d940c33c70682d 8,10
+  s_b0f1e22d0264f8::t_6f5f138990dc10 9
+packages/guoba-utils/test/array.test.ts
+  h_5d5a5826f18d67 88
+  s_b0f1e22d0264f8::t_92c9bca4b34ac2 23-24
+packages/guoba-utils/src/array.ts
+  s_b0f1e22d0264f8::t_965fa57a525b04 45,284,286
+  s_b0f1e22d0264f8::t_7e40e941ed741d 144-145
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "f75aeae4ad9282e152c1344fd98f66c18cc944c7",
+  "prompts": {},
+  "humans": {
+    "h_5d5a5826f18d67": {
+      "author": "riki <rikisamurai310@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_b0f1e22d0264f8": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ea833-fe85-7d73-ba13-3d117301cf82",
+        "model": "gpt-5.5"
+      },
+      "human_author": null
+    }
+  }
+}
