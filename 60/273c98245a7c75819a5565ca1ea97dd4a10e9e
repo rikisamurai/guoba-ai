@@ -1,0 +1,25 @@
+AGENTS.md
+  s_57ad73596beb7e::t_8d6e86a57e86df 98
+package.json
+  s_57ad73596beb7e::t_0eb8b7a31009a7 23,27
+  s_57ad73596beb7e::t_b56fb3ca9180ba 18-19,30-33
+  s_57ad73596beb7e::t_5f76b64c882be1 34-38
+pnpm-workspace.yaml
+  s_57ad73596beb7e::t_9550e545390e5f 26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "60273c98245a7c75819a5565ca1ea97dd4a10e9e",
+  "prompts": {},
+  "sessions": {
+    "s_57ad73596beb7e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ead88-fe9f-7fa2-b578-d1d92ad0a8cf",
+        "model": "gpt-5.5"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
