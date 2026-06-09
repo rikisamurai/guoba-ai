@@ -1,0 +1,20 @@
+apps/guoba-docs/AGENTS.md
+  s_e68394169be863::t_79ef5e4b4cf585 3,7,9,11-15,17,19,21,23-27,29,31,33-37,39,41,43-45,47,49-53
+  s_e68394169be863::t_ff3df7b1547e02 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "03d40dbb4d3ebf76ed02c70d7ea7a8bf0a57ab56",
+  "prompts": {},
+  "sessions": {
+    "s_e68394169be863": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ead02-8bee-7fc1-951b-42ab84fb1791",
+        "model": "gpt-5.5"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
