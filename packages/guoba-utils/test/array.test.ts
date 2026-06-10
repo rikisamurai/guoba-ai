@@ -7,6 +7,7 @@ import {
   flattenDeep,
   fork,
   group,
+  intersection,
   intersects,
   last,
   objectify,
@@ -17,6 +18,7 @@ import {
   sort,
   toArray,
   uniq,
+  uniqBy,
   zip,
 } from '../src'
 
@@ -47,6 +49,27 @@ describe('array', () => {
     })
     it('should preserve order', () => {
       expect(uniq([3, 1, 2, 1, 3])).toEqual([3, 1, 2])
+    })
+  })
+
+  describe('uniqBy', () => {
+    it('should remove duplicates by derived key', () => {
+      const users = [
+        { id: 1, name: 'Alice' },
+        { id: 2, name: 'Bob' },
+        { id: 1, name: 'Alicia' },
+      ]
+
+      expect(uniqBy(users, user => user.id)).toEqual([
+        { id: 1, name: 'Alice' },
+        { id: 2, name: 'Bob' },
+      ])
+    })
+    it('should handle empty arrays', () => {
+      expect(uniqBy([], item => item)).toEqual([])
+    })
+    it('should preserve source order', () => {
+      expect(uniqBy(['aa', 'b', 'cc', 'd'], item => item.length)).toEqual(['aa', 'b'])
     })
   })
 
@@ -271,6 +294,24 @@ describe('array', () => {
       const a = [{ id: 1 }, { id: 2 }]
       const b = [{ id: 2 }, { id: 3 }]
       expect(intersects(a, b, v => v.id)).toBe(true)
+    })
+  })
+
+  describe('intersection', () => {
+    it('should return items that exist in both arrays', () => {
+      expect(intersection([1, 2, 3, 4], [2, 4, 6])).toEqual([2, 4])
+    })
+    it('should preserve source order and duplicates', () => {
+      expect(intersection([3, 1, 2, 1], [1, 2])).toEqual([1, 2, 1])
+    })
+    it('should handle empty arrays', () => {
+      expect(intersection([], [1, 2])).toEqual([])
+      expect(intersection([1, 2], [])).toEqual([])
+    })
+    it('should support custom comparison function', () => {
+      const a = [{ id: 1 }, { id: 2 }, { id: 3 }]
+      const b = [{ id: 2 }, { id: 4 }]
+      expect(intersection(a, b, item => item.id)).toEqual([{ id: 2 }])
     })
   })
 

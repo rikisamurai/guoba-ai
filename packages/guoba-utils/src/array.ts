@@ -31,6 +31,33 @@ export function uniq<T>(array: T[]): T[] {
 }
 
 /**
+ * Remove duplicate elements from an array by a derived key.
+ *
+ * @param array - The input array
+ * @param fn - Function that returns the key used for uniqueness
+ * @returns A new array with the first item for each key, preserving order
+ * @example
+ * ```ts
+ * uniqBy([{ id: 1 }, { id: 2 }, { id: 1 }], item => item.id)
+ * // [{ id: 1 }, { id: 2 }]
+ * ```
+ */
+export function uniqBy<T>(array: T[], fn: (item: T) => unknown): T[] {
+  const seen = new Set<unknown>()
+  const result: T[] = []
+
+  for (const item of array) {
+    const key = fn(item)
+    if (seen.has(key)) continue
+
+    seen.add(key)
+    result.push(item)
+  }
+
+  return result
+}
+
+/**
  * Deeply flatten a nested array.
  *
  * @param array - The nested array to flatten
@@ -320,6 +347,24 @@ export function diff<T>(a: T[], b: T[], fn?: (item: T) => unknown): T[] {
 export function intersects<T>(a: T[], b: T[], fn?: (item: T) => unknown): boolean {
   const lookup = buildLookup(b, fn)
   return a.some(item => lookup(item))
+}
+
+/**
+ * Return items in the first array that also exist in the second array.
+ * Source order and duplicate values from the first array are preserved.
+ *
+ * @param a - The source array
+ * @param b - The array of items to match
+ * @param fn - Optional function to map items before comparison
+ * @returns A new array of items from `a` that also exist in `b`
+ * @example
+ * ```ts
+ * intersection([1, 2, 3, 4], [2, 4, 6]) // [2, 4]
+ * ```
+ */
+export function intersection<T>(a: T[], b: T[], fn?: (item: T) => unknown): T[] {
+  const lookup = buildLookup(b, fn)
+  return a.filter(item => lookup(item))
 }
 
 /**

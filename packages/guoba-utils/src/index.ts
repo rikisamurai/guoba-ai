@@ -5,6 +5,7 @@ export {
   flattenDeep,
   fork,
   group,
+  intersection,
   intersects,
   last,
   objectify,
@@ -15,6 +16,7 @@ export {
   sort,
   toArray,
   uniq,
+  uniqBy,
   zip,
 } from './array'
 export { sleep } from './async'
@@ -23,14 +25,18 @@ export {
   isDef,
   isEmpty,
   isFunction,
+  isNilOrEmpty,
+  isNotEmpty,
   isNull,
   isNullOrUndef,
   isNumber,
   isObject,
   isString,
   isUndef,
+  isValidString,
   notNullish,
 } from './guard'
+export { clamp, range } from './number'
 export {
   construct,
   crush,

@@ -7,10 +7,13 @@ import {
   isFunction,
   isNull,
   isNullOrUndef,
+  isNilOrEmpty,
+  isNotEmpty,
   isNumber,
   isObject,
   isString,
   isUndef,
+  isValidString,
   notNullish,
 } from '../src'
 
@@ -130,6 +133,51 @@ describe('guard', () => {
       expect(isEmpty({ a: 1 })).toBe(false)
       expect(isEmpty('hello')).toBe(false)
       expect(isEmpty(0)).toBe(false)
+    })
+  })
+
+  describe('isNotEmpty', () => {
+    it('should return true for non-empty values', () => {
+      expect(isNotEmpty([1])).toBe(true)
+      expect(isNotEmpty({ a: 1 })).toBe(true)
+      expect(isNotEmpty('hello')).toBe(true)
+      expect(isNotEmpty(0)).toBe(true)
+    })
+    it('should return false for empty values', () => {
+      expect(isNotEmpty([])).toBe(false)
+      expect(isNotEmpty({})).toBe(false)
+      expect(isNotEmpty('')).toBe(false)
+      expect(isNotEmpty(null)).toBe(false)
+      expect(isNotEmpty(undefined)).toBe(false)
+    })
+  })
+
+  describe('isNilOrEmpty', () => {
+    it('should return true for nil and empty values', () => {
+      expect(isNilOrEmpty(null)).toBe(true)
+      expect(isNilOrEmpty(undefined)).toBe(true)
+      expect(isNilOrEmpty([])).toBe(true)
+      expect(isNilOrEmpty({})).toBe(true)
+      expect(isNilOrEmpty('')).toBe(true)
+    })
+    it('should return false for non-empty values', () => {
+      expect(isNilOrEmpty([1])).toBe(false)
+      expect(isNilOrEmpty({ a: 1 })).toBe(false)
+      expect(isNilOrEmpty('hello')).toBe(false)
+      expect(isNilOrEmpty(0)).toBe(false)
+    })
+  })
+
+  describe('isValidString', () => {
+    it('should return true for non-empty strings', () => {
+      expect(isValidString('hello')).toBe(true)
+      expect(isValidString(' ')).toBe(true)
+    })
+    it('should return false for empty strings and non-strings', () => {
+      expect(isValidString('')).toBe(false)
+      expect(isValidString(null)).toBe(false)
+      expect(isValidString(undefined)).toBe(false)
+      expect(isValidString(123)).toBe(false)
     })
   })
 
