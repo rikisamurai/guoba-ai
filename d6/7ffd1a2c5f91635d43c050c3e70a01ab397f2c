@@ -1,0 +1,35 @@
+packages/guoba-utils/test/number.test.ts
+  s_aae551df20a664::t_4a25588301133b 1-36
+packages/guoba-utils/README.md
+  s_aae551df20a664::t_92903c0852a4ec 28-30
+packages/guoba-utils/test/guard.test.ts
+  s_aae551df20a664::t_f9949293ffceff 10-11,16,139-180
+packages/guoba-utils/test/array.test.ts
+  s_aae551df20a664::t_dbe5a60224c376 10,21,55-75,300-314
+packages/guoba-utils/src/guard.ts
+  s_aae551df20a664::t_d4762db92ae92a 167-214
+packages/guoba-utils/src/number.ts
+  s_aae551df20a664::t_9fa02f5e59c296 1-45
+packages/guoba-utils/src/index.ts
+  s_aae551df20a664::t_68313c1eff9741 8,19,28-29,36,39
+packages/guoba-utils/src/array.ts
+  s_aae551df20a664::t_8d040ffb19c51e 34-59,352-367
+.changeset/smart-forks-swim.md
+  s_aae551df20a664::t_9b438f3cfb6101 1-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "d67ffd1a2c5f91635d43c050c3e70a01ab397f2c",
+  "prompts": {},
+  "sessions": {
+    "s_aae551df20a664": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019eb0d9-6ff7-7590-8b28-f9c0570773f1",
+        "model": "gpt-5.5"
+      },
+      "human_author": "riki <rikisamurai310@gmail.com>"
+    }
+  }
+}
