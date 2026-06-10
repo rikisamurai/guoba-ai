@@ -1,4 +1,4 @@
-import { Application, TSConfigReader } from 'typedoc'
+import { Application, OptionDefaults, TSConfigReader } from 'typedoc'
 import type { MarkdownRenderer } from 'typedoc-plugin-markdown'
 import { MarkdownPageEvent } from 'typedoc-plugin-markdown'
 
@@ -21,6 +21,7 @@ export async function runTypedoc(pkg: PackageMeta): Promise<void> {
       hidePageTitle: false,
       useCodeBlocks: true,
       sanitizeComments: true,
+      blockTags: [...OptionDefaults.blockTags, '@warning'],
       gitRevision: 'main',
       sourceLinkTemplate:
         'https://github.com/rikisamurai/guoba-ai/blob/{gitRevision}/{path}#L{line}',

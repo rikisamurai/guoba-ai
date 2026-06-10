@@ -10,7 +10,21 @@ import { useEffect, useRef } from 'react'
  * useUnmount(() => {
  *   console.log('Component unmounted!')
  * })
+ *
+ * function Subscription({ unsubscribe }: { unsubscribe: () => void }) {
+ *   useUnmount(unsubscribe)
+ *   return null
+ * }
+ *
+ * const { rerender, unmount } = renderHook(({ fn }) => useUnmount(fn), {
+ *   initialProps: { fn: firstCleanup },
+ * })
+ * rerender({ fn: latestCleanup })
+ * unmount()
+ * // latestCleanup runs
  * ```
+ *
+ * @warning The callback is not called on mount or re-render; it runs when the component unmounts.
  */
 export function useUnmount(fn: () => void): void {
   const fnRef = useRef(fn)
