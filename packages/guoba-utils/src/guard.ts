@@ -164,6 +164,55 @@ export function isEmpty(val: unknown): boolean {
 }
 
 /**
+ * Check if a value is not empty according to {@link isEmpty}.
+ *
+ * @param val - The value to check
+ * @returns `true` if the value is not considered empty
+ * @example
+ * ```ts
+ * isNotEmpty([1]) // true
+ * isNotEmpty([]) // false
+ * isNotEmpty(null) // false
+ * ```
+ */
+export function isNotEmpty(val: unknown): boolean {
+  return !isEmpty(val)
+}
+
+/**
+ * Check if a value is null, undefined, or empty.
+ * This uses the same empty-value rules as {@link isEmpty}.
+ *
+ * @param val - The value to check
+ * @returns `true` if the value is null, undefined, or empty
+ * @example
+ * ```ts
+ * isNilOrEmpty(null) // true
+ * isNilOrEmpty('') // true
+ * isNilOrEmpty('hello') // false
+ * ```
+ */
+export function isNilOrEmpty(val: unknown): boolean {
+  return isEmpty(val)
+}
+
+/**
+ * Check if a value is a non-empty string.
+ *
+ * @param val - The value to check
+ * @returns `true` if the value is a string with length greater than `0`
+ * @example
+ * ```ts
+ * isValidString('hello') // true
+ * isValidString('') // false
+ * isValidString(null) // false
+ * ```
+ */
+export function isValidString(val: unknown): val is string {
+  return typeof val === 'string' && val.length > 0
+}
+
+/**
  * Check if a value is not null or undefined (type narrowing).
  *
  * @param val - The value to check
