@@ -11,7 +11,15 @@ import { useEffect, useRef, useState } from 'react'
  * const [position, setPosition] = useState({ x: 0, y: 0 })
  * const throttledPosition = useThrottle(position, 100)
  * // throttledPosition updates at most once every 100ms
+ *
+ * const throttledValue = useThrottle(value)
+ * // Uses the default 500ms interval
+ *
+ * const throttledQuery = useThrottle(query, 300)
+ * // First render returns query immediately; later rapid changes are delayed
  * ```
+ *
+ * @warning The initial value is returned immediately. Rapid changes publish the latest value after the remaining interval, and pending timers are cleared on unmount.
  */
 export function useThrottle<T>(value: T, interval = 500): T {
   const [throttledValue, setThrottledValue] = useState(value)

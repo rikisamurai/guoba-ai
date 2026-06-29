@@ -13,7 +13,19 @@ import { useState } from 'react'
  * @returns A state variable, and a function to update it.
  *
  * @example
- * const [state, setState] = useSyncState(initialProp);
+ * ```ts
+ * const [state, setState] = useSyncState(initialProp)
+ * // state starts with initialProp
+ *
+ * const [draft, setDraft] = useSyncState(user)
+ * setDraft({ ...draft, name: 'Local edit' })
+ * // The next different user prop replaces draft
+ *
+ * const [selected, setSelected] = useSyncState(option, (prev, next) => prev.id === next.id)
+ * // A new option object with the same id does not reset selected
+ * ```
+ *
+ * @warning Local state is overwritten when `prop` changes according to `comparator`. If the comparator returns `true`, local edits are kept.
  */
 export function useSyncState<T>(
   prop: T,

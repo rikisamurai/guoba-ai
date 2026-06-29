@@ -9,7 +9,18 @@ import { useEffect } from 'react'
  * useMount(() => {
  *   console.log('Component mounted!')
  * })
+ *
+ * function Page() {
+ *   useMount(() => analytics.track('page_view'))
+ *   return null
+ * }
+ *
+ * const fn = vi.fn()
+ * renderHook(() => useMount(fn)).rerender()
+ * // fn was called once
  * ```
+ *
+ * @warning The callback runs only on mount. Re-renders do not call it again.
  */
 export function useMount(fn: () => void): void {
   // TODO: refactor — pass an inline function instead of opaque dependency

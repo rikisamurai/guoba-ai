@@ -9,7 +9,11 @@ import type { Arrayable, NestedArray } from './types'
  * @example
  * ```ts
  * toArray(1) // [1]
- * toArray([1, 2]) // [1, 2]
+ *
+ * const items = [1, 2]
+ * toArray(items) === items // true
+ *
+ * toArray(null) // [null]
  * ```
  */
 export function toArray<T>(value: Arrayable<T>): T[] {
@@ -24,6 +28,11 @@ export function toArray<T>(value: Arrayable<T>): T[] {
  * @example
  * ```ts
  * uniq([1, 2, 2, 3]) // [1, 2, 3]
+ *
+ * uniq([3, 1, 3, 2]) // [3, 1, 2]
+ *
+ * const item = { id: 1 }
+ * uniq([item, item]) // [item]
  * ```
  */
 export function uniq<T>(array: T[]): T[] {
@@ -65,6 +74,10 @@ export function uniqBy<T>(array: T[], fn: (item: T) => unknown): T[] {
  * @example
  * ```ts
  * flattenDeep([1, [2, [3, [4]]]]) // [1, 2, 3, 4]
+ *
+ * flattenDeep([1, 2, 3]) // [1, 2, 3]
+ *
+ * flattenDeep([]) // []
  * ```
  */
 export function flattenDeep<T>(array: NestedArray<T>): T[] {
@@ -85,7 +98,13 @@ export function flattenDeep<T>(array: NestedArray<T>): T[] {
  * @example
  * ```ts
  * chunk([1, 2, 3, 4, 5], 2) // [[1, 2], [3, 4], [5]]
+ *
+ * chunk([1, 2, 3, 4], 2) // [[1, 2], [3, 4]]
+ *
+ * chunk([1, 2], 5) // [[1, 2]]
  * ```
+ *
+ * @warning `size` must be a positive integer. `0` or negative values will not produce a valid result.
  */
 export function chunk<T>(array: T[], size: number): T[][] {
   const result: T[][] = []
@@ -101,7 +120,14 @@ export function chunk<T>(array: T[], size: number): T[][] {
  * @example
  * ```ts
  * shuffle([1, 2, 3, 4, 5]) // [3, 1, 5, 2, 4] (random order)
+ *
+ * const input = [1, 2, 3]
+ * shuffle(input) === input // false
+ *
+ * shuffle([1]) // [1]
  * ```
+ *
+ * @warning Uses `Math.random()`, so it is not suitable for cryptographic or security-sensitive randomness.
  */
 export function shuffle<T>(array: T[]): T[] {
   const result = [...array]
@@ -120,7 +146,10 @@ export function shuffle<T>(array: T[]): T[] {
  * @example
  * ```ts
  * last([1, 2, 3]) // 3
+ *
  * last([]) // undefined
+ *
+ * last(['only']) // 'only'
  * ```
  */
 export function last<T>(array: T[]): T | undefined {
@@ -138,7 +167,14 @@ export function last<T>(array: T[]): T | undefined {
  * const arr = [1, 2, 3, 4, 5]
  * remove(arr, v => v % 2 === 0) // [2, 4]
  * // arr is now [1, 3, 5]
+ *
+ * remove(arr, v => v > 10) // []
+ *
+ * const users = [{ active: true }, { active: false }]
+ * remove(users, user => !user.active) // [{ active: false }]
  * ```
+ *
+ * @warning This function mutates the input array and returns the removed elements.
  */
 export function remove<T>(array: T[], predicate: (v: T) => boolean): T[] {
   const removed: T[] = []
@@ -160,6 +196,11 @@ export function remove<T>(array: T[], predicate: (v: T) => boolean): T[] {
  * ```ts
  * group([1, 2, 3, 4], v => (v % 2 === 0 ? 'even' : 'odd'))
  * // { odd: [1, 3], even: [2, 4] }
+ *
+ * group([{ age: 20 }, { age: 30 }, { age: 20 }], user => user.age)
+ * // { 20: [{ age: 20 }, { age: 20 }], 30: [{ age: 30 }] }
+ *
+ * group([], () => 'key') // {}
  * ```
  */
 export function group<T>(
@@ -185,7 +226,12 @@ export function group<T>(
  * @example
  * ```ts
  * sort([3, 1, 2], v => v) // [1, 2, 3]
+ *
  * sort([3, 1, 2], v => v, true) // [3, 2, 1]
+ *
+ * const input = [{ score: 2 }, { score: 1 }]
+ * sort(input, item => item.score) // [{ score: 1 }, { score: 2 }]
+ * input // [{ score: 2 }, { score: 1 }]
  * ```
  */
 export function sort<T>(array: T[], fn: (item: T) => number, desc?: boolean): T[] {
@@ -212,6 +258,11 @@ export function sort<T>(array: T[], fn: (item: T) => number, desc?: boolean): T[
  *   v => v % 2 === 0
  * )
  * // [4, 8]
+ *
+ * select(['a', 'b', 'c'], (_value, index) => index, (_value, index) => index !== 1)
+ * // [0, 2]
+ *
+ * select([], value => value, () => true) // []
  * ```
  */
 export function select<T, U>(
@@ -235,7 +286,13 @@ export function select<T, U>(
  * @example
  * ```ts
  * sift([1, null, 2, undefined, 3, false, 0, '']) // [1, 2, 3]
+ *
+ * sift(['a', '', 'b']) // ['a', 'b']
+ *
+ * sift([]) // []
  * ```
+ *
+ * @warning Removes every falsy value, including `0`, `''`, and `false`.
  */
 export function sift<T>(array: (T | null | undefined | false | '' | 0)[]): T[] {
   return array.filter((v): v is T => Boolean(v))
@@ -250,6 +307,10 @@ export function sift<T>(array: (T | null | undefined | false | '' | 0)[]): T[] {
  * @example
  * ```ts
  * fork([1, 2, 3, 4], v => v % 2 === 0) // [[2, 4], [1, 3]]
+ *
+ * fork([1, 2, 3], () => true) // [[1, 2, 3], []]
+ *
+ * fork([], () => true) // [[], []]
  * ```
  */
 export function fork<T>(array: T[], fn: (item: T) => boolean): [T[], T[]] {
@@ -272,6 +333,11 @@ export function fork<T>(array: T[], fn: (item: T) => boolean): [T[], T[]] {
  * ```ts
  * counting(['a', 'b', 'a', 'c', 'b', 'a'], v => v)
  * // { a: 3, b: 2, c: 1 }
+ *
+ * counting([1, 2, 3, 4], v => (v % 2 === 0 ? 'even' : 'odd'))
+ * // { odd: 2, even: 2 }
+ *
+ * counting([], () => 'key') // {}
  * ```
  */
 export function counting<T>(array: T[], fn: (item: T) => string): Record<string, number> {
@@ -293,7 +359,15 @@ export function counting<T>(array: T[], fn: (item: T) => string): Record<string,
  * ```ts
  * objectify([{ id: 1, name: 'Alice' }], v => v.id, v => v.name)
  * // { 1: 'Alice' }
+ *
+ * objectify([{ id: 'a' }, { id: 'b' }], item => item.id)
+ * // { a: { id: 'a' }, b: { id: 'b' } }
+ *
+ * objectify([{ id: 'a', value: 1 }, { id: 'a', value: 2 }], item => item.id, item => item.value)
+ * // { a: 2 }
  * ```
+ *
+ * @warning If multiple items produce the same key, the later item overwrites the earlier one.
  */
 export function objectify<T, K extends string | number | symbol>(
   array: T[],
@@ -324,7 +398,14 @@ export function objectify<T, K extends string | number | symbol, V>(
  * @example
  * ```ts
  * diff([1, 2, 3, 4], [2, 4]) // [1, 3]
+ *
+ * diff([{ id: 1 }, { id: 2 }], [{ id: 2 }], item => item.id)
+ * // [{ id: 1 }]
+ *
+ * diff([{ id: 1 }], [{ id: 1 }]) // [{ id: 1 }]
  * ```
+ *
+ * @warning Without `fn`, object values are compared by reference, not by shape.
  */
 export function diff<T>(a: T[], b: T[], fn?: (item: T) => unknown): T[] {
   const lookup = buildLookup(b, fn)
@@ -341,8 +422,13 @@ export function diff<T>(a: T[], b: T[], fn?: (item: T) => unknown): T[] {
  * @example
  * ```ts
  * intersects([1, 2], [2, 3]) // true
+ *
  * intersects([1, 2], [3, 4]) // false
+ *
+ * intersects([{ id: 1 }, { id: 2 }], [{ id: 2 }], item => item.id) // true
  * ```
+ *
+ * @warning Without `fn`, object values are compared by reference, not by shape.
  */
 export function intersects<T>(a: T[], b: T[], fn?: (item: T) => unknown): boolean {
   const lookup = buildLookup(b, fn)
@@ -377,8 +463,14 @@ export function intersection<T>(a: T[], b: T[], fn?: (item: T) => unknown): T[] 
  * @example
  * ```ts
  * zip([1, 2], ['a', 'b']) // [[1, 'a'], [2, 'b']]
+ *
  * zip([1, 2, 3], ['a', 'b']) // [[1, 'a'], [2, 'b']]
+ *
+ * zip([1, 2], ['a', 'b'], [true, false])
+ * // [[1, 'a', true], [2, 'b', false]]
  * ```
+ *
+ * @warning Extra items in longer arrays are truncated.
  */
 export function zip<A, B>(a: A[], b: B[]): [A, B][]
 export function zip<A, B, C>(a: A[], b: B[], c: C[]): [A, B, C][]

@@ -11,7 +11,15 @@ import { useEffect, useRef } from 'react'
  * const prevCount = usePrevious(count)
  * // After setCount(1): prevCount === 0
  * // After setCount(2): prevCount === 1
+ *
+ * const prevName = usePrevious(name)
+ * // First render: prevName === undefined
+ *
+ * const prevUser = usePrevious(user)
+ * // Object values are returned by their previous reference
  * ```
+ *
+ * @warning Returns `undefined` on the first render because there is no previous value yet.
  */
 export function usePrevious<T>(value: T): T | undefined {
   const ref = useRef<T | undefined>(undefined)
