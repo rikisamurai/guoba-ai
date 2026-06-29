@@ -1,6 +1,6 @@
 {
   "name": "@guoba-ai/utils",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "A collection of TypeScript utility functions — zero dependencies, ships dual ESM + CJS.",
   "keywords": [
     "array",

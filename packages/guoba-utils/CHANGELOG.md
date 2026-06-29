@@ -1,5 +1,11 @@
 # @guoba-ai/utils
 
+## 0.1.0
+
+### Minor Changes
+
+- c4ebee4: Add array, number, and guard utility helpers.
+
 ## 0.0.4
 
 ### Patch Changes
