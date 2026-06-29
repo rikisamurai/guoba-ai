@@ -14,7 +14,7 @@
     "flexsearch": "^0.8.212",
     "fumadocs-core": "^16.9.3",
     "fumadocs-mdx": "^15.0.12",
-    "fumadocs-ui": "^16.9.3",
+    "fumadocs-ui": "^16.10.6",
     "next": "^16.2.7",
     "react": "catalog:react",
     "react-dom": "catalog:react",
